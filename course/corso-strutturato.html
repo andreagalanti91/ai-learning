@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Corso Claude AI</title>
 <meta name="claude:viewport-fit-sides" content="cover">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#F3F4F1">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0F141A">
 <meta name="description" content="Presentazione del corso strutturato su Claude AI: 15 moduli in 7 parti, UX Boutique.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,6 +27,7 @@
   --on-accent:#FFFFFF;
   --font-body:"IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
   --font-mono:"IBM Plex Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+  --ease-out:cubic-bezier(0.23, 1, 0.32, 1);
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
@@ -40,6 +43,7 @@
 }
 *{box-sizing:border-box}
 html,body{height:100%}
+html{-webkit-tap-highlight-color:transparent; -webkit-text-size-adjust:100%; text-size-adjust:100%}
 body{
   margin:0; background:var(--bg); color:var(--ink);
   font-family:var(--font-body); font-size:17px; line-height:1.55;
@@ -51,10 +55,10 @@ body{
 .deck{height:100%; display:flex; flex-direction:column; max-width:1180px; margin-inline:auto}
 .bar{display:flex; align-items:center; gap:12px; padding-block:12px; border-bottom:1px solid var(--line); flex:none}
 .bar .part{font-family:var(--font-mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
-.bar select{font:inherit; font-size:14px; color:var(--ink); background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:6px 8px; max-width:min(52vw, 360px)}
-.progress{height:3px; background:var(--line); flex:none}
-.progress span{display:block; height:100%; width:0; background:var(--accent); transition:width .25s ease}
-.stage{flex:1; min-height:0; overflow-y:auto; overflow-x:hidden}
+.bar select{font:inherit; font-size:16px; color:var(--ink); background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:6px 8px; max-width:min(52vw, 360px); cursor:pointer}
+.progress{height:3px; background:var(--line); flex:none; overflow:hidden}
+.progress span{display:block; height:100%; width:100%; background:var(--accent); transform:scaleX(0); transform-origin:left center}
+.stage{flex:1; min-height:0; overflow-y:auto; overflow-x:hidden; overscroll-behavior:contain; touch-action:pan-y}
 .slide{display:none; flex-direction:column; gap:22px; padding-block:clamp(24px, 4vw, 52px)}
 .slide.active{display:flex}
 .eyebrow{font-family:var(--font-mono); font-size:13px; font-weight:500; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); margin:0}
@@ -101,9 +105,23 @@ pre code{background:none; padding:0; font-size:inherit}
 .divider ul b{color:var(--ink); font-family:var(--font-mono); font-weight:500; margin-right:8px}
 .flow{display:grid; gap:12px; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); align-items:stretch}
 .nav{display:flex; align-items:center; justify-content:space-between; gap:12px; padding-block:12px; border-top:1px solid var(--line); flex:none}
-.nav button{font:inherit; font-size:15px; padding:9px 16px; border-radius:8px; border:1px solid var(--line); background:var(--surface); color:var(--ink); cursor:pointer}
+.nav button{font:inherit; font-size:15px; padding:9px 16px; border-radius:8px; border:1px solid var(--line); background:var(--surface); color:var(--ink); cursor:pointer;
+  touch-action:manipulation; user-select:none; -webkit-user-select:none;
+  transition:transform 160ms var(--ease-out), background-color 150ms ease, border-color 150ms ease}
 .nav button.primary{background:var(--accent); border-color:var(--accent); color:var(--on-accent)}
+.nav button:not(:disabled):active{transform:scale(0.97)}
 .nav button:disabled{opacity:.4; cursor:default}
+@media (hover: hover) and (pointer: fine){
+  .nav button:not(:disabled):not(.primary):hover{border-color:var(--muted)}
+  .nav button.primary:not(:disabled):hover{filter:brightness(1.08)}
+  .bar select:hover{border-color:var(--muted)}
+}
+/* Entrata della copertina: solo al primo caricamento, mai durante la navigazione. */
+@keyframes rise{from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none}}
+.slide.intro > *{animation:rise 320ms var(--ease-out) both}
+.slide.intro > :nth-child(2){animation-delay:50ms}
+.slide.intro > :nth-child(3){animation-delay:100ms}
+.slide.intro > :nth-child(4){animation-delay:150ms}
 .count{font-family:var(--font-mono); font-size:13px; color:var(--muted); font-variant-numeric:tabular-nums; text-align:center}
 .hint{font-size:12px; color:var(--muted)}
 button:focus-visible, select:focus-visible, a:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
@@ -114,7 +132,11 @@ a{color:var(--accent)}
   .bar select{max-width:56vw}
   .nav button{padding:9px 12px}
 }
-@media (prefers-reduced-motion: reduce){ .progress span{transition:none} }
+@media (prefers-reduced-motion: reduce){
+  @keyframes fade{from{opacity:0} to{opacity:1}}
+  .slide.intro > *{animation:fade 200ms ease both; animation-delay:0ms}
+  .nav button:not(:disabled):active{transform:none}
+}
 </style>
 </head>
 <body>
@@ -137,7 +159,7 @@ a{color:var(--accent)}
     <div><dt>Formato</dt><dd>2 giornate da 4 ore, da remoto</dd></div>
     <div><dt>Partecipanti</dt><dd>Marketing, PM, design, art direction, sviluppo</dd></div>
     <div><dt>Piano</dt><dd>Claude Team, Skills abilitate dall’admin</dd></div>
-    <div><dt>Connettori</dt><dd>Google Drive, Figma, Miro</dd></div>
+    <div><dt>Connettori previsti</dt><dd>Google Drive, Figma, Miro</dd></div>
   </dl>
 </section>
 
@@ -155,6 +177,7 @@ a{color:var(--accent)}
     <li><div><h3>Verifica</h3><p>Domande per controllare cosa avete capito.</p></div></li>
     <li><div><h3>Esercizio</h3><p>Lavoro pratico in aula o a casa.</p></div></li>
   </ol>
+  <p class="note">Le slide riportano i punti essenziali di ogni modulo. Domande di verifica ed esercizi completi sono nella dispensa, <code>corso-strutturato.md</code>.</p>
   <p class="note"><span class="v">⚠ da verificare</span> segna un passaggio non confermato nella documentazione ufficiale. Nomi di menu e percorsi cambiano spesso: rifate il passaggio nel vostro account prima della sessione.</p>
 </section>
 
@@ -548,7 +571,7 @@ Testo finale, poi "Da verificare: ..."</code></pre>
   <p class="goal"><b>Prerequisiti:</b> un account personale per ogni strumento. Nel piano Team l’owner o l’admin abilita il connettore prima che i membri lo colleghino. <span class="v">⚠ da verificare</span></p>
   <ol class="steps">
     <li><div><p>Impostazioni → <b>Connectors</b> → cercate lo strumento. <span class="v">⚠ da verificare</span></p></div></li>
-    <li><div><p><b>Connect</b> e accesso con il vostro account. Se il pulsante dice <b>Request</b>, serve l’abilitazione dell’admin.</p></div></li>
+    <li><div><p><b>Connect</b> e accesso con il vostro account. Se il pulsante dice <b>Request</b>, serve l’abilitazione dell’admin. <span class="v">⚠ da verificare</span></p></div></li>
     <li><div><p>Controllate i permessi concessi: solo lettura, o anche scrittura.</p></div></li>
     <li><div><p>Test con una domanda semplice: “connesso” non significa “funzionante”.</p></div></li>
   </ol>
@@ -561,7 +584,7 @@ Testo finale, poi "Da verificare: ..."</code></pre>
     </div>
     <div class="panel">
       <h3>Figma</h3>
-      <p>Disponibile su qualsiasi piano Figma. Claude vede solo i team autorizzati.</p>
+      <p>Disponibile su qualsiasi piano Figma. Con l’accesso a livello di team, Claude vede solo i team autorizzati.</p>
       <p class="label">Richiesta</p>
       <p>“Dal file [link], estrai colori e font del design system in JSON.”</p>
     </div>
@@ -1065,7 +1088,8 @@ Mostra il piano con i file che tocchi.</code></pre>
     slides.forEach(function (s, k) { s.classList.toggle('active', k === i); });
     stage.scrollTop = 0;
     count.textContent = (i + 1) + ' / ' + slides.length;
-    bar.style.width = ((i + 1) / slides.length * 100) + '%';
+    bar.style.transform = 'scaleX(' + ((i + 1) / slides.length) + ')';
+    if (n !== 0 || updateHash) { slides[0].classList.remove('intro'); }
     part.textContent = slides[i].getAttribute('data-part') || '';
     jump.value = String(i);
     prev.disabled = i === 0;
@@ -1104,7 +1128,9 @@ Mostra il piano con i file che tocchi.</code></pre>
     sx = sy = null;
   }, { passive: true });
 
-  show(fromHash(), false);
+  var start = fromHash();
+  if (start === 0) { slides[0].classList.add('intro'); }
+  show(start, false);
 })();
 </script>
 </body>
