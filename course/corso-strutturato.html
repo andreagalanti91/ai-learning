@@ -7,7 +7,7 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F3F4F1">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0F141A">
-<meta name="description" content="Presentazione del corso strutturato su Claude AI: 15 moduli in 7 parti, UX Boutique.">
+<meta name="description" content="Corso Claude per il lavoro, versione 2: differenze tra i prodotti Claude, prompt, marketing, design, sviluppo, Claude Design, Claude Code, Skill e Plugin.">
 <style>
 /* Layout: full-bleed presenter deck. Translucent chrome floats over the active slide, which scrolls underneath; on touch, slides track the finger and settle with a critically damped spring. */
 :root{
@@ -158,6 +158,9 @@ pre code{background:none; padding:0; font-size:inherit}
 .divider ul{list-style:none; margin:0; padding:0; display:grid; gap:8px; font-size:1.125rem; color:var(--muted); letter-spacing:-0.01em}
 .divider ul b{color:var(--ink); font-weight:600; font-variant-numeric:tabular-nums; margin-right:10px}
 
+.inbreve{background:var(--accent-soft); color:var(--ink); border-radius:18px; padding:16px 20px; font-size:1.0625rem; line-height:1.5; max-width:80ch}
+.inbreve b{color:var(--accent)}
+
 /* Controls: feedback on press, hover only for fine pointers */
 .btn{
   font:600 .9375rem/1 var(--font); letter-spacing:-0.01em; padding:12px 18px; border-radius:980px; border:0;
@@ -219,897 +222,1097 @@ button:focus-visible, select:focus-visible, a:focus-visible{outline:2px solid va
 
   <main class="stage" id="stage">
 
-<!-- ============ INTRODUZIONE ============ -->
+<!-- ================= INTRO ================= -->
 <section class="slide active" data-part="Introduzione" data-title="Copertina">
-  <p class="eyebrow">Corso strutturato · versione 1.0 · UX Boutique</p>
-  <h1>Claude AI, dal prompt al building</h1>
-  <p class="lead">Quindici moduli in sette parti per usare Claude nel lavoro di ogni giorno: scrivere richieste chiare, organizzare il contesto, creare metodi riutilizzabili, collegare gli strumenti del team e lavorare con un agente.</p>
+  <p class="eyebrow">Corso completo · versione 2.0 · UX Boutique</p>
+  <h1>Claude per il lavoro</h1>
+  <p class="lead">Come usare Claude ogni giorno in marketing, design e sviluppo. Spiegato in modo semplice, con esempi pronti da copiare.</p>
   <dl class="meta">
     <div><dt>Formato</dt><dd>2 giornate da 4 ore, da remoto</dd></div>
-    <div><dt>Partecipanti</dt><dd>Marketing, PM, design, art direction, sviluppo</dd></div>
-    <div><dt>Piano</dt><dd>Claude Team, Skills abilitate dall’admin</dd></div>
+    <div><dt>Per chi</dt><dd>Marketing, PM, design, art direction, sviluppo</dd></div>
+    <div><dt>Piano</dt><dd>Claude Team, Skills abilitate</dd></div>
     <div><dt>Connettori previsti</dt><dd>Google Drive, Figma, Miro</dd></div>
   </dl>
 </section>
 
-<section class="slide" data-part="Introduzione" data-title="Come è fatto ogni modulo">
-  <p class="eyebrow">Come leggere il corso</p>
-  <h2>Ogni modulo segue la stessa struttura</h2>
+<section class="slide" data-part="Introduzione" data-title="Come funziona il corso">
+  <p class="eyebrow">Come usare il corso</p>
+  <h2>Ogni capitolo ha le stesse sei parti</h2>
   <ol class="steps cols" style="grid-template-columns:repeat(auto-fit, minmax(240px, 1fr))">
-    <li><div><h3>Obiettivo</h3><p>Cosa saprete fare alla fine.</p></div></li>
-    <li><div><h3>Prerequisiti</h3><p>Cosa serve avere già pronto.</p></div></li>
-    <li><div><h3>Concetto</h3><p>Cos’è la funzione e a cosa serve.</p></div></li>
-    <li><div><h3>Come si imposta</h3><p>Configurazione, una volta sola.</p></div></li>
-    <li><div><h3>Come si usa</h3><p>Utilizzo di ogni giorno.</p></div></li>
-    <li><div><h3>Esempio completo</h3><p>Un caso reale dall’inizio alla fine.</p></div></li>
-    <li><div><h3>Errori comuni</h3><p>Cosa va storto e come si corregge.</p></div></li>
-    <li><div><h3>Verifica</h3><p>Domande per controllare cosa avete capito.</p></div></li>
-    <li><div><h3>Esercizio</h3><p>Lavoro pratico in aula o a casa.</p></div></li>
+    <li><div><h3>In breve</h3><p>L’idea in tre righe. Basta questo per capire il capitolo.</p></div></li>
+    <li><div><h3>Come funziona</h3><p>La spiegazione, con esempi reali.</p></div></li>
+    <li><div><h3>Passo per passo</h3><p>Cosa fare, in ordine.</p></div></li>
+    <li><div><h3>Esempio</h3><p>Un caso completo da copiare.</p></div></li>
+    <li><div><h3>Errori da evitare</h3><p>Cosa va storto più spesso.</p></div></li>
+    <li><div><h3>Prova tu</h3><p>Un esercizio di 10–20 minuti.</p></div></li>
   </ol>
-  <p class="note">Le slide riportano i punti essenziali di ogni modulo. Domande di verifica ed esercizi completi sono nella dispensa, <code>corso-strutturato.md</code>.</p>
-  <p class="note"><span class="v">⚠ da verificare</span> segna un passaggio non confermato nella documentazione ufficiale. Nomi di menu e percorsi cambiano spesso: rifate il passaggio nel vostro account prima della sessione.</p>
+  <p class="note">Le slide riportano i punti chiave. Il testo completo, con tutti gli esempi, è nella dispensa <code>corso-strutturato.md</code>. <span class="v">⚠ da verificare</span> segna i passaggi da ricontrollare nel vostro account.</p>
 </section>
 
 <section class="slide" data-part="Introduzione" data-title="Mappa del corso">
-  <p class="eyebrow">Mappa del corso</p>
-  <h2>Sette parti, dalla richiesta singola all’agente</h2>
+  <p class="eyebrow">Mappa</p>
+  <h2>Sei parti, sedici capitoli</h2>
   <div class="tw"><table>
-    <tr><th>Parte</th><th>Moduli</th><th>Tema</th></tr>
-    <tr><td><b>A</b></td><td>1–2</td><td>Fondamenti e prompt</td></tr>
-    <tr><td><b>B</b></td><td>3, 4, 4b</td><td>Contesto, output e lavoro per file</td></tr>
-    <tr><td><b>C</b></td><td>5–7</td><td>Skill, connettori, MCP e plugin</td></tr>
-    <tr><td><b>D</b></td><td>8–9</td><td>Claude Design e Figma</td></tr>
-    <tr><td><b>E</b></td><td>10–11</td><td>Claude Code</td></tr>
-    <tr><td><b>F</b></td><td>12–13</td><td>Attività programmate, qualità e privacy</td></tr>
-    <tr><td><b>G</b></td><td>14–15</td><td>Percorsi per ruolo e workshop finale</td></tr>
+    <tr><th>Parte</th><th>Capitoli</th><th>Domanda a cui risponde</th></tr>
+    <tr><td><b>1 · Capire Claude</b></td><td>1–3</td><td>Cos’è Claude e quale versione uso?</td></tr>
+    <tr><td><b>2 · Parlare con Claude</b></td><td>4–5</td><td>Come scrivo richieste che funzionano?</td></tr>
+    <tr><td><b>3 · Claude nel lavoro</b></td><td>6–8</td><td>Cosa ci faccio in marketing, design e sviluppo?</td></tr>
+    <tr><td><b>4 · Strumenti a fondo</b></td><td>9–13</td><td>Claude Design, Claude Code, Skill, Plugin, connettori</td></tr>
+    <tr><td><b>5 · Lavorare bene</b></td><td>14–15</td><td>Come lavoro in modo ordinato e sicuro?</td></tr>
+    <tr><td><b>6 · Pratica</b></td><td>16</td><td>Da dove comincio?</td></tr>
   </table></div>
-  <p class="note">Distribuzione dei moduli sulle due giornate: da confermare. Il modulo 8 (Claude Design) richiede circa un’ora in aula.</p>
 </section>
 
-<!-- ============ PARTE A ============ -->
-<section class="slide divider" data-part="Parte A · Fondamenti" data-title="Parte A · Fondamenti">
-  <span class="letter">A</span>
-  <h2>Fondamenti</h2>
+<!-- ================= PARTE 1 ================= -->
+<section class="slide divider" data-part="Parte 1 · Capire Claude" data-title="Parte 1 · Capire Claude">
+  <span class="letter">1</span>
+  <h2>Capire Claude</h2>
   <ul>
-    <li><b>01</b>Come funziona Claude</li>
-    <li><b>02</b>Prompt con il metodo BRIEF</li>
+    <li><b>01</b>Claude in cinque minuti</li>
+    <li><b>02</b>Le differenze tra i “Claude”</li>
+    <li><b>03</b>I mattoni: Project, Artifact, Skill, Connettori, Plugin</li>
   </ul>
 </section>
 
-<section class="slide" data-part="Parte A · Fondamenti" data-title="1 · Come funziona Claude">
-  <p class="eyebrow">Modulo 1</p>
-  <h2>Come funziona Claude</h2>
-  <p class="goal"><b>Obiettivo:</b> scegliere il modello giusto per un compito e riconoscere i limiti del sistema.</p>
+<section class="slide" data-part="Parte 1 · Capire Claude" data-title="1 · Claude in cinque minuti">
+  <p class="eyebrow">Capitolo 1</p>
+  <h2>Claude in cinque minuti</h2>
+  <p class="inbreve"><b>In breve.</b> Claude è come un collega appena assunto, bravissimo e velocissimo. Sa moltissimo, ma non conosce la tua azienda finché non gliela racconti. E a volte, se non sa, inventa.</p>
   <div class="cols">
     <div class="panel">
-      <span class="label">Concetto</span>
-      <p>Claude genera risposte a partire da ciò che vede nella conversazione. Non consulta un database e non ricorda ciò che non gli avete dato.</p>
+      <span class="label">Tre regole d’oro</span>
+      <ol class="steps">
+        <li><div><h3>Dagli contesto</h3><p>Chi siamo, per chi lavoriamo, a cosa serve.</p></div></li>
+        <li><div><h3>Digli cosa vuoi</h3><p>Formato, lunghezza, tono, cosa escludere.</p></div></li>
+        <li><div><h3>Controlla</h3><p>Fatti, numeri, nomi e citazioni.</p></div></li>
+      </ol>
+    </div>
+    <div class="panel">
+      <span class="label">Fa bene</span>
       <ul>
-        <li>È molto bravo con testo, struttura, ragionamento e codice.</li>
-        <li>Può sbagliare fatti, numeri e citazioni, e lo fa con sicurezza.</li>
-        <li>La qualità dipende dal contesto che fornite.</li>
+        <li>Scrivere e riscrivere testi</li>
+        <li>Riassumere documenti e interviste</li>
+        <li>Analizzare PDF, Excel, screenshot</li>
+        <li>Ragionare su strategie e alternative</li>
+        <li>Scrivere e correggere codice</li>
+        <li>Creare documenti, slide, prototipi</li>
       </ul>
     </div>
     <div class="panel">
-      <span class="label">Effort, contesto, verifica</span>
+      <span class="label">Non fa, o fa male</span>
       <ul>
-        <li><b>Effort:</b> più ragionamento, risposte più accurate su problemi complessi, ma più lente.</li>
-        <li><b>Finestra di contesto:</b> in una chat molto lunga le informazioni iniziali perdono peso.</li>
-        <li><b>Verifica:</b> ogni fatto, numero o citazione va controllato sulla fonte.</li>
+        <li>Foto e illustrazioni originali</li>
+        <li>Notizie recenti, senza ricerca web</li>
+        <li>Ricordare altre chat, senza Project e memoria</li>
       </ul>
     </div>
   </div>
-  <div class="tw"><table>
-    <tr><th>Modello</th><th>Quando usarlo</th><th>Esempio</th></tr>
-    <tr><td><b>Haiku</b></td><td>Compiti semplici e ripetitivi, in volume</td><td>Correggere 50 descrizioni prodotto</td></tr>
-    <tr><td><b>Sonnet</b></td><td>Lavoro quotidiano: il default consigliato</td><td>Scrivere un post, riassumere un verbale</td></tr>
-    <tr><td><b>Opus</b></td><td>Ragionamenti complessi, lavori delicati</td><td>Analizzare una strategia o un contratto</td></tr>
-  </table></div>
-  <p class="note"><b>Esercizio:</b> eseguite un compito della vostra settimana con due modelli diversi. Annotate differenza di qualità e tempo.</p>
 </section>
 
-<section class="slide" data-part="Parte A · Fondamenti" data-title="2 · Il metodo BRIEF">
-  <p class="eyebrow">Modulo 2</p>
-  <h2>Il metodo BRIEF: sei parti per un buon prompt</h2>
-  <p class="goal"><b>Obiettivo:</b> scrivere un prompt che produce un risultato utilizzabile al primo o al secondo tentativo.</p>
+<section class="slide" data-part="Parte 1 · Capire Claude" data-title="2 · I modelli">
+  <p class="eyebrow">Capitolo 2 · Le differenze</p>
+  <h2>Il modello è il “cervello”</h2>
+  <p class="inbreve"><b>In breve.</b> “Claude” indica due cose: il <b>modello</b> (il cervello) e il <b>prodotto</b> (il posto di lavoro). Stesso cervello, posti di lavoro diversi.</p>
   <div class="tw"><table>
-    <tr><th>Lettera</th><th>Parte</th><th>Domanda guida</th><th>Esempio</th></tr>
-    <tr><td><b>B</b></td><td>Background</td><td>Qual è il contesto?</td><td>“UX Boutique offre audit di usabilità per e-commerce medi.”</td></tr>
-    <tr><td><b>R</b></td><td>Ruolo</td><td>Chi risponde, con quale competenza?</td><td>“Sei un copywriter senior, tono sobrio.”</td></tr>
-    <tr><td><b>I</b></td><td>Intento</td><td>Cosa deve ottenere chi legge?</td><td>“Far richiedere un audit gratuito.”</td></tr>
-    <tr><td><b>E</b></td><td>Esempi</td><td>Come deve essere il risultato?</td><td>“Tono come in questo esempio: …”</td></tr>
-    <tr><td><b>F</b></td><td>Formato</td><td>Lunghezza, struttura, cosa escludere?</td><td>“120 parole, due hashtag, niente emoji.”</td></tr>
-    <tr><td><b>+</b></td><td>Verifica</td><td>Come controllo il risultato?</td><td>“Elenca le affermazioni contestabili.”</td></tr>
+    <tr><th>Modello</th><th>Com’è</th><th>Quando usarlo</th><th>Esempio</th></tr>
+    <tr><td><b>Haiku</b></td><td>Il più veloce e leggero</td><td>Compiti semplici e ripetitivi</td><td>Correggere 50 descrizioni prodotto</td></tr>
+    <tr><td><b>Sonnet</b></td><td>Equilibrato</td><td>Il lavoro di tutti i giorni: la scelta di partenza</td><td>Un post, un riassunto, una correzione</td></tr>
+    <tr><td><b>Opus</b></td><td>Il più profondo</td><td>Problemi complessi e lavori delicati</td><td>Una strategia, un contratto, un bug difficile</td></tr>
   </table></div>
-  <ol class="steps">
-    <li><div><h3>Scrivete le sei parti</h3><p>Anche in forma breve. Un compito semplice ne richiede due o tre.</p></div></li>
-    <li><div><h3>Leggete l’output</h3><p>Annotate cosa manca rispetto a ciò che vi aspettavate.</p></div></li>
-    <li><div><h3>Correggete una cosa per volta</h3><p>“Il titolo è generico: proponi tre alternative con un numero.”</p></div></li>
+  <div class="cols">
+    <div class="panel"><span class="label">Regola pratica</span><p>Parti con Sonnet. Passa a Opus quando la qualità non basta, a Haiku quando conta la velocità.</p></div>
+    <div class="panel"><span class="label">Famiglia attuale</span><p>Opus 5.5, Sonnet 5.5, Haiku 5.5. Compare anche il nome Fable. <span class="v">⚠ da verificare</span></p></div>
+    <div class="panel"><span class="label">Ragionamento esteso</span><p>Più tempo per pensare: utile per strategie e problemi complessi, inutile per riscrivere un paragrafo.</p></div>
+  </div>
+</section>
+
+<section class="slide" data-part="Parte 1 · Capire Claude" data-title="2 · I prodotti">
+  <p class="eyebrow">Capitolo 2 · Le differenze</p>
+  <h2>Il prodotto è il “posto di lavoro”</h2>
+  <div class="tw"><table>
+    <tr><th>Prodotto</th><th>Cos’è</th><th>Per chi</th><th>Cosa produce</th></tr>
+    <tr><td><b>Chat</b></td><td>La conversazione su claude.ai, app desktop e mobile, con file, ricerca, Artifacts e Project</td><td>Tutti</td><td>Testi, analisi, documenti</td></tr>
+    <tr><td><b>Claude Design</b></td><td>Uno spazio per creare visual parlando</td><td>Design, marketing, art direction</td><td>Prototipi, slide, one-pager, landing</td></tr>
+    <tr><td><b>Cowork</b></td><td>Una scheda dell’app desktop: Claude lavora sui file del tuo computer</td><td>Chi lavora su documenti, anche senza programmare</td><td>Documenti, fogli, cartelle in ordine</td></tr>
+    <tr><td><b>Claude Code</b></td><td>Un agente dentro cartelle e repository: terminale, desktop, web, editor</td><td>Sviluppo e chi gestisce contenuti in file</td><td>Codice, siti, automazioni</td></tr>
+    <tr><td><b>API</b></td><td>Claude dentro i vostri prodotti</td><td>Sviluppatori</td><td>Funzioni AI nelle app</td></tr>
+  </table></div>
+  <p class="note">Claude Design è un’anteprima di ricerca di Anthropic Labs per i piani Pro, Max, Team ed Enterprise. Disponibilità di Cowork e Claude Design nel vostro piano: <span class="v">⚠ da verificare</span></p>
+</section>
+
+<section class="slide" data-part="Parte 1 · Capire Claude" data-title="2 · Chi fa il lavoro">
+  <p class="eyebrow">Capitolo 2 · Le differenze</p>
+  <h2>La differenza che conta: chi fa il lavoro</h2>
+  <div class="tw"><table>
+    <tr><th></th><th>Chat</th><th>Cowork</th><th>Claude Code</th></tr>
+    <tr><td><b>Chi lavora</b></td><td>Tu chiedi, Claude risponde</td><td>Claude esegue compiti in più passaggi</td><td>Claude esegue compiti in più passaggi</td></tr>
+    <tr><td><b>Dove</b></td><td>Nella conversazione</td><td>Sui file del tuo computer</td><td>In una cartella o repository</td></tr>
+    <tr><td><b>Quando</b></td><td>Domande, testi, analisi</td><td>Documenti e cartelle</td><td>Codice, siti, file con versioni</td></tr>
+    <tr><td><b>Livello tecnico</b></td><td>Nessuno</td><td>Basso</td><td>Medio: si impara in un’ora</td></tr>
+  </table></div>
+</section>
+
+<section class="slide" data-part="Parte 1 · Capire Claude" data-title="2 · Quale scelgo?">
+  <p class="eyebrow">Capitolo 2 · Le differenze</p>
+  <h2>Quale scelgo?</h2>
+  <div class="tw"><table>
+    <tr><th>Voglio…</th><th>Uso…</th></tr>
+    <tr><td>Scrivere un post, una mail, un riassunto</td><td><b>Chat</b></td></tr>
+    <tr><td>Lavorare sempre con lo stesso contesto (cliente, brand)</td><td><b>Chat + Project</b></td></tr>
+    <tr><td>Creare un prototipo, una slide, una landing</td><td><b>Claude Design</b></td></tr>
+    <tr><td>Riordinare cartelle, produrre documenti da tanti file</td><td><b>Cowork</b></td></tr>
+    <tr><td>Scrivere codice, creare un sito, gestire file con versioni</td><td><b>Claude Code</b></td></tr>
+    <tr><td>Mettere Claude nel nostro prodotto</td><td><b>API</b></td></tr>
+  </table></div>
+  <p class="note"><b>Prova tu:</b> prendi tre compiti della tua settimana e scrivi per ciascuno prodotto e modello.</p>
+</section>
+
+<section class="slide" data-part="Parte 1 · Capire Claude" data-title="3 · I mattoni">
+  <p class="eyebrow">Capitolo 3</p>
+  <h2>I mattoni, spiegati con una cucina</h2>
+  <div class="tw"><table>
+    <tr><th>Mattone</th><th>Nella cucina</th><th>Nel lavoro</th><th>A cosa serve</th></tr>
+    <tr><td><b>Project</b></td><td>La cucina con la dispensa</td><td>Istruzioni e documenti fissi</td><td>Non ripetere il contesto</td></tr>
+    <tr><td><b>Skill</b></td><td>La ricetta</td><td>Un metodo scritto una volta</td><td>Fare un compito sempre allo stesso modo</td></tr>
+    <tr><td><b>Connettore</b></td><td>La porta verso il fornitore</td><td>Collegamento a Drive, Figma, Miro</td><td>Leggere i vostri dati</td></tr>
+    <tr><td><b>MCP</b></td><td>Lo standard delle porte</td><td>Il “linguaggio” dei collegamenti</td><td>Collegare strumenti senza adattatori</td></tr>
+    <tr><td><b>Plugin</b></td><td>Il kit completo</td><td>Pacchetto di Skill, comandi, agenti, connettori</td><td>Installare tutto insieme</td></tr>
+    <tr><td><b>Artifact</b></td><td>Il piatto servito</td><td>Documento, pagina, presentazione</td><td>Consegnare il risultato</td></tr>
+  </table></div>
+  <p class="note"><b>Come si combinano:</b> il connettore Drive legge le note, la Skill “status report” le formatta, dentro il Project del cliente, e il risultato esce come Artifact.</p>
+</section>
+
+<!-- ================= PARTE 2 ================= -->
+<section class="slide divider" data-part="Parte 2 · Parlare con Claude" data-title="Parte 2 · Parlare con Claude">
+  <span class="letter">2</span>
+  <h2>Parlare con Claude</h2>
+  <ul>
+    <li><b>04</b>Costruire un prompt che funziona</li>
+    <li><b>05</b>Contesto: Project e memoria</li>
+  </ul>
+</section>
+
+<section class="slide" data-part="Parte 2 · Parlare con Claude" data-title="4 · Il metodo BRIEF">
+  <p class="eyebrow">Capitolo 4 · Prompt</p>
+  <h2>Il metodo BRIEF</h2>
+  <p class="inbreve"><b>In breve.</b> Claude non legge nel pensiero. Ogni cosa che non dici, la sceglie lui, e di solito sceglie la versione più generica. Il BRIEF ti ricorda cosa dire.</p>
+  <div class="tw"><table>
+    <tr><th>Lettera</th><th>Parte</th><th>Domanda</th><th>Esempio</th></tr>
+    <tr><td><b>B</b></td><td>Background</td><td>Qual è il contesto?</td><td>“UX Boutique offre audit di usabilità per e-commerce.”</td></tr>
+    <tr><td><b>R</b></td><td>Ruolo</td><td>Chi deve rispondere?</td><td>“Sei un copywriter senior, tono sobrio.”</td></tr>
+    <tr><td><b>I</b></td><td>Intento</td><td>Cosa deve succedere dopo?</td><td>“Il lettore deve prenotare un audit.”</td></tr>
+    <tr><td><b>E</b></td><td>Esempi</td><td>Come deve essere?</td><td>Un paragrafo con il tono giusto</td></tr>
+    <tr><td><b>F</b></td><td>Formato</td><td>In che forma?</td><td>“Post LinkedIn, max 120 parole, niente emoji.”</td></tr>
+    <tr><td><b>+</b></td><td>Verifica</td><td>Come controllo?</td><td>“Elenca le affermazioni da verificare.”</td></tr>
+  </table></div>
+</section>
+
+<section class="slide" data-part="Parte 2 · Parlare con Claude" data-title="4 · Sette regole">
+  <p class="eyebrow">Capitolo 4 · Prompt</p>
+  <h2>Sette regole pratiche</h2>
+  <ol class="steps cols" style="grid-template-columns:repeat(auto-fit, minmax(300px, 1fr))">
+    <li><div><h3>Prima il contesto, poi il compito</h3><p>Claude capisce meglio se sa a cosa serve il lavoro.</p></div></li>
+    <li><div><h3>Un obiettivo verificabile</h3><p>Non “più chiaro”, ma “il cliente capisce il prezzo in 5 secondi”.</p></div></li>
+    <li><div><h3>Un esempio, non tre aggettivi</h3><p>“Professionale e moderno” non dice niente. Un paragrafo dice tutto.</p></div></li>
+    <li><div><h3>Il formato, sempre</h3><p>Lunghezza, struttura, lingua.</p></div></li>
+    <li><div><h3>Cosa escludere</h3><p>“Niente emoji”, “non citare clienti”.</p></div></li>
+    <li><div><h3>Istruzioni separate dai materiali</h3><p>Il testo da analizzare va tra tag: <code>&lt;testo&gt;…&lt;/testo&gt;</code>.</p></div></li>
+    <li><div><h3>Fatti fare domande</h3><p>“Prima di iniziare, fammi le domande che ti servono.”</p></div></li>
   </ol>
 </section>
 
-<section class="slide" data-part="Parte A · Fondamenti" data-title="2 · Prima e dopo, tecniche">
-  <p class="eyebrow">Modulo 2 · Esempio completo</p>
-  <h2>Lo stesso compito, scritto in due modi</h2>
-  <div class="cols">
+<section class="slide" data-part="Parte 2 · Parlare con Claude" data-title="4 · Il modello da copiare">
+  <p class="eyebrow">Capitolo 4 · Prompt</p>
+  <h2>Il modello da copiare</h2>
+  <div class="cols" style="grid-template-columns:repeat(auto-fit, minmax(320px, 1fr))">
+    <pre><code>CONTESTO
+[Chi siamo, per chi lavoriamo, situazione]
+
+RUOLO
+Sei [ruolo] con esperienza in [ambito].
+
+OBIETTIVO
+Voglio [risultato]. Dopo aver letto,
+il lettore deve [azione].
+
+ESEMPIO
+&lt;esempio&gt;
+[testo di esempio]
+&lt;/esempio&gt;
+
+FORMATO
+- Lunghezza: [...]
+- Struttura: [...]
+- Da evitare: [...]
+
+MATERIALI
+&lt;materiali&gt;
+[testi, dati, note]
+&lt;/materiali&gt;
+
+VERIFICA
+Alla fine, elenca i punti di cui
+non sei sicuro.</code></pre>
     <div class="panel">
-      <span class="label">Prima</span>
-      <pre><code>Scrivi un post Instagram sul nostro
-servizio di audit.</code></pre>
-      <p>Claude decide da solo pubblico, tono, lunghezza e formato.</p>
-    </div>
-    <div class="panel">
-      <span class="label">Dopo</span>
-      <pre><code>Background: UX Boutique offre audit di
-usabilità per e-commerce medi. Pubblico:
-responsabili marketing, non designer.
-Ruolo: copywriter senior, tono sobrio.
-Intento: far richiedere l'audit gratuito.
-Esempio di tono: "Il checkout perde utenti?
-Di solito il problema è in tre passaggi."
-Formato: max 120 parole, due hashtag,
-nessuna emoji, chiusura con l'invito.
-Verifica: elenca le affermazioni che un
-cliente potrebbe contestare.</code></pre>
-    </div>
-  </div>
-  <div class="cols">
-    <div class="panel">
-      <span class="label">Tecniche utili</span>
-      <ul>
-        <li><b>Tag XML</b> per separare istruzioni e materiali: <code>&lt;istruzioni&gt;</code> e <code>&lt;testo&gt;</code>.</li>
-        <li><b>Few-shot:</b> due o tre esempi valgono più di una descrizione lunga.</li>
-        <li><b>Prompt a catena:</b> estrai i fatti, scrivi la bozza, rivedi con i criteri.</li>
-        <li><b>Autocritica:</b> “Rileggi la bozza rispetto ai criteri e segnala cosa non rispetta.”</li>
-      </ul>
-    </div>
-    <div class="panel">
-      <span class="label">Errori comuni</span>
-      <ul>
-        <li>Descrivere il compito ma non il pubblico.</li>
-        <li>Chiedere “un tono professionale” senza esempio.</li>
-        <li>Cambiare tre cose insieme nella revisione.</li>
-        <li>Non dire cosa escludere.</li>
+      <span class="label">Checklist prima di inviare</span>
+      <ul class="check">
+        <li>Ho detto chi siamo e per chi è?</li>
+        <li>Ho detto cosa deve succedere dopo?</li>
+        <li>Ho dato un esempio?</li>
+        <li>Ho indicato lunghezza e formato?</li>
+        <li>Ho detto cosa evitare?</li>
+        <li>Ho chiesto di segnalare le incertezze?</li>
       </ul>
     </div>
   </div>
 </section>
 
-<!-- ============ PARTE B ============ -->
-<section class="slide divider" data-part="Parte B · Contesto e output" data-title="Parte B · Contesto e output">
-  <span class="letter">B</span>
-  <h2>Contesto e output</h2>
-  <ul>
-    <li><b>03</b>Projects</li>
-    <li><b>04</b>Artifacts, ricerca web e analisi di file</li>
-    <li><b>4b</b>Lavorare per file: il metodo markdown-first</li>
-  </ul>
-</section>
-
-<section class="slide" data-part="Parte B · Contesto e output" data-title="3 · Projects">
-  <p class="eyebrow">Modulo 3</p>
-  <h2>Projects: istruzioni e documenti sempre presenti</h2>
-  <p class="goal"><b>Obiettivo:</b> un Project che rende Claude coerente con il vostro lavoro senza ripetere il contesto. <b>Prerequisiti:</b> almeno due documenti di riferimento approvati.</p>
+<section class="slide" data-part="Parte 2 · Parlare con Claude" data-title="4 · Esempi per ruolo">
+  <p class="eyebrow">Capitolo 4 · Prompt · Esempi</p>
+  <h2>Tre prompt completi, uno per ruolo</h2>
   <div class="cols">
-    <div class="panel">
-      <span class="label">Come si imposta</span>
-      <ol class="steps">
-        <li><div><p>Barra laterale → <b>Projects</b> → Nuovo Project. <span class="v">⚠ da verificare</span></p></div></li>
-        <li><div><p>Nome preciso: “UX Boutique — Brand &amp; Tone”.</p></div></li>
-        <li><div><p>Scrivete le istruzioni (template a destra).</p></div></li>
-        <li><div><p>Caricate i documenti nella knowledge base.</p></div></li>
-        <li><div><p>Piano Team: decidete se condividerlo. <span class="v">⚠ da verificare</span></p></div></li>
-      </ol>
-    </div>
-    <div class="panel">
-      <span class="label">Template di istruzioni</span>
-      <pre><code>Lavoriamo per UX Boutique, agenzia di UX
-e design digitale. Lingua: italiano.
-Tono diretto e concreto, niente
-superlativi vuoti. Ogni testo per clienti
-indica un beneficio misurabile.
-Non citare clienti senza approvazione.
-Quando non sei sicuro di un fatto,
-dichiaralo. Usa il glossario caricato.</code></pre>
-    </div>
-  </div>
-  <div class="cols">
-    <div class="panel">
-      <span class="label">Cosa caricare</span>
-      <ul>
-        <li><b>Sì:</b> guida al tono, testi approvati, glossario, offerta ufficiale.</li>
-        <li><b>No:</b> bozze, duplicati, dati personali non necessari.</li>
-        <li>Testo selezionabile, non scansioni.</li>
-      </ul>
-    </div>
-    <div class="panel">
-      <span class="label">Test del Project</span>
-      <p>Chiedete in una nuova chat dentro il Project: “Scrivi un’intro di 60 parole per la pagina servizi.” Se rispetta tono e glossario senza ripeterli, funziona. Confrontate con una chat fuori dal Project.</p>
-    </div>
+    <div class="panel"><span class="label">Marketing</span><pre><code>CONTESTO: UX Boutique, audit di
+usabilità per e-commerce medi.
+Pubblico: responsabili marketing.
+RUOLO: copywriter senior, sobrio.
+OBIETTIVO: prenotare l'audit gratuito.
+ESEMPIO DI TONO: "Il checkout perde
+utenti? Spesso il problema è in tre
+passaggi."
+FORMATO: post LinkedIn, max 120
+parole, due hashtag, niente emoji.
+VERIFICA: elenca le affermazioni
+contestabili.</code></pre></div>
+    <div class="panel"><span class="label">Design</span><pre><code>CONTESTO: form di registrazione,
+app prenotazioni per parrucchieri.
+Utenti 25–60 anni, da telefono.
+RUOLO: UX writer.
+OBIETTIVO: errori che spiegano cosa
+è successo e come risolvere.
+FORMATO: tabella Campo | Errore |
+Messaggio. Max 12 parole. Niente
+colpe all'utente, niente "!".
+MATERIALI: &lt;campi&gt;nome, email,
+telefono, password&lt;/campi&gt;</code></pre></div>
+    <div class="panel"><span class="label">Sviluppo</span><pre><code>CONTESTO: sito Next.js. Il carrello
+si svuota al ricaricamento.
+RUOLO: sviluppatore senior.
+OBIETTIVO: capire la causa prima di
+modificare il codice.
+FORMATO: 1) tre ipotesi in ordine di
+probabilità; 2) un test per ognuna;
+3) la correzione solo per quella
+confermata.
+MATERIALI: &lt;codice&gt;…&lt;/codice&gt;
+VERIFICA: cosa non puoi sapere?</code></pre></div>
   </div>
 </section>
 
-<section class="slide" data-part="Parte B · Contesto e output" data-title="4 · Artifacts, ricerca, file">
-  <p class="eyebrow">Modulo 4</p>
-  <h2>Artifacts, ricerca web e analisi di file</h2>
-  <p class="goal"><b>Obiettivo:</b> documenti modificabili, informazioni recenti verificate, analisi di file affidabili.</p>
-  <div class="cols">
-    <div class="panel">
-      <span class="label">Artifact</span>
-      <ol class="steps">
-        <li><div><p>Chiedete il formato: “Crea un documento Artifact con…”.</p></div></li>
-        <li><div><p>Modificate per sezione: “Nella sezione Metodo, riduci a tre punti.”</p></div></li>
-        <li><div><p>Esportate quando è pronto.</p></div></li>
-      </ol>
-    </div>
-    <div class="panel">
-      <span class="label">Ricerca web</span>
-      <ol class="steps">
-        <li><div><p>Domanda in una frase, con periodo e pubblico.</p></div></li>
-        <li><div><p>“Indica fonte e data per ogni affermazione.”</p></div></li>
-        <li><div><p>Aprite le fonti delle affermazioni che userete.</p></div></li>
-      </ol>
-    </div>
-    <div class="panel">
-      <span class="label">Analisi di file</span>
-      <ul>
-        <li><b>PDF:</b> “Estrai le date di scadenza dei contratti.”</li>
-        <li><b>CSV:</b> “Costo per lead per canale, segnala gli anomali.”</li>
-        <li><b>Screenshot:</b> “Problemi di contrasto e accessibilità.”</li>
-        <li>Verificate a mano un valore su dieci.</li>
-      </ul>
-    </div>
-  </div>
-  <p class="note"><b>Errori comuni:</b> chiedere “migliora tutto” su un Artifact; fidarsi di un numero senza ricalcolarlo; caricare una scansione illeggibile.</p>
+<section class="slide" data-part="Parte 2 · Parlare con Claude" data-title="4 · Tecniche avanzate">
+  <p class="eyebrow">Capitolo 4 · Prompt</p>
+  <h2>Tecniche avanzate</h2>
+  <div class="tw"><table>
+    <tr><th>Tecnica</th><th>Cos’è</th><th>Quando usarla</th></tr>
+    <tr><td><b>Esempi multipli</b></td><td>Due o tre esempi di output</td><td>Formato difficile da spiegare a parole</td></tr>
+    <tr><td><b>Tag</b></td><td><code>&lt;testo&gt;</code>, <code>&lt;dati&gt;</code>, <code>&lt;esempio&gt;</code></td><td>Materiali lunghi incollati</td></tr>
+    <tr><td><b>Catena di prompt</b></td><td>Il compito diviso in passaggi</td><td>Prima i fatti, poi la bozza, poi la revisione</td></tr>
+    <tr><td><b>Criteri e autocritica</b></td><td>“Rileggi rispetto a questi criteri”</td><td>Qualità costante</td></tr>
+    <tr><td><b>Alternative</b></td><td>“Proponi tre versioni diverse”</td><td>Titoli, concept, strutture</td></tr>
+    <tr><td><b>Domande prima</b></td><td>“Fammi le domande che ti servono”</td><td>Compiti importanti o poco chiari</td></tr>
+    <tr><td><b>Ragionamento esteso</b></td><td>Più tempo per pensare</td><td>Strategie, analisi, bug complessi</td></tr>
+  </table></div>
 </section>
 
-<section class="slide" data-part="Parte B · Contesto e output" data-title="4b · Lavorare per file">
-  <p class="eyebrow">Modulo 4b</p>
-  <h2>Lavorare per file, poi l’artefatto</h2>
-  <p class="goal"><b>Obiettivo:</b> preparare i contenuti in file <code>.md</code> nel repository, modificarli per parti e produrre l’artefatto visivo solo alla fine.</p>
-  <div class="cols">
-    <div class="panel">
-      <span class="label">Su artefatto</span>
-      <p>Ogni modifica ripubblica la pagina intera. Il contenuto ripassa ogni volta per la chat e per la pubblicazione.</p>
-    </div>
-    <div class="panel">
-      <span class="label">Su file</span>
-      <p>Il contenuto vive nel repository. Si modifica per sezioni, si verifica con Git, diventa artefatto solo quando è pronto. Più economico in token nei documenti lunghi; il vantaggio è pratico, non misurato.</p>
-    </div>
+<section class="slide" data-part="Parte 2 · Parlare con Claude" data-title="4 · Feedback e diagnosi">
+  <p class="eyebrow">Capitolo 4 · Prompt</p>
+  <h2>Dare feedback e capire cosa non va</h2>
+  <div class="panel">
+    <span class="label">Formula del feedback: cosa + perché + come</span>
+    <p>❌ “Non mi piace.”</p>
+    <p>✅ “Il <b>titolo</b> è troppo generico <b>per un pubblico tecnico</b>: <b>proponi tre alternative con un numero concreto</b>.”</p>
+    <p class="muted">Una correzione per messaggio: se ne cambi tre insieme, non capisci quale ha funzionato.</p>
   </div>
   <div class="tw"><table>
-    <tr><th>Fase</th><th>Strumento</th><th>Perché</th></tr>
-    <tr><td>Bozza e struttura</td><td>File <code>.md</code></td><td>Veloce da modificare, tracciato in Git</td></tr>
-    <tr><td>Revisione per sezioni</td><td>File <code>.md</code></td><td>Modifiche piccole e verificabili</td></tr>
-    <tr><td>Versione per il team</td><td>Artefatto o presentazione</td><td>Leggibile e condivisibile</td></tr>
-    <tr><td>Versione finale</td><td>Export HTML, PDF, PPTX</td><td>Pronta per il cliente</td></tr>
+    <tr><th>Sintomo</th><th>Causa probabile</th><th>Correzione</th></tr>
+    <tr><td>Risposta generica</td><td>Manca contesto o pubblico</td><td>Aggiungi Background e Intento</td></tr>
+    <tr><td>Tono sbagliato</td><td>Nessun esempio</td><td>Incolla un testo di esempio</td></tr>
+    <tr><td>Troppo lungo</td><td>Formato non indicato</td><td>Indica parole, righe, struttura</td></tr>
+    <tr><td>Inventa fatti</td><td>Nessuna fonte</td><td>Dagli i documenti, chiedi le incertezze</td></tr>
+    <tr><td>Ignora una regola</td><td>Regola sepolta nel testo</td><td>Mettila in un elenco “Da evitare”</td></tr>
+    <tr><td>Cambia troppo</td><td>Feedback vago</td><td>Indica la parte e cosa non toccare</td></tr>
   </table></div>
-  <ol class="steps">
-    <li><div><p>Una cartella <code>contenuti/progetto/</code> con un file per sezione e un <code>indice.md</code>.</p></div></li>
-    <li><div><p>“Modifica solo <code>02-servizi.md</code>: riduci a tre punti.” Poi <code>git diff</code> e un commit per sezione approvata.</p></div></li>
-    <li><div><p>Generate l’artefatto o la presentazione dai file approvati.</p></div></li>
-  </ol>
 </section>
 
-<!-- ============ PARTE C ============ -->
-<section class="slide divider" data-part="Parte C · Metodo e connessioni" data-title="Parte C · Metodo e connessioni">
-  <span class="letter">C</span>
-  <h2>Metodo e connessioni</h2>
+<section class="slide" data-part="Parte 2 · Parlare con Claude" data-title="5 · Project e memoria">
+  <p class="eyebrow">Capitolo 5</p>
+  <h2>Project: il contesto una volta sola</h2>
+  <p class="inbreve"><b>In breve.</b> Un Project è uno spazio con istruzioni e documenti che valgono per tutte le chat al suo interno. Lo prepari una volta e non ripeti più il contesto.</p>
+  <div class="cols">
+    <div class="panel">
+      <span class="label">Passo per passo</span>
+      <ol class="steps">
+        <li><div><p>Barra laterale → <b>Projects</b> → nuovo. <span class="v">⚠ da verificare</span></p></div></li>
+        <li><div><p>Nome chiaro: “Cliente Rossi — Redesign”.</p></div></li>
+        <li><div><p>Istruzioni in 5–10 righe.</p></div></li>
+        <li><div><p>Documenti di riferimento aggiornati.</p></div></li>
+        <li><div><p>Chat sempre <b>dentro</b> il Project.</p></div></li>
+      </ol>
+    </div>
+    <div class="panel">
+      <span class="label">Istruzioni: modello</span>
+      <pre><code>Lavoriamo per UX Boutique.
+Lingua: italiano. Tono diretto e
+concreto, niente superlativi.
+Ogni testo per clienti indica un
+beneficio misurabile.
+Mai citare clienti senza approvazione.
+Se non sei sicuro, dichiaralo.
+Usa il glossario caricato.</code></pre>
+    </div>
+    <div class="panel">
+      <span class="label">Chat lunghe</span>
+      <p>Quando cambi argomento, chiedi un riassunto e apri una chat nuova:</p>
+      <pre><code>Riassumi questa chat in: decisioni
+prese, file usati, cose da fare.</code></pre>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PARTE 3 ================= -->
+<section class="slide divider" data-part="Parte 3 · Claude nel lavoro" data-title="Parte 3 · Claude nel lavoro">
+  <span class="letter">3</span>
+  <h2>Claude nel lavoro</h2>
   <ul>
-    <li><b>05</b>Skills</li>
-    <li><b>06</b>Connettori: Google Drive, Figma, Miro</li>
-    <li><b>07</b>MCP e plugin</li>
+    <li><b>06</b>Marketing</li>
+    <li><b>07</b>Design: UX, UI e art direction</li>
+    <li><b>08</b>Sviluppo</li>
   </ul>
 </section>
 
-<section class="slide" data-part="Parte C · Metodo e connessioni" data-title="5 · Skill: cos’è">
-  <p class="eyebrow">Modulo 5 · Skills</p>
+<section class="slide" data-part="Parte 3 · Claude nel lavoro" data-title="6 · Marketing: cosa puoi fare">
+  <p class="eyebrow">Capitolo 6 · Marketing</p>
+  <h2>Cosa puoi fare nel marketing</h2>
+  <p class="inbreve"><b>In breve.</b> Il lavoro più utile non è “scrivimi un post”, ma costruire un sistema: Project con brand e tono, Skill per i formati ripetuti, verifica di ogni dato.</p>
+  <div class="tw"><table>
+    <tr><th>Area</th><th>Esempi</th><th>Strumento</th></tr>
+    <tr><td><b>Strategia</b></td><td>Posizionamento, personas, competitor, piano marketing</td><td>Chat con ricerca web, Project</td></tr>
+    <tr><td><b>Contenuti</b></td><td>Post, articoli, newsletter, script, varianti di copy</td><td>Chat + Project + Skill</td></tr>
+    <tr><td><b>Campagne</b></td><td>Concept, headline, annunci, landing</td><td>Chat, Claude Design</td></tr>
+    <tr><td><b>SEO e AI search</b></td><td>Struttura articoli, FAQ, presenza negli assistenti AI</td><td>Chat con ricerca web</td></tr>
+    <tr><td><b>Analisi</b></td><td>Report da CSV, confronto canali, sintesi risultati</td><td>Chat con file, Cowork</td></tr>
+    <tr><td><b>Email</b></td><td>Benvenuto, nurturing, riattivazione</td><td>Chat + Skill</td></tr>
+  </table></div>
+</section>
+
+<section class="slide" data-part="Parte 3 · Claude nel lavoro" data-title="6 · Marketing: prompt pronti">
+  <p class="eyebrow">Capitolo 6 · Marketing</p>
+  <h2>Prompt pronti per il marketing</h2>
+  <div class="cols">
+    <div class="panel"><span class="label">Piano editoriale</span><pre><code>CONTESTO: [azienda, prodotto,
+pubblico].
+OBIETTIVO: piano editoriale di 4
+settimane per LinkedIn e Instagram.
+FORMATO: tabella Settimana | Canale |
+Tema | Formato | Titolo | Obiettivo.
+3 post a settimana per canale.
+DA EVITARE: date inventate,
+statistiche senza fonte.</code></pre></div>
+    <div class="panel"><span class="label">Varianti di headline</span><pre><code>Scrivi 10 headline per [landing].
+Pubblico: [chi]. Beneficio: [cosa].
+5 sul problema, 5 sul risultato.
+Massimo 8 parole.
+Poi indica le 3 migliori e perché.</code></pre></div>
+    <div class="panel"><span class="label">Report dai dati</span><pre><code>&lt;dati&gt;[CSV o file]&lt;/dati&gt;
+Calcola costo per lead e tasso di
+conversione per canale. Ordina dal
+migliore. Segnala gli anomali.
+Formato: tabella + 3 osservazioni
++ 2 azioni. Mostra i calcoli di un
+canale, così posso verificarli.</code></pre></div>
+  </div>
+</section>
+
+<section class="slide" data-part="Parte 3 · Claude nel lavoro" data-title="6 · Marketing: una campagna">
+  <p class="eyebrow">Capitolo 6 · Marketing</p>
+  <h2>Una campagna dall’inizio alla fine</h2>
+  <ol class="steps">
+    <li><div><h3>Brief</h3><p>Chat + Project: obiettivo, pubblico, messaggio chiave, canali.</p></div></li>
+    <li><div><h3>Concept</h3><p>Tre direzioni creative, una scelta.</p></div></li>
+    <li><div><h3>Testi</h3><p>Headline, post, annunci con la Skill <code>copywriting</code>.</p></div></li>
+    <li><div><h3>Visual e landing</h3><p>Prototipo della landing e one-pager in Claude Design.</p></div></li>
+    <li><div><h3>Revisione</h3><p>Tono, chiarezza e claim con la Skill <code>copy-editing</code>.</p></div></li>
+    <li><div><h3>Verifica umana</h3><p>Ogni numero e claim controllato, approvazione del cliente.</p></div></li>
+  </ol>
+  <p class="note">Nel repository ci sono 53 Skill di marketing (<code>copywriting</code>, <code>content-strategy</code>, <code>social</code>, <code>ad-creative</code>, <code>emails</code>…). Esiste anche un plugin ufficiale “Marketing” per Cowork. <span class="v">⚠ da verificare</span></p>
+</section>
+
+<section class="slide" data-part="Parte 3 · Claude nel lavoro" data-title="7 · Design: cosa puoi fare">
+  <p class="eyebrow">Capitolo 7 · Design</p>
+  <h2>Cosa puoi fare nel design</h2>
+  <p class="inbreve"><b>In breve.</b> Claude non sostituisce il designer: accelera analisi, scrittura e prima esplorazione.</p>
+  <div class="tw"><table>
+    <tr><th>Area</th><th>Esempi</th><th>Strumento</th></tr>
+    <tr><td><b>Ricerca</b></td><td>Sintesi di interviste, personas, insight</td><td>Chat con file</td></tr>
+    <tr><td><b>Architettura</b></td><td>User journey, sitemap, flussi</td><td>Chat, Artifact</td></tr>
+    <tr><td><b>Valutazione</b></td><td>Analisi euristica, accessibilità, coerenza</td><td>Chat con screenshot</td></tr>
+    <tr><td><b>Contenuti UI</b></td><td>Microcopy, errori, stati vuoti, onboarding</td><td>Chat + Project</td></tr>
+    <tr><td><b>Prototipi</b></td><td>Landing, flussi, slide, one-pager</td><td>Claude Design</td></tr>
+    <tr><td><b>Design system</b></td><td>Token e componenti da Figma</td><td>Connettore Figma</td></tr>
+    <tr><td><b>Art direction</b></td><td>Concept, naming, brief per generatori di immagini</td><td>Chat</td></tr>
+  </table></div>
+</section>
+
+<section class="slide" data-part="Parte 3 · Claude nel lavoro" data-title="7 · Design: prompt pronti">
+  <p class="eyebrow">Capitolo 7 · Design</p>
+  <h2>Prompt pronti per il design</h2>
+  <div class="cols">
+    <div class="panel"><span class="label">Sintesi di interviste</span><pre><code>&lt;interviste&gt;[testi]&lt;/interviste&gt;
+Trova i 5 bisogni più ricorrenti.
+Per ognuno: descrizione, quante
+persone lo citano, due citazioni
+testuali con il nome dell'intervista.
+Non inventare citazioni.</code></pre></div>
+    <div class="panel"><span class="label">Analisi euristica</span><pre><code>[screenshot]
+Valuta con le 10 euristiche di
+Nielsen. Per ogni problema:
+euristica, dove, gravità 1–4,
+proposta. Tabella per gravità,
+poi i 3 interventi più rapidi.</code></pre></div>
+    <div class="panel"><span class="label">Accessibilità</span><pre><code>[screenshot o HTML]
+Controlla contrasto, testi,
+etichette, ordine di lettura,
+target touch. Indica il criterio
+WCAG di ogni problema. Segnala
+cosa non puoi verificare.</code></pre></div>
+  </div>
+</section>
+
+<section class="slide" data-part="Parte 3 · Claude nel lavoro" data-title="7 · Design: un redesign">
+  <p class="eyebrow">Capitolo 7 · Design</p>
+  <h2>Un redesign dall’inizio alla fine</h2>
+  <ol class="steps">
+    <li><div><p><b>Audit:</b> screenshot della pagina attuale e analisi euristica.</p></div></li>
+    <li><div><p><b>Ricerca:</b> sintesi dei feedback degli utenti.</p></div></li>
+    <li><div><p><b>Brief:</b> obiettivo, pubblico, problemi da risolvere.</p></div></li>
+    <li><div><p><b>Prototipo:</b> tre strutture in Claude Design, una scelta, revisioni.</p></div></li>
+    <li><div><p><b>Design system:</b> token da Figma tramite connettore.</p></div></li>
+    <li><div><p><b>Handoff:</b> passaggio a Claude Code per lo sviluppo.</p></div></li>
+    <li><div><p><b>Verifica:</b> test con utenti reali e controllo di accessibilità.</p></div></li>
+  </ol>
+  <p class="note">Skill di design nel repository: <code>emil-design-eng</code>, <code>apple-design</code>, <code>mobile-native</code>, <code>review-animations</code>, <code>break-ui</code>. Le abbiamo usate per questa presentazione.</p>
+</section>
+
+<section class="slide" data-part="Parte 3 · Claude nel lavoro" data-title="8 · Sviluppo">
+  <p class="eyebrow">Capitolo 8 · Sviluppo</p>
+  <h2>Cosa puoi fare nello sviluppo</h2>
+  <p class="inbreve"><b>In breve.</b> Per il lavoro vero lo strumento è Claude Code: legge il repository, propone un piano, modifica, esegue i test, prepara i commit.</p>
+  <div class="tw"><table>
+    <tr><th>Area</th><th>Esempi</th></tr>
+    <tr><td><b>Capire</b></td><td>Spiegare codice, mappare un progetto, documentare</td></tr>
+    <tr><td><b>Scrivere</b></td><td>Funzioni, componenti, script, query, regex</td></tr>
+    <tr><td><b>Correggere</b></td><td>Debug, errori, regressioni</td></tr>
+    <tr><td><b>Qualità</b></td><td>Test, code review, refactoring, sicurezza</td></tr>
+    <tr><td><b>Design to code</b></td><td>Componenti dai token del design system</td></tr>
+    <tr><td><b>Automazione</b></td><td>Script ripetitivi, migrazioni, attività programmate</td></tr>
+  </table></div>
+</section>
+
+<section class="slide" data-part="Parte 3 · Claude nel lavoro" data-title="8 · Sviluppo: prompt e workflow">
+  <p class="eyebrow">Capitolo 8 · Sviluppo</p>
+  <h2>Prompt pronti e workflow</h2>
+  <div class="cols">
+    <div class="panel"><span class="label">Capire un progetto</span><pre><code>Spiegami questo progetto: a cosa
+serve, cartelle, come si avvia,
+come si testano le modifiche.
+Indica i 5 file più importanti.
+Non modificare nulla.</code></pre></div>
+    <div class="panel"><span class="label">Correggere un bug</span><pre><code>Il carrello si svuota quando si
+ricarica la pagina. Trova la causa.
+Prima un test che riproduce il bug,
+poi la correzione, poi tutti i test.
+Mostrami il piano prima.</code></pre></div>
+    <div class="panel">
+      <span class="label">Una nuova funzione</span>
+      <ol class="steps">
+        <li><div><p>Richiesta chiara e verificabile</p></div></li>
+        <li><div><p>CLAUDE.md aggiornato</p></div></li>
+        <li><div><p>Plan mode: leggi e approva</p></div></li>
+        <li><div><p>Branch separato, test</p></div></li>
+        <li><div><p>Commit, pull request, review umana</p></div></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PARTE 4 ================= -->
+<section class="slide divider" data-part="Parte 4 · Strumenti a fondo" data-title="Parte 4 · Strumenti a fondo">
+  <span class="letter">4</span>
+  <h2>Strumenti a fondo</h2>
+  <ul>
+    <li><b>09</b>Claude Design</li>
+    <li><b>10</b>Claude Code</li>
+    <li><b>11</b>Skill: usarle e crearle</li>
+    <li><b>12</b>Plugin</li>
+    <li><b>13</b>Connettori e MCP</li>
+  </ul>
+</section>
+
+<section class="slide" data-part="Parte 4 · Strumenti a fondo" data-title="9 · Claude Design: cos’è">
+  <p class="eyebrow">Capitolo 9 · Claude Design</p>
+  <h2>Visual coerenti con il brand, parlando</h2>
+  <p class="inbreve"><b>In breve.</b> Claude Design crea prototipi, slide, one-pager e landing usando il design system della vostra organizzazione. Si imposta una volta, poi ogni progetto del team lo usa in automatico.</p>
+  <div class="tw"><table>
+    <tr><th>Strumento</th><th>Ideale per</th><th>Non ideale per</th></tr>
+    <tr><td><b>Claude Design</b></td><td>Visual on-brand, prototipi, slide, one-pager, landing</td><td>Foto, illustrazioni, video</td></tr>
+    <tr><td><b>Artifact in chat</b></td><td>Documenti e pagine veloci, uso interno</td><td>Materiali che devono rispettare il brand</td></tr>
+    <tr><td><b>Figma</b></td><td>Design di dettaglio, collaborazione, design system</td><td>Esplorazioni rapide da un brief</td></tr>
+  </table></div>
+  <p class="note">Anteprima di ricerca di Anthropic Labs (aprile 2026) per Pro, Max, Team ed Enterprise. Su Enterprise l’admin lo attiva in <i>Organization settings → Capabilities → Anthropic Labs</i>. Accesso nel vostro piano Team: <span class="v">⚠ da verificare</span></p>
+</section>
+
+<section class="slide" data-part="Parte 4 · Strumenti a fondo" data-title="9 · Il design system">
+  <p class="eyebrow">Capitolo 9 · Claude Design · Prima volta</p>
+  <h2>Primo passo: il design system</h2>
+  <p class="goal">Senza design system, i lavori sono funzionali ma non sembrano vostri. Lo imposta il designer o il responsabile del brand, meglio con un gruppo di 2–4 designer di fiducia.</p>
+  <div class="cols">
+    <div class="panel">
+      <span class="label">Passo per passo</span>
+      <ol class="steps">
+        <li><div><p><b>Crea l’organizzazione</b> e completa la procedura iniziale.</p></div></li>
+        <li><div><p><b>Carica i materiali:</b> codice dei siti, presentazioni, file di design, riferimenti.</p></div></li>
+        <li><div><p><b>Claude estrae</b> colori, tipografia e componenti.</p></div></li>
+        <li><div><p><b>Rivedi:</b> se è debole, carica materiali diversi.</p></div></li>
+        <li><div><p><b>Pubblica</b> per il team: i progetti lo useranno in automatico.</p></div></li>
+      </ol>
+    </div>
+    <div class="panel">
+      <span class="label">Cosa preparare prima</span>
+      <ul class="check">
+        <li>Palette con valori esatti (HEX)</li>
+        <li>Font e pesi usati</li>
+        <li>Logo in buona qualità</li>
+        <li>3–5 lavori approvati</li>
+        <li>Tono: tre aggettivi e un testo di esempio</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-part="Parte 4 · Strumenti a fondo" data-title="9 · Creare un progetto">
+  <p class="eyebrow">Capitolo 9 · Claude Design · Ogni giorno</p>
+  <h2>Creare un progetto, passo per passo</h2>
+  <div class="cols" style="grid-template-columns:repeat(auto-fit, minmax(320px, 1fr))">
+    <ol class="steps">
+      <li><div><p><b>Scegli</b> cosa creare: prototipo, slide, one-pager, landing.</p></div></li>
+      <li><div><p><b>Scrivi il brief</b> con il BRIEF: pubblico, obiettivo, sezioni, vincoli.</p></div></li>
+      <li><div><p><b>Chiedi la struttura</b> prima dello stile.</p></div></li>
+      <li><div><p><b>Scegli</b> una struttura e genera.</p></div></li>
+      <li><div><p><b>Rivedi</b> una cosa per volta.</p></div></li>
+      <li><div><p><b>Verifica</b> contenuti, brand, mobile.</p></div></li>
+      <li><div><p><b>Esporta</b> o passa il lavoro.</p></div></li>
+    </ol>
+    <div class="panel"><span class="label">Prompt: landing</span><pre><code>Crea una landing per il nostro audit
+di usabilità gratuito.
+Pubblico: responsabili marketing di
+e-commerce di medie dimensioni.
+Obiettivo: prenotazione dell'audit.
+Sezioni: hero con promessa e CTA;
+tre benefici misurabili; un caso
+studio; come funziona in 3 passi;
+FAQ; CTA finale.
+Vincoli: mobile first, una sola CTA,
+nessun numero inventato (usa [X%]).
+Prima proponi tre strutture diverse,
+senza applicare lo stile.</code></pre></div>
+  </div>
+</section>
+
+<section class="slide" data-part="Parte 4 · Strumenti a fondo" data-title="9 · Revisioni ed export">
+  <p class="eyebrow">Capitolo 9 · Claude Design</p>
+  <h2>Revisioni che funzionano, poi export</h2>
+  <div class="cols">
+    <div class="panel">
+      <span class="label">Revisioni</span>
+      <ul>
+        <li><b>Una modifica per messaggio</b>, con il perché.</li>
+        <li><b>Indica la sezione</b>, non “migliora tutto”.</li>
+        <li><b>Prima la struttura</b>, poi colori e font.</li>
+        <li><b>Segnaposto</b> per i dati che non hai: <code>[X clienti]</code>.</li>
+      </ul>
+      <pre><code>Il titolo dell'hero è generico.
+Proponi tre alternative con un numero.
+Applica la prima; non cambiare altro.</code></pre>
+    </div>
+    <div class="tw"><table>
+      <tr><th>Formato</th><th>Quando</th></tr>
+      <tr><td><b>HTML</b></td><td>Prototipo da mostrare o da sviluppare</td></tr>
+      <tr><td><b>PDF</b></td><td>One-pager da inviare o stampare</td></tr>
+      <tr><td><b>PPTX</b></td><td>Slide da modificare in PowerPoint o Keynote</td></tr>
+      <tr><td><b>Canva</b></td><td>Lavoro da completare in Canva</td></tr>
+      <tr><td><b>Claude Code</b></td><td>Trasformare il prototipo in un sito vero</td></tr>
+    </table></div>
+  </div>
+  <p class="note">Fonti: anche <code>.zip</code>. Export come immagine e in formato Figma non confermati. <span class="v">⚠ da verificare</span></p>
+</section>
+
+<section class="slide" data-part="Parte 4 · Strumenti a fondo" data-title="10 · Claude Code: cos’è">
+  <p class="eyebrow">Capitolo 10 · Claude Code</p>
+  <h2>Un agente: non risponde solo, fa</h2>
+  <p class="inbreve"><b>In breve.</b> Claude Code lavora dentro una cartella: legge e modifica file, esegue comandi, propone un piano e aspetta il tuo ok. Nato per lo sviluppo, è utile a chiunque lavori con file.</p>
+  <div class="cols">
+    <div class="panel">
+      <span class="label">Dove si usa</span>
+      <ul>
+        <li>Terminale</li>
+        <li>App desktop</li>
+        <li>Web (claude.ai/code), anche su repository GitHub</li>
+        <li>Editor: VS Code, JetBrains</li>
+      </ul>
+      <p class="muted">Per chi non programma: app desktop o web.</p>
+    </div>
+    <div class="panel">
+      <span class="label">Primo avvio</span>
+      <pre><code>cd percorso/della/cartella
+git init     # se non è un repository
+claude       # avvia Claude Code</code></pre>
+      <p>Prima richiesta, senza modifiche:</p>
+      <pre><code>Spiegami cosa c'è in questa cartella
+e come è organizzata.
+Non modificare nulla.</code></pre>
+      <p class="muted">Installazione dalla documentazione ufficiale. <span class="v">⚠ da verificare</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-part="Parte 4 · Strumenti a fondo" data-title="10 · CLAUDE.md">
+  <p class="eyebrow">Capitolo 10 · Claude Code</p>
+  <h2>CLAUDE.md: le regole del progetto</h2>
+  <div class="cols" style="grid-template-columns:repeat(auto-fit, minmax(320px, 1fr))">
+    <pre><code># Progetto: sito UX Boutique
+
+## Cos'è
+Sito vetrina e pagine servizi.
+
+## Comandi
+- Avvio: npm run dev
+- Test: npm test
+
+## Regole
+- Tono: docs/tono-di-voce.md
+- Colori e font solo da design/tokens.json
+- Non modificare legacy/
+- Mai password o chiavi nei file
+
+## Come lavorare
+- Prima di modifiche su più file,
+  mostra il piano e aspetta.
+- Dopo ogni modifica, elenca i file
+  cambiati.</code></pre>
+    <div class="panel">
+      <span class="label">Cos’è</span>
+      <p>Il Project della chat, ma per una cartella. Claude Code lo legge all’inizio di ogni sessione.</p>
+      <span class="label">Livelli</span>
+      <ul>
+        <li>Nella cartella del progetto: vale per il team.</li>
+        <li>Personale: <code>~/.claude/CLAUDE.md</code>. <span class="v">⚠ da verificare</span></li>
+      </ul>
+      <span class="label">Regola</span>
+      <p>Breve e ordinato: in un file lunghissimo le regole importanti si perdono.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-part="Parte 4 · Strumenti a fondo" data-title="10 · Plan mode, comandi, subagent">
+  <p class="eyebrow">Capitolo 10 · Claude Code</p>
+  <h2>Plan mode, permessi, comandi, subagent</h2>
+  <div class="cols">
+    <div class="panel">
+      <h3>Plan mode</h3>
+      <p>Claude propone un piano e aspetta l’approvazione. Shift+Tab o <code>/plan</code>. <span class="v">⚠ da verificare</span></p>
+      <h3>Permessi</h3>
+      <p>Conferma prima di modificare file o eseguire comandi. Leggi sempre cosa chiede. Mai “approva tutto” alla cieca.</p>
+    </div>
+    <div class="tw"><table>
+      <tr><th>Comando</th><th>Cosa fa</th></tr>
+      <tr><td><code>/help</code></td><td>Comandi disponibili</td></tr>
+      <tr><td><code>/clear</code></td><td>Conversazione pulita</td></tr>
+      <tr><td><code>/compact</code></td><td>Riassume per liberare spazio</td></tr>
+      <tr><td><code>/plan</code></td><td>Entra in plan mode</td></tr>
+      <tr><td><code>/plugin</code></td><td>Gestisce i plugin</td></tr>
+    </table></div>
+    <div class="panel">
+      <h3>Subagent</h3>
+      <p>Un aiutante per un sotto-compito, con istruzioni proprie. Integrati: <b>Explore</b> (cerca nel codice) e <b>Plan</b> (prepara il piano). Puoi crearne di tuoi, per esempio un revisore di accessibilità.</p>
+      <p class="muted">L’elenco dei comandi cambia tra versioni: usa <code>/help</code>.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-part="Parte 4 · Strumenti a fondo" data-title="10 · Workflow e Git">
+  <p class="eyebrow">Capitolo 10 · Claude Code</p>
+  <h2>Workflow per ruolo, e Git in breve</h2>
+  <div class="cols">
+    <div class="panel"><span class="label">Marketing</span><p>Contenuti in <code>.md</code> → revisione per sezioni → pagine HTML o presentazioni. Questo corso è fatto così.</p></div>
+    <div class="panel"><span class="label">Design</span><p>Prototipo da Claude Design → componenti con i token → pagina di prova.</p></div>
+    <div class="panel"><span class="label">Sviluppo</span><p>Richiesta → plan mode → branch → test → commit → pull request → review.</p></div>
+  </div>
+  <div class="tw"><table>
+    <tr><th>Parola</th><th>Significato</th></tr>
+    <tr><td><b>Commit</b></td><td>Una versione salvata, con una descrizione</td></tr>
+    <tr><td><b>Branch</b></td><td>Una linea di lavoro separata dalla principale</td></tr>
+    <tr><td><b>Push</b></td><td>Invio delle modifiche al repository online</td></tr>
+    <tr><td><b>Pull request</b></td><td>Richiesta di unire un branch, con revisione</td></tr>
+  </table></div>
+</section>
+
+<section class="slide" data-part="Parte 4 · Strumenti a fondo" data-title="11 · Skill: cos’è">
+  <p class="eyebrow">Capitolo 11 · Skill</p>
   <h2>Una Skill è un metodo scritto una volta</h2>
-  <p class="goal"><b>Prerequisiti:</b> un processo ripetuto con un output che si può giudicare. Skills abilitate dall’admin del piano Team (confermato).</p>
+  <p class="inbreve"><b>In breve.</b> Una cartella con un file <code>SKILL.md</code>: nome, una descrizione che dice <b>quando</b> usarla, e le istruzioni. Claude legge la descrizione e decide da solo quando attivarla.</p>
   <div class="tw"><table>
-    <tr><th></th><th>Prompt</th><th>Skill</th></tr>
-    <tr><td><b>Quando</b></td><td>Una volta</td><td>Ogni volta che il compito si ripete</td></tr>
-    <tr><td><b>Dove vive</b></td><td>Nella chat</td><td>In una cartella con <code>SKILL.md</code></td></tr>
-    <tr><td><b>Chi la usa</b></td><td>Chi la scrive</td><td>Chi ha la Skill disponibile, anche il team</td></tr>
-    <tr><td><b>Come si attiva</b></td><td>Si scrive</td><td>Claude la sceglie dalla descrizione</td></tr>
+    <tr><th></th><th>Prompt</th><th>Project</th><th>Skill</th></tr>
+    <tr><td><b>Cos’è</b></td><td>Una richiesta</td><td>Un contesto fisso</td><td>Un metodo riutilizzabile</td></tr>
+    <tr><td><b>Quando</b></td><td>Una volta</td><td>Per un cliente o un tema</td><td>Per un compito che si ripete</td></tr>
+    <tr><td><b>Esempio</b></td><td>“Scrivi questo post”</td><td>“Tutto su cliente Rossi”</td><td>“Come scriviamo i post, per ogni cliente”</td></tr>
   </table></div>
-  <div class="cols">
+  <p class="note"><b>Regola pratica:</b> se fai lo stesso compito più di tre volte al mese, con lo stesso schema, crea una Skill.</p>
+</section>
+
+<section class="slide" data-part="Parte 4 · Strumenti a fondo" data-title="11 · Come funziona una Skill">
+  <p class="eyebrow">Capitolo 11 · Skill</p>
+  <h2>Come funziona: caricamento a strati</h2>
+  <div class="cols" style="grid-template-columns:repeat(auto-fit, minmax(320px, 1fr))">
+    <ol class="steps">
+      <li><div><h3>Sempre</h3><p>Claude legge solo <b>nome e descrizione</b> di ogni Skill: poche righe.</p></div></li>
+      <li><div><h3>Quando serve</h3><p>Se la descrizione corrisponde al compito, legge il <b>corpo</b> di <code>SKILL.md</code>.</p></div></li>
+      <li><div><h3>Solo se richiesto</h3><p>Legge i <b>file aggiuntivi</b> (esempi, riferimenti) quando il corpo li indica.</p></div></li>
+    </ol>
     <div class="panel">
-      <span class="label">Struttura della cartella</span>
+      <span class="label">Due conseguenze</span>
+      <p><b>La descrizione è la parte più importante:</b> è l’unica cosa che Claude vede per decidere.</p>
+      <p><b><code>SKILL.md</code> deve essere snello:</b> i dettagli lunghi vanno in file separati.</p>
       <pre><code>tono-ux-boutique/
-├── SKILL.md
-└── esempi/
-    ├── post-buono.md
-    └── post-da-evitare.md</code></pre>
-    </div>
-    <div class="panel">
-      <span class="label">Regole</span>
-      <ul>
-        <li>Nome della cartella uguale al campo <code>name</code>, minuscolo con trattini.</li>
-        <li><code>SKILL.md</code> obbligatorio, con frontmatter YAML: <code>name</code> e <code>description</code>.</li>
-        <li>Cartelle opzionali: <code>scripts/</code>, <code>references/</code>, <code>assets/</code>.</li>
-      </ul>
+├── SKILL.md        ← obbligatorio
+├── esempi/         ← opzionale
+└── riferimenti/    ← opzionale</code></pre>
     </div>
   </div>
 </section>
 
-<section class="slide" data-part="Parte C · Metodo e connessioni" data-title="5 · Il file SKILL.md">
-  <p class="eyebrow">Modulo 5 · Skills</p>
-  <h2>Il file SKILL.md</h2>
+<section class="slide" data-part="Parte 4 · Strumenti a fondo" data-title="11 · SKILL.md e descrizione">
+  <p class="eyebrow">Capitolo 11 · Skill</p>
+  <h2>Il file SKILL.md e la descrizione</h2>
   <div class="cols" style="grid-template-columns:repeat(auto-fit, minmax(320px, 1fr))">
     <pre><code>---
 name: tono-ux-boutique
-description: Scrive o revisiona testi per
-  UX Boutique secondo il tono di voce del
-  brand. Usala quando l'utente chiede copy,
-  post, claim, intro o revisione di testi
-  per clienti o per il sito.
+description: Scrive o revisiona testi
+  per UX Boutique secondo il tono del
+  brand. Usala quando l'utente chiede
+  post, claim, intro, email commerciali
+  o revisione di testi per clienti.
+  Non usarla per documenti interni.
 ---
 
 # Tono di voce UX Boutique
 
-## Quando usarla
-Testi per clienti, post, pagine del sito.
-Non usarla per documenti interni o codice.
-
 ## Procedura
-1. Se mancano, chiedi pubblico, obiettivo
-   e lunghezza.
-2. Scrivi in italiano, tono diretto.
-3. Ogni affermazione ha un beneficio
-   misurabile, o va marcata da verificare.
-4. Applica il glossario.
-5. Rileggi rispetto ai criteri.
+1. Se mancano, chiedi pubblico,
+   obiettivo e lunghezza.
+2. Scrivi in italiano, diretto.
+3. Applica il glossario in
+   riferimenti/glossario.md.
+4. Rileggi rispetto ai criteri.
 
 ## Criteri di qualità
 - Nessun superlativo vuoto.
 - Una sola call to action.
-- Frasi sotto le 25 parole.
 
 ## Formato di output
-Testo finale, poi "Da verificare: ..."</code></pre>
+Testo, poi "Da verificare: ..."</code></pre>
     <div class="panel">
-      <span class="label">La descrizione decide l’attivazione</span>
-      <p>Claude legge la descrizione per scegliere se usare la Skill. Scrivetela con le parole che userebbe chi chiede il lavoro.</p>
-      <p><b>Debole:</b> “Aiuta con i testi.”</p>
-      <p><b>Efficace:</b> “Scrive o revisiona post, claim e pagine per clienti UX Boutique. Usala quando l’utente chiede testi commerciali.”</p>
-      <span class="label">Istruzioni</span>
-      <ul>
-        <li>Passi numerati, nell’ordine di esecuzione.</li>
-        <li>Frasi precise: “Se il pubblico manca, chiedilo.”</li>
-        <li>Un esempio buono e uno da evitare.</li>
-      </ul>
+      <span class="label">Formula della descrizione</span>
+      <p><b>Cosa fa.</b> Usala quando <b>[situazioni, con le parole di chi chiede]</b>. Non usarla per <b>[casi esclusi]</b>.</p>
+      <p>❌ “Aiuta con i testi.”</p>
+      <p>✅ “Trasforma note di riunione in uno status report di 5 punti. Usala quando l’utente chiede un report o un aggiornamento per il cliente.”</p>
+      <p class="muted">Massimo 1024 caratteri. <span class="v">⚠ da verificare</span></p>
     </div>
   </div>
 </section>
 
-<section class="slide" data-part="Parte C · Metodo e connessioni" data-title="5 · Installare una Skill">
-  <p class="eyebrow">Modulo 5 · Skills</p>
+<section class="slide" data-part="Parte 4 · Strumenti a fondo" data-title="11 · Creare una Skill">
+  <p class="eyebrow">Capitolo 11 · Skill</p>
+  <h2>Tre modi per creare una Skill</h2>
+  <div class="cols">
+    <div class="panel">
+      <span class="label">1 · Chiedendolo a Claude</span>
+      <p>Il modo più semplice.</p>
+      <pre><code>Voglio creare una Skill per i nostri
+status report settimanali.
+Ecco come li facciamo: [passi].
+Ecco due report riusciti: [testi].
+Scrivi la Skill completa: SKILL.md
+con nome, descrizione, procedura,
+criteri ed esempi. Fammi prima le
+domande che ti servono.</code></pre>
+    </div>
+    <div class="panel">
+      <span class="label">2 · A mano</span>
+      <p>Con il modello della slide precedente, quando il metodo è già scritto.</p>
+      <span class="label">3 · Da riga di comando</span>
+      <pre><code>npx skills init nome-skill</code></pre>
+      <p>Crea la struttura di base da completare.</p>
+    </div>
+    <div class="panel">
+      <span class="label">Esempio: status report</span>
+      <ol class="steps">
+        <li><div><p>Raccogli 3 report riusciti e le note grezze.</p></div></li>
+        <li><div><p>Chiedi a Claude la Skill.</p></div></li>
+        <li><div><p>Rispondi alle sue domande.</p></div></li>
+        <li><div><p>Controlla la descrizione.</p></div></li>
+        <li><div><p>Testa con tre casi.</p></div></li>
+        <li><div><p>Installa e condividi.</p></div></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-part="Parte 4 · Strumenti a fondo" data-title="11 · Installare una Skill">
+  <p class="eyebrow">Capitolo 11 · Skill</p>
   <h2>Installare una Skill</h2>
   <div class="cols">
     <div class="panel">
       <span class="label">Su claude.ai</span>
       <ol class="steps">
-        <li><div><p>Preparate la cartella con <code>SKILL.md</code>.</p></div></li>
-        <li><div><p>Comprimetela in <code>.zip</code>. La cartella deve essere la radice dell’archivio.</p></div></li>
-        <li><div><p>Impostazioni → sezione <b>Skills</b> → caricate lo zip. <span class="v">⚠ da verificare</span> Le fonti indicano percorsi diversi, ad esempio “Customize → Skills” o “Settings → Capabilities → Skills”.</p></div></li>
-        <li><div><p>Verificate che sia attiva e visibile per il vostro account.</p></div></li>
+        <li><div><p>Comprimi la cartella in <code>.zip</code>: la cartella è la radice.</p></div></li>
+        <li><div><p>Impostazioni → <b>Skills</b> → carica lo zip. <span class="v">⚠ da verificare</span></p></div></li>
+        <li><div><p>Attivala e fai una prova.</p></div></li>
+        <li><div><p>Per tutto il team serve l’admin. <span class="v">⚠ da verificare</span></p></div></li>
       </ol>
     </div>
     <div class="panel">
       <span class="label">In Claude Code</span>
-      <ol class="steps">
-        <li><div><p>Create <code>.claude/skills/tono-ux-boutique/SKILL.md</code> nel repository.</p></div></li>
-        <li><div><p>Fate commit: la Skill è condivisa con chi lavora sul repository.</p></div></li>
-        <li><div><p>Per una Skill personale, usate la cartella dell’utente. <span class="v">⚠ da verificare</span></p></div></li>
-      </ol>
+      <p><b>Per un progetto:</b> <code>.claude/skills/nome/</code> nel repository, poi commit.</p>
+      <p><b>Per tutti i tuoi progetti:</b> <code>~/.claude/skills/</code>.</p>
+      <span class="label">Da un pacchetto online</span>
+      <pre><code>npx skills add autore/repo
+npx skills add autore/repo -g -a claude-code</code></pre>
     </div>
-  </div>
-  <div class="panel">
-    <span class="label">Come si usa</span>
-    <ul>
-      <li>Chiedete un compito che la Skill copre: Claude la sceglie e segue i passi.</li>
-      <li>Per forzarla: “Usa la Skill tono-ux-boutique per questo testo.”</li>
-      <li>Per controllare: “Quali Skill hai per questo compito?”</li>
-    </ul>
+    <div class="panel">
+      <span class="label">Sicurezza</span>
+      <p>Una Skill scaricata può contenere istruzioni e script. <b>Leggila prima di usarla</b>, come abbiamo fatto con i pacchetti installati nel repository.</p>
+    </div>
   </div>
 </section>
 
-<section class="slide" data-part="Parte C · Metodo e connessioni" data-title="5 · Testare e correggere">
-  <p class="eyebrow">Modulo 5 · Skills</p>
+<section class="slide" data-part="Parte 4 · Strumenti a fondo" data-title="11 · Testare e correggere">
+  <p class="eyebrow">Capitolo 11 · Skill</p>
   <h2>Testare con tre casi, poi correggere</h2>
   <ol class="steps cols">
-    <li><div><h3>Caso tipico</h3><p>“Scrivi un post per il servizio di audit.” Deve attivarsi e rispettare i criteri.</p></div></li>
-    <li><div><h3>Caso al limite</h3><p>“Scrivi una mail commerciale.” Deve adattarsi o chiedere.</p></div></li>
-    <li><div><h3>Caso fuori scopo</h3><p>“Riassumi il verbale interno.” Non deve attivarsi.</p></div></li>
+    <li><div><h3>Tipico</h3><p>Il compito per cui è nata: deve attivarsi e rispettare i criteri.</p></div></li>
+    <li><div><h3>Al limite</h3><p>Un compito simile: deve adattarsi o chiedere.</p></div></li>
+    <li><div><h3>Fuori scopo</h3><p>Un compito diverso: non deve attivarsi.</p></div></li>
   </ol>
   <div class="tw"><table>
-    <tr><th>Sintomo</th><th>Causa probabile</th><th>Correzione</th></tr>
-    <tr><td>Non si attiva mai</td><td>Descrizione vaga</td><td>Riscrivetela con le parole dell’utente</td></tr>
-    <tr><td>Si attiva sempre</td><td>Descrizione troppo ampia</td><td>Aggiungete “non usarla per…”</td></tr>
-    <tr><td>Si attiva ma sbaglia</td><td>Istruzioni ambigue</td><td>Aggiungete un passo o un esempio da evitare</td></tr>
-    <tr><td>Non compare nella lista</td><td>Nome del file o frontmatter</td><td>Controllate <code>SKILL.md</code> e i due campi</td></tr>
-    <tr><td>Upload rifiutato</td><td>Zip con cartella annidata o nome non valido</td><td>Ricomprimete con la cartella come radice</td></tr>
-  </table></div>
-  <p class="note"><b>Esercizio:</b> trasformate un compito ripetuto del vostro ruolo in Skill, testatela sui tre casi e portate il risultato in aula.</p>
-</section>
-
-<section class="slide" data-part="Parte C · Metodo e connessioni" data-title="6 · Connettori">
-  <p class="eyebrow">Modulo 6</p>
-  <h2>Connettori: Google Drive, Figma, Miro</h2>
-  <p class="goal"><b>Prerequisiti:</b> un account personale per ogni strumento. Nel piano Team l’owner o l’admin abilita il connettore prima che i membri lo colleghino. <span class="v">⚠ da verificare</span></p>
-  <ol class="steps">
-    <li><div><p>Impostazioni → <b>Connectors</b> → cercate lo strumento. <span class="v">⚠ da verificare</span></p></div></li>
-    <li><div><p><b>Connect</b> e accesso con il vostro account. Se il pulsante dice <b>Request</b>, serve l’abilitazione dell’admin. <span class="v">⚠ da verificare</span></p></div></li>
-    <li><div><p>Controllate i permessi concessi: solo lettura, o anche scrittura.</p></div></li>
-    <li><div><p>Test con una domanda semplice: “connesso” non significa “funzionante”.</p></div></li>
-  </ol>
-  <div class="cols">
-    <div class="panel">
-      <h3>Google Drive</h3>
-      <p>Documenti, fogli, presentazioni e PDF, secondo i vostri permessi.</p>
-      <p class="label">Richiesta</p>
-      <p>“Cerca nel Drive la cartella del cliente X e riassumi l’ultimo brief.”</p>
-    </div>
-    <div class="panel">
-      <h3>Figma</h3>
-      <p>Disponibile su qualsiasi piano Figma. Con l’accesso a livello di team, Claude vede solo i team autorizzati.</p>
-      <p class="label">Richiesta</p>
-      <p>“Dal file [link], estrai colori e font del design system in JSON.”</p>
-    </div>
-    <div class="panel">
-      <h3>Miro</h3>
-      <p>Board e note dei workshop. Chiedete esplicitamente di usarlo in ogni conversazione.</p>
-      <p class="label">Richiesta</p>
-      <p>“Nella board [nome], elenca le note raggruppate per tema.”</p>
-    </div>
-  </div>
-  <p class="note"><b>Errori comuni:</b> più permessi del necessario, richieste vaghe che trovano il file sbagliato, strumenti con dati riservati collegati senza consultare l’admin.</p>
-</section>
-
-<section class="slide" data-part="Parte C · Metodo e connessioni" data-title="7 · MCP e plugin">
-  <p class="eyebrow">Modulo 7</p>
-  <h2>MCP e plugin</h2>
-  <div class="cols">
-    <div class="panel">
-      <span class="label">MCP</span>
-      <p>Model Context Protocol: lo standard con cui uno strumento espone le sue funzioni a Claude. Funziona come una presa USB: niente adattatori su misura.</p>
-    </div>
-    <div class="panel">
-      <span class="label">Plugin</span>
-      <p>Un pacchetto che combina Skill, connettori e impostazioni per un ambito preciso, ad esempio project management.</p>
-    </div>
-  </div>
-  <div class="panel">
-    <span class="label">Come si imposta in Claude Code</span>
-    <pre><code>claude mcp add nome-server -- comando-del-server
-claude mcp list</code></pre>
-    <p><span class="v">⚠ da verificare</span> la sintassi nella documentazione aggiornata. Per Drive, Figma e Miro usate i connettori del modulo 6.</p>
-  </div>
-  <ol class="steps">
-    <li><div><p>Verificate se esiste un server ufficiale.</p></div></li>
-    <li><div><p>Installatelo in un progetto di prova e chiedete solo letture.</p></div></li>
-    <li><div><p>Abilitate le scritture solo dopo, con revisione di ogni azione proposta.</p></div></li>
-  </ol>
-</section>
-
-<!-- ============ PARTE D ============ -->
-<section class="slide divider" data-part="Parte D · Design" data-title="Parte D · Design">
-  <span class="letter">D</span>
-  <h2>Design</h2>
-  <ul>
-    <li><b>08</b>Claude Design</li>
-    <li><b>09</b>Figma MCP e passaggio al codice</li>
-  </ul>
-</section>
-
-<section class="slide" data-part="Parte D · Design" data-title="8 · Claude Design: cos’è">
-  <p class="eyebrow">Modulo 8 · Claude Design</p>
-  <h2>Cos’è Claude Design e cosa produce</h2>
-  <p class="goal"><b>Obiettivo:</b> produrre un prototipo, una presentazione o un one-pager da un brief, con contesto di brand, revisioni controllate ed export verificato.</p>
-  <div class="cols">
-    <div class="panel">
-      <span class="label">Cosa produce</span>
-      <ul>
-        <li><b>Prototipi:</b> pagine o flussi navigabili.</li>
-        <li><b>Slide:</b> da argomento, pubblico e numero di slide.</li>
-        <li><b>One-pager:</b> sintesi o proposte su una pagina.</li>
-        <li><b>Landing page:</b> campagne o prodotti.</li>
-      </ul>
-    </div>
-    <div class="panel">
-      <span class="label">Cosa non produce</span>
-      <ul>
-        <li>Fotografie e illustrazioni originali.</li>
-        <li>Video.</li>
-      </ul>
-      <p>Genera strutture, testi e stili da rivedere e modificare. Non è un generatore di immagini.</p>
-    </div>
-    <div class="panel">
-      <span class="label">Prerequisiti</span>
-      <ul>
-        <li>Accesso a Claude Design: presentato come anteprima di ricerca ad aprile 2026, l’accesso può dipendere dal piano. <span class="v">⚠ da verificare</span></li>
-        <li>Un brief con pubblico, obiettivo e formato.</li>
-        <li>Brand kit o design system: colori HEX, font, logo, componenti.</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="slide" data-part="Parte D · Design" data-title="8 · Impostare il lavoro">
-  <p class="eyebrow">Modulo 8 · Claude Design · Come si imposta</p>
-  <h2>Prima di generare: accesso, brand, brief</h2>
-  <ol class="steps">
-    <li><div><h3>Accesso</h3><p>Aprite Claude Design dal vostro account. Se non lo vedete, verificate il piano con l’admin. <span class="v">⚠ da verificare il punto di accesso</span></p></div></li>
-    <li><div><h3>Contesto del brand, una volta sola</h3><p>Un documento con palette in HEX, font e pesi, logo vettoriale o PNG trasparente, tono di voce con tre aggettivi, un testo approvato e i termini da evitare. Caricatelo nel Project del brand e, se possibile, collegatelo a Claude Design. <span class="v">⚠ da verificare</span></p></div></li>
-    <li><div><h3>Verifica del contesto</h3><pre><code>Descrivi il brand che stai usando:
-colori, font, tono.</code></pre><p>Se la risposta non corrisponde al documento, correggete il contesto prima di andare avanti.</p></div></li>
-    <li><div><h3>Brief</h3><p>Formato (prototipo, slide, one-pager, landing), pubblico e obiettivo, sezioni in ordine con il loro messaggio, uno screenshot di riferimento con una frase su cosa vi piace, vincoli come “mobile first”.</p></div></li>
-  </ol>
-</section>
-
-<section class="slide" data-part="Parte D · Design" data-title="8 · Dal brief al prototipo">
-  <p class="eyebrow">Modulo 8 · Claude Design · Come si usa</p>
-  <h2>Dal brief al prototipo, un passo per volta</h2>
-  <ol class="steps start5">
-    <li><div><h3>Struttura prima dello stile</h3><pre><code>Proponi tre strutture diverse. Per ciascuna:
-sezioni in ordine e contenuto. Non applicare
-ancora colori né font.</code></pre><p>Se struttura e stile arrivano insieme, non capite quale parte non funziona.</p></div></li>
-    <li><div><h3>Prototipo</h3><pre><code>Procedi con la struttura 2. Applica il brand
-del contesto. Versione mobile first.</code></pre></div></li>
-    <li><div><h3>Revisioni singole</h3><pre><code>Il titolo dell'hero è generico. Proponi tre
-alternative con un numero concreto. Applica
-la prima; non cambiare altro.</code></pre><p>Una modifica per messaggio, sempre con il perché.</p></div></li>
-  </ol>
-</section>
-
-<section class="slide" data-part="Parte D · Design" data-title="8 · Verifica ed export">
-  <p class="eyebrow">Modulo 8 · Claude Design</p>
-  <h2>Verificare, poi esportare</h2>
-  <div class="cols">
-    <div class="panel">
-      <span class="label">Checklist prima dell’export</span>
-      <ul class="check">
-        <li>Contenuti e numeri approvati e verificati</li>
-        <li>Colori e font uguali al brand kit</li>
-        <li>Layout corretto su mobile</li>
-        <li>Una sola call to action</li>
-        <li>Nessun cliente citato senza approvazione</li>
-      </ul>
-    </div>
-    <div class="panel">
-      <span class="label">Regola</span>
-      <p>Esportate solo dopo la checklist. Un export è più difficile da correggere della bozza.</p>
-      <p>Opzioni riportate da fonti di terze parti: <code>.zip</code>, PDF, PPTX, HTML autonomo, invio a Canva, passaggio a Claude Code. Export come immagine ed export in formato Figma non risultano confermati. <span class="v">⚠ da verificare</span></p>
-    </div>
-  </div>
-  <div class="tw"><table>
-    <tr><th>Formato</th><th>Quando</th><th>Attenzione</th></tr>
-    <tr><td><b>HTML</b></td><td>Prototipo da condividere o passare allo sviluppo</td><td>Controllate il mobile</td></tr>
-    <tr><td><b>PDF</b></td><td>One-pager da inviare o stampare</td><td>Testo poco modificabile</td></tr>
-    <tr><td><b>PPTX</b></td><td>Presentazione da modificare in PowerPoint o Keynote</td><td>Verificate i font</td></tr>
-    <tr><td><b>Canva</b></td><td>Lavoro da completare in Canva</td><td>Serve l’account Canva</td></tr>
-    <tr><td><b>Claude Code</b></td><td>Passaggio della struttura allo sviluppo</td><td>Vedi modulo 11</td></tr>
+    <tr><th>Sintomo</th><th>Causa</th><th>Correzione</th></tr>
+    <tr><td>Non si attiva</td><td>Descrizione vaga</td><td>Riscrivila con le parole dell’utente</td></tr>
+    <tr><td>Si attiva sempre</td><td>Descrizione troppo ampia</td><td>Aggiungi “Non usarla per…”</td></tr>
+    <tr><td>Si attiva ma sbaglia</td><td>Istruzioni ambigue</td><td>Un passo o un esempio “da evitare” in più</td></tr>
+    <tr><td>Non compare</td><td>File o intestazione</td><td>Controlla <code>SKILL.md</code>, <code>name</code>, <code>description</code></td></tr>
+    <tr><td>Upload rifiutato</td><td>Cartella annidata o nome non valido</td><td>Ricomprimi con la cartella come radice</td></tr>
   </table></div>
 </section>
 
-<section class="slide" data-part="Parte D · Design" data-title="8 · Esempio ed errori">
-  <p class="eyebrow">Modulo 8 · Esempio completo</p>
-  <h2>La landing del servizio di audit</h2>
-  <ol class="steps">
-    <li><div><p><b>Contesto:</b> Project “UX Boutique — Brand &amp; Tone” con brand kit. La descrizione del brand corrisponde.</p></div></li>
-    <li><div><p><b>Brief:</b> responsabili marketing e-commerce, obiettivo audit gratuito; hero, tre benefici misurabili, un caso studio, CTA, footer; mobile first.</p></div></li>
-    <li><div><p><b>Tre strutture,</b> scelta la seconda con il caso studio in alto.</p></div></li>
-    <li><div><p><b>Prototipo e revisione:</b> titolo dell’hero con un numero concreto.</p></div></li>
-    <li><div><p><b>Verifica:</b> numero del caso studio approvato, una CTA, mobile corretto.</p></div></li>
-    <li><div><p><b>Export:</b> HTML per la revisione del cliente, PDF per la sintesi interna.</p></div></li>
-  </ol>
+<section class="slide" data-part="Parte 4 · Strumenti a fondo" data-title="12 · Plugin: cos’è">
+  <p class="eyebrow">Capitolo 12 · Plugin</p>
+  <h2>Un plugin è un kit completo</h2>
+  <p class="inbreve"><b>In breve.</b> Un plugin installa insieme più pezzi: Skill, comandi, agenti, connettori, automazioni. Invece di configurare tutto a mano, hai un kit pronto per un ambito.</p>
   <div class="tw"><table>
-    <tr><th>Sintomo</th><th>Causa</th><th>Soluzione</th></tr>
-    <tr><td>Risultato generico</td><td>Brief vago</td><td>Pubblico, obiettivo, sezioni con il loro messaggio</td></tr>
-    <tr><td>Brand non riconoscibile</td><td>Contesto mancante o vecchio</td><td>Brand kit caricato e verificato</td></tr>
-    <tr><td>Claim non verificati</td><td>Nessuna regola di verifica</td><td>“Marca come da verificare” nelle istruzioni</td></tr>
-    <tr><td>Mobile rotto</td><td>Non richiesto</td><td>“Mobile first” nel formato</td></tr>
-    <tr><td>Cambiano struttura e stile insieme</td><td>Due richieste in un messaggio</td><td>Separate struttura e stile</td></tr>
+    <tr><th></th><th>Skill</th><th>Connettore / MCP</th><th>Plugin</th></tr>
+    <tr><td><b>Cos’è</b></td><td>Un metodo</td><td>Un collegamento a uno strumento</td><td>Un pacchetto di più pezzi</td></tr>
+    <tr><td><b>Cosa aggiunge</b></td><td>Il “come si fa”</td><td>Dati e azioni di uno strumento</td><td>Metodi, collegamenti e comandi insieme</td></tr>
+    <tr><td><b>Esempio</b></td><td>“Status report”</td><td>Google Drive</td><td>“Project Management”</td></tr>
   </table></div>
 </section>
 
-<section class="slide" data-part="Parte D · Design" data-title="9 · Figma e codice">
-  <p class="eyebrow">Modulo 9</p>
-  <h2>Design, Figma, codice: una fonte unica</h2>
-  <p class="goal"><b>Prerequisiti:</b> account Figma di team, connettore Figma collegato, design system con token.</p>
-  <div class="flow">
-    <div class="panel"><span class="label">1 · Design</span><p>Il brief diventa un prototipo in Claude Design.</p></div>
-    <div class="panel"><span class="label">2 · Figma</span><p>Il design system fornisce token (colori, spaziature, font) e componenti.</p></div>
-    <div class="panel"><span class="label">3 · Code</span><p>Claude Code usa gli stessi token per generare il componente.</p></div>
-  </div>
+<section class="slide" data-part="Parte 4 · Strumenti a fondo" data-title="12 · Due tipi di plugin">
+  <p class="eyebrow">Capitolo 12 · Plugin</p>
+  <h2>Stesso nome, due posti diversi</h2>
+  <div class="tw"><table>
+    <tr><th></th><th>Plugin di Claude Code</th><th>Plugin di Cowork</th></tr>
+    <tr><td><b>Dove</b></td><td>Claude Code: terminale, desktop, web</td><td>Scheda Cowork dell’app desktop</td></tr>
+    <tr><td><b>Contengono</b></td><td>Comandi slash, subagent, Skill, hook, server MCP</td><td>Skill, connettori, subagent</td></tr>
+    <tr><td><b>Per chi</b></td><td>Sviluppo e chi lavora sui file con Claude Code</td><td>Chi lavora su documenti, anche senza programmare</td></tr>
+    <tr><td><b>Ufficiali</b></td><td>Marketplace <code>claude-plugins-official</code></td><td>Plugin Anthropic gratuiti per marketing, PM, vendite e altro</td></tr>
+  </table></div>
+  <p class="note">Disponibilità dei plugin di Cowork nel vostro piano: <span class="v">⚠ da verificare</span></p>
+</section>
+
+<section class="slide" data-part="Parte 4 · Strumenti a fondo" data-title="12 · Installare e creare un plugin">
+  <p class="eyebrow">Capitolo 12 · Plugin</p>
+  <h2>Installare e creare un plugin in Claude Code</h2>
   <div class="cols">
     <div class="panel">
-      <span class="label">Come si imposta</span>
-      <ol class="steps">
-        <li><div><p>Collegate il connettore Figma.</p></div></li>
-        <li><div><p>“Elenca i file Figma a cui hai accesso.”</p></div></li>
-        <li><div><p>Salvate i token in <code>design/tokens.json</code> nel repository.</p></div></li>
-      </ol>
+      <span class="label">Installare</span>
+      <pre><code>/plugin marketplace add autore/repo
+/plugin install nome@marketplace
+/plugin</code></pre>
+      <p>Il primo comando aggiunge un catalogo, il secondo installa, il terzo gestisce.</p>
     </div>
     <div class="panel">
-      <span class="label">Come si usa</span>
-      <pre><code>Usando i token in design/tokens.json,
-crea il componente card con questo layout.
-Non introdurre colori fuori dai token.</code></pre>
-      <p>Le scritture su Figma si fanno su una copia o su una pagina di prova: il file è del team.</p>
+      <span class="label">Com’è fatto</span>
+      <pre><code>plugin-ux-boutique/
+├── .claude-plugin/plugin.json
+├── commands/   ← /status-report
+├── agents/     ← subagent
+├── skills/     ← Skill
+├── hooks/      ← automazioni
+└── .mcp.json   ← server MCP</code></pre>
+      <p class="muted">Nomi delle cartelle: <span class="v">⚠ da verificare</span></p>
+      <pre><code>claude --plugin-dir ./plugin-ux-boutique</code></pre>
+      <p class="muted">Prova il plugin in locale.</p>
+    </div>
+    <div class="panel">
+      <span class="label">Per il team e in sicurezza</span>
+      <p><b>Marketplace del team:</b> un repository con <code>.claude-plugin/marketplace.json</code>. Tutti installano gli stessi strumenti con due comandi.</p>
+      <p><b>Sicurezza:</b> un plugin può eseguire comandi. Gli hook li eseguono in automatico. Installa solo da fonti affidabili e leggi cosa contiene.</p>
     </div>
   </div>
 </section>
 
-<!-- ============ PARTE E ============ -->
-<section class="slide divider" data-part="Parte E · Claude Code" data-title="Parte E · Claude Code">
-  <span class="letter">E</span>
-  <h2>Claude Code</h2>
-  <ul>
-    <li><b>10</b>Installazione, cartelle e Git</li>
-    <li><b>11</b>CLAUDE.md, plan mode, permessi, subagent</li>
-  </ul>
-</section>
-
-<section class="slide" data-part="Parte E · Claude Code" data-title="10 · Installazione e Git">
-  <p class="eyebrow">Modulo 10</p>
-  <h2>Claude Code: un agente che lavora sui file</h2>
-  <p class="goal">Legge, modifica e crea file ed esegue comandi, con la vostra supervisione. Non è solo per sviluppatori: chi lavora su documenti in cartelle ne trae lo stesso vantaggio.</p>
-  <div class="cols">
-    <div class="panel">
-      <span class="label">Installazione e primo avvio</span>
-      <p>App desktop oppure terminale, seguendo la documentazione ufficiale. <span class="v">⚠ da verificare il comando</span></p>
-      <pre><code>cd percorso/della/cartella
-git init      # solo se non è un repository
-claude        # avvia Claude Code</code></pre>
-      <p>Prima richiesta: “Elenca i file di questa cartella e spiega cosa contengono.”</p>
-    </div>
-    <div class="panel">
-      <span class="label">Git in breve</span>
-      <ul>
-        <li><b>Commit:</b> una versione salvata con una descrizione.</li>
-        <li><b>Branch:</b> una linea di lavoro separata.</li>
-        <li><b>Push:</b> invio delle modifiche al repository remoto.</li>
-        <li><b>Pull request:</b> richiesta di unire un branch, con revisione.</li>
-      </ul>
-      <pre><code>git status
-git add percorso/del/file
-git commit -m "Descrizione chiara"
-git log --oneline -5</code></pre>
-    </div>
-  </div>
-  <p class="note"><b>Errori comuni:</b> lavorare senza Git, commit enormi con modifiche non correlate, credenziali nei file del repository.</p>
-</section>
-
-<section class="slide" data-part="Parte E · Claude Code" data-title="11 · CLAUDE.md">
-  <p class="eyebrow">Modulo 11</p>
-  <h2>CLAUDE.md: le istruzioni permanenti del progetto</h2>
-  <div class="cols" style="grid-template-columns:repeat(auto-fit, minmax(320px, 1fr))">
-    <pre><code># Progetto: landing audit UX Boutique
-
-## Cos'è
-Landing page per il servizio di audit.
-Lingua italiana.
-
-## Stack
-- HTML e CSS, nessun framework.
-- Token di design in design/tokens.json.
-
-## Regole
-- Tono dei testi: docs/tono-di-voce.md.
-- Non modificare la cartella legacy/.
-- Non committare chiavi o credenziali.
-
-## Come lavorare
-- Prima di modifiche su più file, mostra
-  il piano e aspetta approvazione.
-- Dopo ogni modifica, elenca i file cambiati.</code></pre>
-    <div class="panel">
-      <span class="label">Dove vive</span>
-      <ul>
-        <li>Nella radice del progetto: condiviso con il team.</li>
-        <li>Nella cartella dell’utente: personale.</li>
-        <li>A livello di organizzazione: impostazioni gestite. <span class="v">⚠ da verificare</span></li>
-      </ul>
-      <span class="label">Regole di scrittura</span>
-      <ul>
-        <li>Breve e ordinato: le regole importanti non devono perdersi.</li>
-        <li>Indicate cosa non toccare e dove sono le regole di stile.</li>
-      </ul>
-      <span class="label">Verifica</span>
-      <p>“Quali regole del CLAUDE.md stai applicando?”</p>
-    </div>
-  </div>
-</section>
-
-<section class="slide" data-part="Parte E · Claude Code" data-title="11 · Plan mode e permessi">
-  <p class="eyebrow">Modulo 11</p>
-  <h2>Plan mode, permessi, subagent</h2>
-  <div class="cols">
-    <div class="panel">
-      <h3>Plan mode</h3>
-      <p>Claude propone un piano e aspetta l’approvazione prima di modificare i file.</p>
-      <p>Attivazione: Shift+Tab, il comando <code>/plan</code> o il flag di avvio. <span class="v">⚠ da verificare</span></p>
-    </div>
-    <div class="panel">
-      <h3>Permessi</h3>
-      <p>Claude Code chiede conferma per modificare file ed eseguire comandi. Concedete per una singola azione o per la sessione, mai “approva tutto” alla cieca.</p>
-    </div>
-    <div class="panel">
-      <h3>Subagent</h3>
-      <p>Agenti secondari per un sotto-compito. Tra quelli integrati ci sono Explore e Plan; secondo la documentazione ufficiale non caricano CLAUDE.md, per restare veloci.</p>
-    </div>
-  </div>
-  <div class="panel">
-    <span class="label">Richiesta in plan mode</span>
-    <pre><code>Aggiungi alla landing una sezione "Caso studio" con tre numeri
-da design/tokens.json. Non introdurre colori fuori dai token.
-Mostra il piano con i file che tocchi.</code></pre>
-  </div>
+<section class="slide" data-part="Parte 4 · Strumenti a fondo" data-title="13 · Connettori e MCP">
+  <p class="eyebrow">Capitolo 13</p>
+  <h2>Connettori: Drive, Figma, Miro</h2>
+  <p class="inbreve"><b>In breve.</b> I connettori collegano Claude ai vostri strumenti. MCP è lo standard su cui si basano.</p>
   <ol class="steps">
-    <li><div><p>Leggete il piano. Se un passo non è chiaro, chiedete di spiegarlo.</p></div></li>
-    <li><div><p>Approvate, verificate il risultato, fate commit.</p></div></li>
+    <li><div><p>Impostazioni → <b>Connectors</b> → cerca lo strumento. <span class="v">⚠ da verificare</span></p></div></li>
+    <li><div><p><b>Connect</b> con il tuo account. Se vedi <b>Request</b>, serve l’admin. <span class="v">⚠ da verificare</span></p></div></li>
+    <li><div><p>Controlla i permessi e fai un test: “Elenca i file a cui hai accesso.”</p></div></li>
   </ol>
+  <div class="tw"><table>
+    <tr><th>Strumento</th><th>Cosa fa</th><th>Richiesta di esempio</th></tr>
+    <tr><td><b>Google Drive</b></td><td>Documenti, fogli, presentazioni, PDF</td><td>“Riassumi l’ultimo brief del cliente X.”</td></tr>
+    <tr><td><b>Figma</b></td><td>Token e componenti; scrive sul canvas</td><td>“Estrai colori e font dal file [link].”</td></tr>
+    <tr><td><b>Miro</b></td><td>Board e note</td><td>“Raggruppa per tema le note della board [nome].”</td></tr>
+  </table></div>
 </section>
 
-<!-- ============ PARTE F ============ -->
-<section class="slide divider" data-part="Parte F · Operatività" data-title="Parte F · Operatività">
-  <span class="letter">F</span>
-  <h2>Operatività</h2>
+<!-- ================= PARTE 5 ================= -->
+<section class="slide divider" data-part="Parte 5 · Lavorare bene" data-title="Parte 5 · Lavorare bene">
+  <span class="letter">5</span>
+  <h2>Lavorare bene</h2>
   <ul>
-    <li><b>12</b>Attività programmate</li>
-    <li><b>13</b>Qualità, privacy e checklist</li>
+    <li><b>14</b>Prima i file, poi l’artefatto</li>
+    <li><b>15</b>Qualità, privacy e checklist</li>
   </ul>
 </section>
 
-<section class="slide" data-part="Parte F · Operatività" data-title="12 · Attività programmate">
-  <p class="eyebrow">Modulo 12</p>
-  <h2>Attività programmate</h2>
-  <p class="goal"><b>Obiettivo:</b> automatizzare un compito ripetuto con un controllo umano sull’output. <b>Prerequisiti:</b> una Skill o un Project già testati.</p>
-  <div class="cols">
-    <div class="panel">
-      <span class="label">Come si imposta</span>
-      <ol class="steps">
-        <li><div><p>Scrivete il compito come per un collega: input, passi, output, destinazione.</p></div></li>
-        <li><div><p>Fatelo una volta a mano, con esito positivo.</p></div></li>
-        <li><div><p>Programmate l’intervallo. <span class="v">⚠ da verificare dove</span></p></div></li>
-        <li><div><p>Definite dove finisce l’output.</p></div></li>
-      </ol>
-    </div>
-    <div class="panel">
-      <span class="label">Esempio: report settimanale</span>
-      <ol class="steps">
-        <li><div><p>Note della settimana da Drive, riassunte con la Skill “status report”.</p></div></li>
-        <li><div><p>Programmazione: ogni lunedì mattina.</p></div></li>
-        <li><div><p>Output in un documento condiviso, con la riga “Da verificare”.</p></div></li>
-        <li><div><p>Revisione del PM prima della condivisione.</p></div></li>
-      </ol>
-    </div>
-  </div>
-  <p class="note">Nessun output automatico va a un cliente senza essere riletto.</p>
+<section class="slide" data-part="Parte 5 · Lavorare bene" data-title="14 · Prima i file">
+  <p class="eyebrow">Capitolo 14 · Metodo</p>
+  <h2>Prima i file, poi l’artefatto</h2>
+  <p class="inbreve"><b>In breve.</b> Prepara i contenuti in file <code>.md</code> e trasformali in artefatto solo alla fine. Ogni modifica tocca solo la parte che serve, e la storia resta in Git.</p>
+  <ol class="steps">
+    <li><div><p>Una cartella con un file per sezione e un <code>indice.md</code>.</p></div></li>
+    <li><div><p>“Modifica solo <code>02-servizi.md</code>: riduci a tre punti.”</p></div></li>
+    <li><div><p><code>git diff</code> per vedere cosa è cambiato, un commit per sezione.</p></div></li>
+    <li><div><p>Alla fine: “Crea la presentazione HTML dai file approvati.”</p></div></li>
+  </ol>
+  <p class="note">Più economico anche in token nei documenti lunghi: vantaggio pratico, non misurato. Questo corso è stato costruito così.</p>
 </section>
 
-<section class="slide" data-part="Parte F · Operatività" data-title="13 · Qualità e privacy">
-  <p class="eyebrow">Modulo 13</p>
+<section class="slide" data-part="Parte 5 · Lavorare bene" data-title="15 · Qualità e privacy">
+  <p class="eyebrow">Capitolo 15</p>
   <h2>Qualità, privacy e checklist</h2>
   <div class="cols">
     <div class="panel">
       <span class="label">Verificare</span>
       <ul>
-        <li><b>Fatti:</b> chi, cosa, quando. Aprite la fonte.</li>
-        <li><b>Numeri:</b> ricalcolate un campione.</li>
-        <li><b>Codice:</b> eseguitelo e leggetelo.</li>
+        <li><b>Fatti:</b> apri la fonte.</li>
+        <li><b>Numeri:</b> ricalcola un campione.</li>
+        <li><b>Codice:</b> eseguilo e leggilo.</li>
+        <li><b>Citazioni:</b> controlla che esistano.</li>
       </ul>
     </div>
     <div class="panel">
       <span class="label">Non caricare mai</span>
       <ul>
-        <li>Password, chiavi API, credenziali.</li>
-        <li>Dati personali di clienti senza base legale.</li>
-        <li>Documenti coperti da NDA, se non lo consentono.</li>
+        <li>Password, chiavi API, credenziali</li>
+        <li>Dati personali senza base legale</li>
+        <li>Documenti sotto NDA, se non consentito</li>
       </ul>
-      <p>Anonimizzate i casi reali. Verificate con l’admin le impostazioni privacy del piano Team.</p>
+      <p>Sui casi reali, anonimizza.</p>
     </div>
     <div class="panel">
       <span class="label">Prima della consegna</span>
       <ul class="check">
-        <li>Fatti e numeri verificati sulla fonte</li>
-        <li>Nessun dato sensibile o NDA</li>
+        <li>Fatti e numeri verificati</li>
+        <li>Nessun dato sensibile</li>
         <li>Tono e brand rispettati</li>
-        <li>Test su mobile e browser diversi</li>
-        <li>Asset con licenza utilizzabile</li>
+        <li>Test su telefono e browser</li>
+        <li>Immagini e font con licenza</li>
         <li>Approvazione del referente</li>
       </ul>
     </div>
   </div>
 </section>
 
-<!-- ============ PARTE G ============ -->
-<section class="slide divider" data-part="Parte G · Applicazione" data-title="Parte G · Applicazione">
-  <span class="letter">G</span>
-  <h2>Applicazione</h2>
-  <ul>
-    <li><b>14</b>Percorsi per ruolo</li>
-    <li><b>15</b>Workshop finale</li>
-  </ul>
+<!-- ================= PARTE 6 ================= -->
+<section class="slide" data-part="Parte 6 · Pratica" data-title="16 · Percorso di esercizi">
+  <p class="eyebrow">Capitolo 16 · Pratica</p>
+  <h2>Otto esercizi, dal più facile</h2>
+  <div class="tw"><table>
+    <tr><th>#</th><th>Esercizio</th><th>Cap.</th></tr>
+    <tr><td>1</td><td>Riscrivi un tuo prompt con il BRIEF e confronta i risultati</td><td>4</td></tr>
+    <tr><td>2</td><td>Crea il Project del tuo ruolo e testalo</td><td>5</td></tr>
+    <tr><td>3</td><td>Tre compiti del tuo ruolo con i prompt pronti</td><td>6–8</td></tr>
+    <tr><td>4</td><td>Una landing in Claude Design: tre strutture, tre revisioni, export</td><td>9</td></tr>
+    <tr><td>5</td><td>Con Claude Code, da <code>.md</code> a pagina HTML in plan mode</td><td>10</td></tr>
+    <tr><td>6</td><td>Crea una Skill chiedendola a Claude e testala sui tre casi</td><td>11</td></tr>
+    <tr><td>7</td><td>Esplora <code>/plugin</code> e valuta un plugin per il tuo ruolo</td><td>12</td></tr>
+    <tr><td>8</td><td>Collega Drive o Miro e usa i dati in un report</td><td>13</td></tr>
+  </table></div>
+  <p class="note"><b>Workshop finale a coppie miste:</b> un workflow completo con BRIEF, Project, Skill se serve, connettori, output e checklist. Tre minuti per presentarlo.</p>
 </section>
 
-<section class="slide" data-part="Parte G · Applicazione" data-title="14 · Percorsi per ruolo">
-  <p class="eyebrow">Modulo 14</p>
-  <h2>Percorsi per ruolo</h2>
-  <p class="goal">Un livello è raggiunto quando il compito è ripetibile senza di voi.</p>
+<section class="slide" data-part="Chiusura" data-title="Scelta rapida">
+  <p class="eyebrow">Da tenere aperta</p>
+  <h2>Scelta rapida</h2>
   <div class="tw"><table>
-    <tr><th>Ruolo</th><th>Base</th><th>Intermedio</th><th>Avanzato</th></tr>
-    <tr><td><b>Marketing</b></td><td>Testi, post, varianti di copy</td><td>Project di brand, piano editoriale, competitor con fonti</td><td>Skill del tono, campagne con Claude Design, report da CSV</td></tr>
-    <tr><td><b>Project Management</b></td><td>Verbali, email, riassunti</td><td>Project per cliente, stime, rischi, status report</td><td>Drive e Miro, Skill “status report”, attività programmate</td></tr>
-    <tr><td><b>UX/UI e Product</b></td><td>Sintesi di interviste, personas, microcopy</td><td>User journey, architettura dell’informazione, euristica</td><td>Token da Figma, prototipi, handoff a Claude Code, accessibilità</td></tr>
-    <tr><td><b>Art Direction</b></td><td>Concept, moodboard testuali, naming, claim</td><td>Brief creativi, riferimenti, varianti di layout</td><td>Claude Design per visual e one-pager, brand kit, Canva</td></tr>
-    <tr><td><b>Sviluppo</b></td><td>Spiegare codice, snippet, regex, query</td><td>Debug, test, documentazione, code review</td><td>CLAUDE.md, subagent, GitHub, da Figma al codice</td></tr>
+    <tr><th>Voglio…</th><th>Strumento</th><th>Cap.</th></tr>
+    <tr><td>Una risposta, un testo, un’analisi</td><td><b>Chat</b></td><td>4</td></tr>
+    <tr><td>Lavorare sempre con lo stesso contesto</td><td><b>Project</b></td><td>5</td></tr>
+    <tr><td>Un visual, un prototipo, una slide</td><td><b>Claude Design</b></td><td>9</td></tr>
+    <tr><td>Lavorare su file e cartelle senza programmare</td><td><b>Cowork</b></td><td>2</td></tr>
+    <tr><td>Codice, siti, file con versioni</td><td><b>Claude Code</b></td><td>10</td></tr>
+    <tr><td>Fare un compito sempre allo stesso modo</td><td><b>Skill</b></td><td>11</td></tr>
+    <tr><td>Installare un kit completo</td><td><b>Plugin</b></td><td>12</td></tr>
+    <tr><td>Usare i dati di Drive, Figma, Miro</td><td><b>Connettori</b></td><td>13</td></tr>
   </table></div>
 </section>
 
-<section class="slide" data-part="Parte G · Applicazione" data-title="15 · Workshop finale">
-  <p class="eyebrow">Modulo 15</p>
-  <h2>Workshop finale a coppie miste</h2>
-  <div class="cols">
-    <div class="panel">
-      <span class="label">Workflow a scelta</span>
-      <ul>
-        <li>UX research e analisi dei competitor</li>
-        <li>Redesign di una pagina</li>
-        <li>Nuovo prodotto: dal brief al prototipo</li>
-        <li>Campagna: dalla strategia ai contenuti</li>
-        <li>Automazione di un processo di PM</li>
-        <li>Sviluppo: dalla richiesta al commit</li>
-      </ul>
-    </div>
-    <div class="panel">
-      <span class="label">Passi</span>
-      <ol class="steps">
-        <li><div><p>BRIEF del workflow.</p></div></li>
-        <li><div><p>Project e, se serve, una Skill.</p></div></li>
-        <li><div><p>Connettori necessari.</p></div></li>
-        <li><div><p>Output in Artifact o Claude Design.</p></div></li>
-        <li><div><p>Checklist del modulo 13.</p></div></li>
-        <li><div><p>Tre minuti di presentazione: fatto, verificato, non fatto.</p></div></li>
-      </ol>
-    </div>
-    <div class="panel">
-      <span class="label">Criteri di valutazione</span>
-      <ul class="check">
-        <li>BRIEF con tutte le parti necessarie</li>
-        <li>Contesto nel Project, non ripetuto</li>
-        <li>Controllo umano documentato per ogni output</li>
-        <li>Checklist completa</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- ============ CHIUSURA ============ -->
 <section class="slide" data-part="Chiusura" data-title="Da verificare">
-  <p class="eyebrow">Prima della prima sessione</p>
-  <h2>Cinque passaggi da verificare nel vostro account</h2>
-  <ol class="steps">
-    <li><div><p>Percorso di caricamento delle Skill su claude.ai.</p></div></li>
-    <li><div><p>Punto di accesso e opzioni di export di Claude Design nel vostro piano.</p></div></li>
-    <li><div><p>Abilitazione dei connettori Miro e Drive da parte dell’owner.</p></div></li>
-    <li><div><p>Scorciatoie e comandi di plan mode nella versione installata di Claude Code.</p></div></li>
-    <li><div><p>Sintassi aggiornata di <code>claude mcp add</code>.</p></div></li>
+  <p class="eyebrow">Prima del corso</p>
+  <h2>Da verificare nel vostro account</h2>
+  <ol class="steps cols" style="grid-template-columns:repeat(auto-fit, minmax(300px, 1fr))">
+    <li><div><p>Posizionamento del modello Fable.</p></div></li>
+    <li><div><p>Cowork e Claude Design nel piano Team, e punto di accesso.</p></div></li>
+    <li><div><p>Caricamento delle Skill su claude.ai e condivisione nel team.</p></div></li>
+    <li><div><p>Opzioni di export di Claude Design.</p></div></li>
+    <li><div><p>Connettori Drive, Figma e Miro abilitati dall’admin.</p></div></li>
+    <li><div><p>Plan mode, comandi e subagent nella versione di Claude Code.</p></div></li>
+    <li><div><p>Struttura delle cartelle di un plugin e marketplace ufficiale.</p></div></li>
+    <li><div><p>Sintassi di <code>claude mcp add</code>.</p></div></li>
   </ol>
-  <p class="note">Le fonti del corso sono la documentazione Anthropic e l’help center Figma (struttura delle Skill, subagent, connettore Figma) e guide di terze parti (percorsi di menu, scorciatoie, export di Claude Design). Le seconde vanno verificate.</p>
 </section>
 
 <section class="slide" data-part="Chiusura" data-title="Prossimi passi">
   <p class="eyebrow">Chiusura</p>
   <h2>Prossimi passi</h2>
   <div class="cols">
+    <div class="panel"><span class="label">Questa settimana</span><p>Ognuno crea il Project del proprio ruolo.</p></div>
     <div class="panel"><span class="label">Entro due settimane</span><p>Una Skill del team, testata sui tre casi.</p></div>
-    <div class="panel"><span class="label">Entro un mese</span><p>Un workflow automatizzato, con controllo umano.</p></div>
-    <div class="panel"><span class="label">Sempre</span><p>Un referente per il playbook AI UX Boutique.</p></div>
+    <div class="panel"><span class="label">Entro un mese</span><p>Il design system in Claude Design e un workflow automatizzato.</p></div>
   </div>
-  <p class="lead">Materiali: corso strutturato in <code>course/corso-strutturato.md</code>, questa presentazione in <code>course/corso-strutturato.html</code>.</p>
+  <p class="lead">Dispensa completa: <code>course/corso-strutturato.md</code>. Presentazione: <code>course/corso-strutturato.html</code>.</p>
 </section>
 
   </main>

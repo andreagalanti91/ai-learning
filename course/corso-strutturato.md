@@ -1,985 +1,1205 @@
-# Claude AI — Corso strutturato
-### Dal prompt al building · Versione 1.0 · UX Boutique
+# Claude per il lavoro
+### Corso completo · versione 2.0 · UX Boutique
+
+> Un corso per usare Claude nel lavoro di ogni giorno: marketing, design e sviluppo.
+> Scritto in modo semplice, con esempi pronti da copiare.
 
 ---
 
-## Come leggere questo corso
+## Come usare questo corso
 
-Questo è il documento di riferimento. Sostituisce `corso-approfondito.md` e `guida-operativa.md`, che restano come archivio.
+Ogni capitolo ha sempre le stesse parti:
 
-**Ogni modulo ha la stessa struttura:**
-
-| Sezione | A cosa serve |
+| Parte | Cosa trovi |
 |---|---|
-| **Obiettivo** | Cosa saprete fare alla fine del modulo |
-| **Prerequisiti** | Cosa dovete avere già pronto |
-| **Concetto** | Cos'è la funzione e a cosa serve |
-| **Come si imposta** | Passi di configurazione, una sola volta |
-| **Come si usa** | Passi di utilizzo, ogni giorno |
-| **Esempio completo** | Un caso reale dall'inizio alla fine |
-| **Errori comuni** | Cosa va storto più spesso e come si corregge |
-| **Verifica** | Domande per capire se avete capito |
-| **Esercizio** | Lavoro pratico da fare in aula o a casa |
+| **In breve** | L'idea in tre righe. Se leggi solo questo, hai capito il capitolo. |
+| **Come funziona** | La spiegazione, con esempi della vita reale. |
+| **Passo per passo** | Cosa fare, in ordine. |
+| **Esempio** | Un caso completo, da copiare. |
+| **Errori da evitare** | Cosa va storto più spesso. |
+| **Prova tu** | Un esercizio di 10–20 minuti. |
 
-**Convenzioni.**
-- **⚠ Da verificare** segna un passaggio che non ho confermato nella documentazione ufficiale. Nomi di menu e percorsi cambiano spesso: prima di ogni sessione, rifate il passaggio nel vostro account.
-- I comandi da terminale sono in blocchi di codice. Si copiano così come sono.
-- Gli esempi usano il contesto di UX Boutique. Sostituite i dettagli con quelli del vostro lavoro.
+**Simboli.**
+- **⚠ Da verificare**: passaggio che non ho trovato confermato nella documentazione ufficiale, oppure che cambia spesso. Prima del corso, ricontrollalo nel tuo account.
+- Il testo nei blocchi grigi è da copiare così com'è.
 
 **Mappa del corso.**
 
-| Parte | Moduli | Tema |
+| Parte | Capitoli | Domanda a cui risponde |
 |---|---|---|
-| A | 1–2 | Fondamenti e prompt |
-| B | 3–4 | Contesto e output |
-| C | 5–7 | Metodo e connessioni |
-| D | 8–9 | Design e Figma |
-| E | 10–11 | Claude Code |
-| F | 12–13 | Operatività, qualità e privacy |
-| G | 14–15 | Applicazione: ruoli e workshop finale |
+| 1 · Capire Claude | 1–3 | Cos'è Claude e quale versione uso? |
+| 2 · Parlare con Claude | 4–5 | Come scrivo richieste che funzionano? |
+| 3 · Claude nel lavoro | 6–8 | Cosa ci faccio in marketing, design e sviluppo? |
+| 4 · Strumenti a fondo | 9–13 | Come uso Claude Design, Claude Code, Skill, Plugin, connettori? |
+| 5 · Lavorare bene | 14–15 | Come lavoro in modo ordinato e sicuro? |
+| 6 · Pratica | 16 | Da dove comincio? |
 
 ---
 
-## Parte A — Fondamenti
+# Parte 1 · Capire Claude
 
-### Modulo 1 — Come funziona Claude
+## 1 · Claude in cinque minuti
 
-**Obiettivo.** Scegliere il modello giusto per un compito e riconoscere i limiti del sistema.
+### In breve
+Claude è un assistente che legge, scrive, ragiona e lavora su file. È molto preparato, ma non conosce la tua azienda finché non gliela racconti. Più contesto gli dai, migliore è il risultato.
 
-**Prerequisiti.** Un account Claude attivo con il piano Team.
+### Come funziona
+Immagina un collega appena assunto, bravissimo e velocissimo:
+- sa scrivere, analizzare, riassumere, programmare, organizzare;
+- **non sa** chi sono i vostri clienti, che tono usate, cosa è stato deciso ieri;
+- se non è sicuro di qualcosa, a volte **inventa** una risposta plausibile invece di dire "non lo so".
 
-**Concetto.** Claude è un modello linguistico: genera risposte a partire da ciò che vede nella conversazione. Non consulta un database e non ha memoria delle cose che non gli avete fornito. Da questo derivano tre conseguenze pratiche:
-- è molto bravo con testo, struttura, ragionamento e codice;
-- può sbagliare fatti, numeri e citazioni, e lo fa con sicurezza;
-- la qualità dipende da quanto contesto gli date.
+Da qui nascono tre regole d'oro:
 
-**Come si imposta.** Non c'è configurazione. Verificate il modello attivo nel selettore della chat *(⚠ da verificare: il nome del selettore cambia tra interfacce)*.
+1. **Dagli contesto.** Chi siamo, per chi lavoriamo, a cosa serve il lavoro.
+2. **Digli cosa vuoi esattamente.** Formato, lunghezza, tono, cosa escludere.
+3. **Controlla il risultato.** Fatti, numeri, nomi e citazioni vanno sempre verificati.
 
-**Come si usa.**
+### Cosa sa fare bene
+- Scrivere e riscrivere testi in molti toni e lingue.
+- Riassumere documenti lunghi, verbali, interviste.
+- Analizzare file: PDF, fogli Excel, immagini, screenshot.
+- Ragionare su problemi: pro e contro, strategie, alternative.
+- Scrivere e correggere codice.
+- Creare documenti, presentazioni, prototipi.
 
-*Tre modelli, tre scopi.*
+### Cosa non fa (o fa male)
+- Non genera fotografie o illustrazioni originali: per quelle servono altri strumenti.
+- Non sa cosa è successo dopo il suo addestramento, a meno che non usi la ricerca web.
+- Non ricorda le altre conversazioni, a meno che non usi Project e memoria (cap. 5).
 
-| Modello | Quando usarlo | Esempio |
-|---|---|---|
-| **Haiku** | Compiti semplici, ripetitivi, in volume | Correggere 50 descrizioni prodotto |
-| **Sonnet** | Lavoro quotidiano, il default consigliato | Scrivere un post, riassumere un verbale |
-| **Opus** | Ragionamenti complessi e lavori delicati | Analizzare una strategia, un contratto, un bug difficile |
-
-*Effort.* Alcune impostazioni fanno ragionare Claude più a lungo prima di rispondere. Più effort significa risposte più accurate su problemi complessi, ma tempi e utilizzo più alti. Per riscrivere un paragrafo non serve; per una decisione di design sì.
-
-*Finestra di contesto.* Claude lavora su una quantità limitata di testo. In una chat molto lunga, le informazioni all'inizio possono perdere peso. Soluzioni: Project (modulo 3) e riassunti di chat.
-
-*Verifica.* Ogni fatto, numero o citazione va controllato sulla fonte originale.
-
-**Esempio completo.** Stessa domanda, tre modelli: "Riassumi questo verbale in cinque punti con responsabili e scadenze." Confrontate tempi, precisione e formato. Scegliete il modello più economico che rispetta la qualità richiesta.
-
-**Errori comuni.**
-- Usare sempre il modello più potente per tutto: lento e costoso.
-- Fidarsi di una citazione senza aprire la fonte.
-- Continuare una chat di tre giorni su un argomento nuovo: meglio aprirne una nuova.
-
-**Verifica.**
-1. Quale modello sceglieresti per 200 descrizioni prodotto da correggere? Perché?
-2. Perché una chat molto lunga può dare risposte peggiori?
-
-**Esercizio.** Scegliete un compito della vostra settimana. Eseguitelo con due modelli diversi e annotate differenza di qualità e tempo.
+### Prova tu
+Chiedi a Claude: "Spiegami cosa fa un'agenzia UX in tre frasi." Poi chiedi la stessa cosa aggiungendo chi è il pubblico (per esempio "per il titolare di un piccolo e-commerce"). Confronta le due risposte.
 
 ---
 
-### Modulo 2 — Prompt con il metodo BRIEF
+## 2 · Le differenze tra i "Claude"
 
-**Obiettivo.** Scrivere un prompt che produce un risultato utilizzabile al primo o secondo tentativo.
+### In breve
+Quando si dice "Claude" si intendono due cose diverse:
+- **il modello**, cioè il "cervello": Haiku, Sonnet, Opus (e i nuovi nomi della famiglia);
+- **il prodotto**, cioè il "posto di lavoro": la chat, Claude Design, Cowork, Claude Code.
 
-**Prerequisiti.** Un compito reale da svolgere.
+Stesso cervello, posti di lavoro diversi per compiti diversi.
 
-**Concetto.** Un prompt semplice lascia a Claude tutte le decisioni: pubblico, tono, lunghezza, formato. Il metodo BRIEF rende esplicite queste scelte.
+### 2.1 I modelli: il cervello
 
-| Lettera | Parte | Domanda guida | Esempio |
+| Modello | Com'è | Quando usarlo | Esempio |
 |---|---|---|---|
-| **B** | Background | Qual è il contesto? | "UX Boutique offre audit di usabilità per e-commerce medi." |
-| **R** | Ruolo | Chi risponde, con quale competenza? | "Sei un copywriter senior, tono sobrio." |
-| **I** | Intento | Cosa deve ottenere chi legge? | "Far richiedere un audit gratuito." |
-| **E** | Esempi | Come deve essere il risultato? | "Tono come in questo esempio: …" |
-| **F** | Formato | Lunghezza, struttura, cosa escludere? | "120 parole, due hashtag, niente emoji." |
-| **+** | Verifica | Come controllo il risultato? | "Elenca le affermazioni che un cliente potrebbe contestare." |
+| **Haiku** | Il più veloce e leggero | Compiti semplici e ripetitivi | Correggere 50 descrizioni prodotto |
+| **Sonnet** | Equilibrato tra velocità e qualità | Il lavoro di tutti i giorni: è la scelta di partenza | Un post, un riassunto, una correzione di codice |
+| **Opus** | Il più profondo | Problemi complessi, lavori delicati, ragionamenti lunghi | Una strategia, un contratto, un bug difficile |
 
-**Come si imposta.** Nessuna configurazione. Salvate il BRIEF come modello in un documento, da riusare per ogni compito.
+Oggi la famiglia più recente è la 5.5 (Opus 5.5, Sonnet 5.5, Haiku 5.5). Nella famiglia compare anche il nome **Fable**. **⚠ Da verificare** il suo posizionamento nel selettore dei modelli del tuo account.
 
-**Come si usa.**
-1. Scrivete le sei parti, anche in forma breve.
-2. Inviate la richiesta.
-3. Leggete l'output e annotate cosa manca.
-4. Correggete una cosa per volta: "Il titolo è troppo generico; proponi tre alternative con un numero."
+**Regola pratica.** Parti con Sonnet. Passa a Opus quando la qualità non basta. Passa a Haiku quando conta la velocità.
 
-**Tecniche utili.**
-- **Tag XML** per separare istruzioni e materiali, ad esempio `<istruzioni>…</istruzioni>` e `<testo>…</testo>`. Claude distingue meglio cosa fare da cosa analizzare.
-- **Few-shot**: due o tre esempi di output desiderato valgono più di una lunga descrizione.
-- **Prompt a catena**: dividete un compito grande in passaggi (estrai i fatti → scrivi la bozza → rivedi con i criteri).
-- **Autocritica**: "Rileggi la bozza rispetto a questi criteri e segnala cosa non rispetta."
+**Ragionamento esteso (effort).** Alcune impostazioni fanno "pensare" Claude più a lungo prima di rispondere. Usalo per problemi complessi; per riscrivere un paragrafo non serve.
 
-**Esempio completo.**
+### 2.2 I prodotti: il posto di lavoro
 
-*Prima (debole):* "Scrivi un post Instagram sul nostro servizio di audit."
+| Prodotto | Cos'è | Chi lo usa | Cosa produce |
+|---|---|---|---|
+| **Chat** (claude.ai, app desktop, app mobile) | La conversazione, con file, ricerca web, Artifacts e Project | Tutti | Testi, analisi, documenti, piccole pagine |
+| **Claude Design** | Uno spazio per creare visual parlando | Design, marketing, art direction | Prototipi, slide, one-pager, landing page |
+| **Cowork** | Una scheda dell'app desktop in cui Claude lavora sui file del tuo computer | Chi lavora su documenti e cartelle, anche senza saper programmare | Documenti, fogli, file organizzati, compiti in più passaggi |
+| **Claude Code** | Un agente che lavora dentro cartelle e repository, da terminale, app desktop, web o editor | Sviluppo, ma anche chi gestisce contenuti in file | Codice, file, siti, automazioni |
+| **API** | Il modo per mettere Claude dentro i vostri prodotti | Sviluppatori | Funzioni AI nelle vostre app |
 
-*Dopo (BRIEF):*
-```
-Background: UX Boutique offre audit di usabilità per e-commerce di medie
-dimensioni. Il pubblico sono responsabili marketing, non designer.
+**⚠ Da verificare:** disponibilità di Cowork e Claude Design per il vostro piano Team. Claude Design è un'anteprima di ricerca di Anthropic Labs, disponibile per i piani Pro, Max, Team ed Enterprise.
 
-Ruolo: copywriter senior. Tono sobrio, concreto, senza superlativi.
+### 2.3 La differenza che conta: chi fa il lavoro
 
-Intento: far richiedere l'audit gratuito di 30 minuti.
+| | Chat | Cowork | Claude Code |
+|---|---|---|---|
+| **Chi lavora** | Tu chiedi, Claude risponde | Claude esegue compiti in più passaggi | Claude esegue compiti in più passaggi |
+| **Dove lavora** | Nella conversazione | Sui file del tuo computer | In una cartella o repository |
+| **Quando usarlo** | Domande, testi, analisi | Lavori su documenti e cartelle | Codice, siti, file con versioni (Git) |
+| **Livello tecnico** | Nessuno | Basso | Medio (si impara in un'ora) |
 
-Esempio di tono: "Il checkout perde utenti? Di solito il problema è in tre passaggi."
+### 2.4 Quale scelgo?
 
-Formato: post di massimo 120 parole, italiano, due hashtag, nessuna emoji.
-Chiudi con l'invito a prenotare.
+| Voglio… | Uso… |
+|---|---|
+| Scrivere un post, una mail, un riassunto | Chat |
+| Lavorare sempre con lo stesso contesto (cliente, brand) | Chat + Project |
+| Creare un prototipo, una slide, una landing | Claude Design |
+| Riordinare cartelle, produrre documenti da tanti file | Cowork |
+| Scrivere codice, creare un sito, gestire file con versioni | Claude Code |
+| Mettere Claude nel nostro prodotto | API |
 
-Verifica: alla fine elenca le affermazioni che un cliente potrebbe contestare.
-```
-
-**Errori comuni.**
-- Descrivere il compito ma non il pubblico.
-- Chiedere "un tono professionale" senza esempio.
-- Cambiare tre cose insieme nella revisione: non capite quale ha funzionato.
-- Non dire cosa escludere: appaiono emoji, superlativi, citazioni inventate.
-
-**Verifica.**
-1. Quale lettera del BRIEF manca in "Scrivi una descrizione per il nostro prodotto"?
-2. Perché conviene fare una revisione per volta?
-
-**Esercizio.** Prendete un compito reale. Scrivete il prompt semplice, poi il BRIEF. Confrontate i due output e annotate la differenza.
+### Prova tu
+Prendi tre compiti della tua settimana. Per ciascuno scrivi quale prodotto useresti e con quale modello.
 
 ---
 
-## Parte B — Contesto e output
+## 3 · I mattoni: Project, Artifact, Skill, Connettori, Plugin
 
-### Modulo 3 — Projects
+### In breve
+Oltre ai prodotti, Claude ha dei "mattoni" che si combinano. Pensa a una cucina:
 
-**Obiettivo.** Creare un Project con istruzioni e documenti che rendono Claude coerente con il vostro lavoro senza ripetere il contesto ogni volta.
+| Mattone | Nella cucina | Nel lavoro | A cosa serve |
+|---|---|---|---|
+| **Project** | La cucina con la dispensa | Uno spazio con istruzioni e documenti fissi | Non ripetere il contesto ogni volta |
+| **Skill** | La ricetta | Un metodo scritto una volta | Fare un compito sempre allo stesso modo |
+| **Connettore** | La porta verso il fornitore | Il collegamento a Drive, Figma, Miro… | Leggere (e a volte scrivere) i vostri dati |
+| **MCP** | Lo standard delle porte | Il "linguaggio" con cui uno strumento si collega a Claude | Collegare strumenti senza adattatori |
+| **Plugin** | Il kit completo: ricette, attrezzi, fornitori | Un pacchetto di Skill, comandi, agenti, connettori | Installare tutto insieme |
+| **Artifact** | Il piatto servito | Un output modificabile: documento, pagina, presentazione | Consegnare il risultato |
 
-**Prerequisiti.** Almeno due documenti di riferimento approvati (guida al tono, testi di esempio, glossario).
+### Come si combinano
+Esempio per un PM: il **connettore** Drive legge le note della riunione, la **Skill** "status report" le trasforma nel formato del team, dentro il **Project** del cliente, e il risultato esce come **Artifact** da condividere. Un **plugin** "Project Management" potrebbe installare tutto questo in un colpo solo.
 
-**Concetto.** Un Project è uno spazio con tre parti:
-- **Nome**: chiaro e riconoscibile.
-- **Istruzioni**: regole permanenti che valgono per ogni chat del Project.
-- **Knowledge base**: documenti che Claude può consultare.
+### Prova tu
+Pensa a un compito che ripeti ogni settimana. Quali mattoni ti servirebbero? Scrivilo in una riga, come nell'esempio.
 
-Ogni chat aperta dentro il Project usa istruzioni e documenti senza che li ripetiate.
+---
 
-**Come si imposta.**
-1. Nella barra laterale aprite **Projects** *(⚠ da verificare il nome della voce)* e scegliete **Nuovo Project**.
-2. Assegnate un nome preciso: "UX Boutique — Brand & Tone".
-3. Scrivete le istruzioni (template sotto).
-4. Caricate i documenti nella knowledge base.
-5. Nel piano Team, decidete se condividere il Project con il team *(⚠ da verificare: chi può condividere e con quali permessi)*.
+# Parte 2 · Parlare con Claude
 
-*Template di istruzioni:*
+## 4 · Costruire un prompt che funziona
+
+### In breve
+Un prompt è una richiesta. Funziona quando contiene tutto quello che un collega bravo ti chiederebbe prima di iniziare: contesto, obiettivo, esempio, formato, cosa evitare. Il metodo **BRIEF** ti aiuta a non dimenticare niente.
+
+### 4.1 Perché i prompt falliscono
+Claude non legge nel pensiero. Se scrivi "fammi un post", deve indovinare: per chi? Su quale social? Con quale tono? Quanto lungo? Ogni cosa che non dici, la sceglie lui. E di solito sceglie la versione più generica.
+
+### 4.2 Il metodo BRIEF
+
+| Lettera | Parte | Domanda | Esempio |
+|---|---|---|---|
+| **B** | Background | Qual è il contesto? | "UX Boutique offre audit di usabilità per e-commerce di medie dimensioni." |
+| **R** | Ruolo | Chi deve rispondere? | "Sei un copywriter senior, tono sobrio e concreto." |
+| **I** | Intento | Cosa deve succedere dopo? | "Il lettore deve prenotare un audit gratuito." |
+| **E** | Esempi | Come deve essere? | "Tono come questo: 'Il checkout perde utenti? Spesso il problema è in tre passaggi.'" |
+| **F** | Formato | In che forma? | "Post LinkedIn, massimo 120 parole, niente emoji." |
+| **+** | Verifica | Come controllo? | "Alla fine elenca le affermazioni da verificare." |
+
+Non servono sempre tutte le lettere. Un compito semplice ne usa due o tre. Ma quando un risultato delude, quasi sempre manca una di queste.
+
+### 4.3 Sette regole pratiche
+
+1. **Prima il contesto, poi il compito.** Claude capisce meglio se sa a cosa serve il lavoro.
+2. **Un obiettivo che si può verificare.** "Rendilo più chiaro" è vago. "Il cliente deve capire il prezzo in 5 secondi" si può controllare.
+3. **Un esempio vale più di tre aggettivi.** "Professionale e moderno" non dice niente. Un paragrafo di esempio dice tutto.
+4. **Il formato, sempre.** Lunghezza, struttura (elenco, tabella, paragrafi), lingua.
+5. **Cosa escludere.** "Niente emoji", "non citare clienti", "non usare la parola *innovativo*".
+6. **Separa istruzioni e materiali.** Metti il testo da analizzare tra tag: `<testo>…</testo>`. Claude capisce cosa è istruzione e cosa è materiale.
+7. **Fatti fare domande.** Per compiti importanti: "Prima di iniziare, fammi le domande che ti servono." Così scopri cosa mancava.
+
+### 4.4 Il modello da copiare
+
+```
+CONTESTO
+[Chi siamo, per chi lavoriamo, situazione]
+
+RUOLO
+Sei [ruolo] con esperienza in [ambito].
+
+OBIETTIVO
+Voglio [risultato]. Dopo aver letto, il lettore deve [azione].
+
+ESEMPIO
+Ecco un esempio del tono/formato che voglio:
+<esempio>
+[testo di esempio]
+</esempio>
+
+FORMATO
+- Lunghezza: [...]
+- Struttura: [...]
+- Da evitare: [...]
+
+MATERIALI
+<materiali>
+[testi, dati, note da usare]
+</materiali>
+
+VERIFICA
+Alla fine, elenca i punti di cui non sei sicuro.
+```
+
+### 4.5 Tre esempi completi
+
+**Marketing — post per un servizio**
+```
+CONTESTO: UX Boutique offre audit di usabilità per e-commerce di medie
+dimensioni. Il pubblico sono responsabili marketing, non designer.
+RUOLO: copywriter senior, tono sobrio e concreto.
+OBIETTIVO: il lettore deve prenotare l'audit gratuito di 30 minuti.
+ESEMPIO DI TONO: "Il checkout perde utenti? Spesso il problema è in tre passaggi."
+FORMATO: post LinkedIn, massimo 120 parole, due hashtag, niente emoji.
+Chiudi con l'invito a prenotare.
+VERIFICA: elenca le affermazioni che un cliente potrebbe contestare.
+```
+
+**Design — microcopy degli errori di un form**
+```
+CONTESTO: form di registrazione di un'app di prenotazione per parrucchieri.
+Utenti: clienti 25–60 anni, spesso da telefono.
+RUOLO: UX writer.
+OBIETTIVO: messaggi di errore che spiegano cosa è successo e come risolvere.
+FORMATO: tabella con colonne Campo | Errore | Messaggio. Massimo 12 parole
+per messaggio. Niente colpe all'utente ("hai sbagliato"), niente punti esclamativi.
+MATERIALI: <campi>nome, email, telefono, password, data di nascita</campi>
+VERIFICA: segnala i messaggi che potrebbero non essere chiari a un utente anziano.
+```
+
+**Sviluppo — capire un bug**
+```
+CONTESTO: sito in Next.js. Dopo l'aggiornamento, il carrello si svuota
+quando l'utente ricarica la pagina.
+RUOLO: sviluppatore senior.
+OBIETTIVO: capire la causa più probabile e come verificarla, prima di
+modificare il codice.
+FORMATO: 1) tre ipotesi in ordine di probabilità, 2) per ognuna un test
+per confermarla, 3) la correzione solo per l'ipotesi confermata.
+MATERIALI:
+<codice>[incolla il componente del carrello]</codice>
+<errore>[incolla l'errore della console]</errore>
+VERIFICA: dimmi cosa non puoi sapere senza vedere altri file.
+```
+
+### 4.6 Tecniche avanzate
+
+| Tecnica | Cos'è | Quando usarla |
+|---|---|---|
+| **Esempi multipli (few-shot)** | Dai 2–3 esempi di output | Quando il formato è difficile da spiegare a parole |
+| **Tag** | `<testo>`, `<dati>`, `<esempio>` | Quando incolli materiali lunghi |
+| **Catena di prompt** | Dividi il compito in passaggi | Compiti grandi: prima i fatti, poi la bozza, poi la revisione |
+| **Criteri e autocritica** | "Rileggi rispetto a questi criteri" | Quando la qualità deve essere costante |
+| **Alternative** | "Proponi tre versioni diverse" | Titoli, concept, strutture |
+| **Domande prima** | "Fammi le domande che ti servono" | Compiti importanti o poco chiari |
+| **Ragionamento esteso** | Più tempo per pensare | Strategie, analisi, bug complessi |
+
+### 4.7 Come dare feedback
+Usa la formula **cosa + perché + come**:
+- ❌ "Non mi piace."
+- ✅ "Il titolo (**cosa**) è troppo generico per un pubblico tecnico (**perché**): proponi tre alternative con un numero concreto (**come**)."
+
+Una correzione per messaggio. Se cambi tre cose insieme, non capisci quale ha funzionato.
+
+### 4.8 Quando non funziona: diagnosi
+
+| Sintomo | Causa probabile | Correzione |
+|---|---|---|
+| Risposta generica | Manca il contesto o il pubblico | Aggiungi Background e Intento |
+| Tono sbagliato | Nessun esempio | Incolla un testo di esempio |
+| Troppo lungo | Formato non indicato | Indica parole, righe, struttura |
+| Inventa fatti | Nessuna fonte | Dagli i documenti; chiedi di segnalare le incertezze |
+| Ignora una regola | Regola sepolta in un testo lungo | Mettila in un elenco "Da evitare" |
+| Cambia troppo nella revisione | Feedback vago | Indica la parte precisa e cosa non toccare |
+
+### 4.9 Checklist prima di inviare
+- [ ] Ho detto chi siamo e per chi è?
+- [ ] Ho detto cosa deve succedere dopo?
+- [ ] Ho dato un esempio?
+- [ ] Ho indicato lunghezza e formato?
+- [ ] Ho detto cosa evitare?
+- [ ] Ho chiesto di segnalare le incertezze?
+
+### Prova tu
+Prendi un prompt che hai usato questa settimana. Riscrivilo con il modello del 4.4. Confronta i due risultati e annota cosa è cambiato.
+
+---
+
+## 5 · Contesto: Project e memoria
+
+### In breve
+Un **Project** è uno spazio con istruzioni e documenti che valgono per tutte le chat al suo interno. Lo prepari una volta e non ripeti più il contesto.
+
+### Passo per passo
+1. Nella barra laterale apri **Projects** e crea un nuovo Project. *(⚠ verifica il nome della voce)*
+2. Dai un nome chiaro: "UX Boutique — Brand & Tone", oppure "Cliente Rossi — Redesign".
+3. Scrivi le **istruzioni** (5–10 righe).
+4. Carica i **documenti** di riferimento.
+5. Nel piano Team, condividilo con chi lavora sullo stesso cliente. *(⚠ verifica i permessi)*
+6. Apri sempre le chat **dentro** il Project.
+
+### Istruzioni: modello
 ```
 Lavoriamo per UX Boutique, agenzia di UX e design digitale.
-Lingua: italiano. Tono diretto e concreto, senza superlativi vuoti.
+Lingua: italiano. Tono diretto e concreto, niente superlativi.
 Ogni testo per clienti indica un beneficio misurabile.
 Non citare mai clienti senza approvazione scritta.
 Quando non sei sicuro di un fatto, dichiaralo.
-Usa il glossario caricato; evita i termini segnati come "da non usare".
+Usa il glossario caricato.
 ```
 
-*Knowledge base: cosa caricare.*
-- **Sì**: guida al tono, testi approvati come esempio, glossario, offerta ufficiale.
-- **No**: bozze, duplicati, documenti con dati personali non necessari.
-- **Formato**: file con testo selezionabile (non scansioni), titoli chiari, documenti brevi e focalizzati.
+### Cosa caricare
+- **Sì:** guida al tono, testi approvati, glossario, offerta ufficiale, brief del cliente.
+- **No:** bozze vecchie, duplicati, dati personali non necessari.
 
-**Come si usa.**
-1. Aprite una **nuova chat dentro il Project** (non fuori).
-2. Chiedete il compito con un BRIEF più corto: il contesto c'è già.
-3. Se il risultato ignora le istruzioni, verificate che la chat sia nel Project giusto.
+### Memoria e chat lunghe
+- Claude può ritrovare informazioni da chat precedenti. Verifica sempre che siano ancora valide.
+- Una chat molto lunga perde precisione. Quando cambi argomento, chiedi un riassunto e apri una chat nuova:
+```
+Riassumi questa chat in: decisioni prese, file usati, cose da fare.
+Lo userò per iniziare una nuova conversazione.
+```
 
-**Esempio completo.** Nel Project "UX Boutique — Brand & Tone" chiedete: "Scrivi un'intro di 60 parole per la pagina servizi, audit di usabilità." Il risultato deve rispettare tono e glossario senza che li ripetiate. Confrontate con una chat fuori dal Project: la differenza mostra il valore del contesto.
+### Errori da evitare
+- Istruzioni vaghe ("sii creativo") invece di regole precise.
+- Documenti vecchi nella knowledge base.
+- Cambiare le istruzioni di un Project condiviso senza avvisare.
 
-**Errori comuni.**
-- Istruzioni troppo lunghe e vaghe ("sii bravo e creativo"): Claude non ha regole da seguire.
-- Documenti vecchi nella knowledge base: il risultato riflette la versione sbagliata.
-- Modificare le istruzioni senza avvisare il team: i risultati cambiano senza spiegazione.
-
-**Verifica.**
-1. Cosa deve contenere una buona istruzione di Project? Fate due esempi.
-2. Perché il test "intro di 60 parole" è utile?
-
-**Esercizio.** Create il Project del vostro ruolo: istruzioni in cinque righe, due documenti di riferimento, un compito di test.
+### Prova tu
+Crea il Project del tuo ruolo. Chiedi: "Scrivi un'intro di 60 parole per la pagina servizi." Se rispetta tono e regole senza che tu le ripeta, funziona.
 
 ---
 
-### Modulo 4 — Artifacts, ricerca web e analisi di file
+# Parte 3 · Claude nel lavoro
 
-**Obiettivo.** Ottenere documenti modificabili, informazioni recenti verificate e analisi di file affidabili.
+## 6 · Marketing
 
-**Prerequisiti.** Modulo 2 (BRIEF).
+### In breve
+Claude aiuta in tutto il ciclo del marketing: dalla strategia ai contenuti, dalle campagne all'analisi dei risultati. Il lavoro più utile non è "scrivimi un post", ma costruire un sistema: Project con brand e tono, Skill per i formati ripetuti, verifica di ogni dato.
 
-**Concetto.**
-- **Artifact**: un output autonomo (documento, presentazione, foglio, pagina) che si apre accanto alla chat e si modifica senza ricominciare.
-- **Ricerca web**: porta informazioni recenti. Va sempre verificata sulla fonte.
-- **Analisi di file**: PDF, Excel/CSV, immagini e screenshot caricati nella chat.
+### Cosa puoi fare
 
-**Come si imposta.** Nessuna configurazione. Verificate che la ricerca web sia attiva nel selettore degli strumenti *(⚠ da verificare il nome e la posizione)*.
-
-**Come si usa.**
-
-*Artifact.*
-1. Chiedete esplicitamente il formato: "Crea un documento Artifact con…".
-2. Per modificare una parte, indicatela: "Nella sezione *Metodo*, riduci a tre punti."
-3. Esportate quando è pronto (copia, download; i formati disponibili dipendono dal tipo di output).
-
-*Ricerca web.*
-1. Definite la domanda in una frase, con periodo e pubblico.
-2. Chiedete le fonti per ogni affermazione: "Indica fonte e data."
-3. Aprite le fonti e verificate almeno le affermazioni che userete.
-
-*Analisi di file.*
-- **PDF**: "Estrai le date di scadenza dei contratti."
-- **Excel/CSV**: "Calcola il costo per lead per canale e segnala gli anomali."
-- **Screenshot**: "Individua problemi di contrasto e accessibilità."
-- Caricate il file (icona di allegato), descrivete la domanda, chiedete un output strutturato, verificate un campione a mano.
-
-**Esempio completo.** Caricate un CSV di campagne. Chiedete: "Calcola il costo per lead per canale, ordina dal più alto, segnala i canali con meno di 10 lead." Verificate il calcolo di un canale a mano. Solo dopo, usate la tabella nel report.
-
-**Errori comuni.**
-- Chiedere "migliora tutto" su un Artifact: cambia troppo.
-- Fidarsi di un numero senza ricalcolarlo.
-- Caricare una scansione di PDF: il testo non si legge bene.
-
-**Verifica.**
-1. Come si chiede una modifica precisa a un Artifact?
-2. Quale verifica minima fate su un calcolo ricevuto da Claude?
-
-**Esercizio.** Caricate un file reale. Chiedete un Artifact con tre domande precise. Annotate cosa avete dovuto correggere.
-
----
-
-### Modulo 4b — Lavorare per file: il metodo markdown-first
-
-**Obiettivo.** Preparare contenuti in file di testo nel repository, modificarli per parti e produrre l'artefatto visivo solo alla fine.
-
-**Prerequisiti.** Modulo 4. Un repository Git (modulo 10 per la parte Git; può essere letto anche prima).
-
-**Concetto.** Ci sono due modi di lavorare su un contenuto.
-- **Su artefatto**: ogni modifica ripubblica la pagina intera. Il contenuto passa di nuovo per la chat e per lo strumento di pubblicazione.
-- **Su file**: il contenuto vive in un file `.md` nel repository. Si modifica per sezioni, si verifica con Git e si trasforma in artefatto o presentazione solo quando è pronto.
-
-Il secondo metodo è più economico in termini di token, perché le modifiche riguardano solo le parti toccate e non l'intero documento. Non è una misura precisa: il vantaggio è pratico e si vede soprattutto nei documenti lunghi e nelle revisioni frequenti. Ha anche altri vantaggi: la storia delle versioni, la possibilità di lavorare in parallelo sulle sezioni e un testo che resta leggibile e riutilizzabile.
-
-**Quando usare quale.**
-
-| Fase | Strumento | Perché |
+| Area | Esempi di compiti | Strumento |
 |---|---|---|
-| Bozza e struttura | File `.md` | Veloce da modificare, tracciato in Git |
-| Revisione per sezioni | File `.md` | Modifiche piccole, verificabili |
-| Versione per il team | Artefatto o presentazione | Leggibile, condivisibile |
-| Versione finale | Export (HTML, PDF, PPTX) | Pronto per il cliente |
+| **Strategia** | Posizionamento, personas, analisi dei competitor, piano marketing | Chat con ricerca web, Project |
+| **Contenuti** | Post, articoli, newsletter, script video, varianti di copy | Chat + Project + Skill |
+| **Campagne** | Concept, headline, testi annunci, landing page | Chat, Claude Design |
+| **SEO e AI search** | Struttura articoli, domande frequenti, ottimizzazione per motori di ricerca e assistenti AI | Chat con ricerca web |
+| **Analisi** | Report da CSV o Excel, confronto canali, sintesi dei risultati | Chat con file, Cowork |
+| **Email** | Sequenze di benvenuto, nurturing, riattivazione | Chat + Skill |
 
-**Come si imposta.**
-1. Create una cartella nel repository, ad esempio `contenuti/nome-progetto/`.
-2. Dentro, un file per ogni sezione (`01-intro.md`, `02-servizi.md`) e un `indice.md` che le elenca nell'ordine.
-3. Nel `CLAUDE.md` (modulo 11) scrivete la regola: "I contenuti di progetto si modificano nei file `.md`; gli artefatti si generano solo a fine lavoro."
+### Prompt pronti
 
-**Come si usa.**
-1. Chiedete a Claude di lavorare su un file specifico: "Modifica solo `02-servizi.md`: riduci a tre punti."
-2. Verificate con `git diff`, che mostra esattamente cosa è cambiato.
-3. Fate commit per ogni sezione approvata.
-4. Quando l'insieme è pronto, chiedete l'artefatto o la presentazione a partire dai file.
+**Piano editoriale**
+```
+CONTESTO: [azienda, prodotto, pubblico].
+OBIETTIVO: piano editoriale di 4 settimane per LinkedIn e Instagram.
+FORMATO: tabella con Settimana | Canale | Tema | Formato | Titolo | Obiettivo.
+3 post a settimana per canale. Alterna contenuti utili, casi studio, dietro le quinte.
+DA EVITARE: date di eventi inventate, statistiche senza fonte.
+```
 
-**Esempio completo.** Presentazione di un progetto:
-1. Struttura in `indice.md` con otto sezioni.
-2. Ogni sezione scritta e revisionata come file, con un commit per sezione.
-3. Revisione del cliente su una sezione alla volta, senza rigenerare tutto.
-4. Generazione della presentazione finale dai file approvati.
+**Analisi dei competitor**
+```
+Analizza questi tre competitor: [link]. Per ciascuno: a chi si rivolge,
+promessa principale, prezzi visibili, punti forti, punti deboli.
+Formato: tabella, poi tre opportunità per noi.
+Indica la fonte di ogni informazione.
+```
 
-**Errori comuni.**
-- Creare l'artefatto presto: ogni modifica successiva lo rigenera per intero.
-- File senza ordine: senza un `indice.md`, la struttura si perde.
-- Modifiche non tracciate: senza commit non si capisce cosa è cambiato.
+**Varianti di headline**
+```
+Scrivi 10 headline per [landing/annuncio]. Pubblico: [chi].
+Beneficio principale: [cosa]. 5 orientate al problema, 5 al risultato.
+Massimo 8 parole. Poi indica le 3 migliori e perché.
+```
 
-**Verifica.**
-1. Perché conviene lavorare per file nelle prime fasi?
-2. Quando passate dal file all'artefatto?
+**Report dai dati**
+```
+<dati>[incolla il CSV o carica il file]</dati>
+Calcola costo per lead e tasso di conversione per canale.
+Ordina dal migliore al peggiore. Segnala i valori anomali.
+Formato: tabella + 3 osservazioni + 2 azioni consigliate.
+Mostra i calcoli di un canale, così posso verificarli.
+```
 
-**Esercizio.** Prendete un contenuto reale di quattro sezioni. Scrivetelo in file `.md` con un `indice.md`. Fate tre revisioni su singole sezioni con un commit ciascuna, poi generate l'artefatto dai file.
+### Skill di marketing già installate nel repo
+Nel repository ci sono 53 Skill di marketing (pacchetto `coreyhaines31/marketingskills`), per esempio `copywriting`, `copy-editing`, `content-strategy`, `social`, `ad-creative`, `emails`, `marketing-plan`, `seo-audit`. In Claude Code si attivano da sole quando il compito corrisponde. Per usarle in chat, vanno caricate nel tuo account (cap. 11). Esiste anche un plugin ufficiale "Marketing" per Cowork. **⚠ Da verificare** la disponibilità nel vostro piano.
+
+### Workflow completo: una campagna
+1. **Brief** (chat + Project): obiettivo, pubblico, messaggio chiave, canali.
+2. **Concept** (chat): tre direzioni creative, una scelta.
+3. **Testi** (chat + Skill `copywriting`): headline, post, testi annunci.
+4. **Visual e landing** (Claude Design): prototipo della landing e one-pager.
+5. **Revisione** (chat + Skill `copy-editing`): tono, chiarezza, claim.
+6. **Verifica umana**: ogni numero e claim controllato, approvazione del cliente.
+
+### Errori da evitare
+- Pubblicare statistiche o citazioni senza aver controllato la fonte.
+- Chiedere "un post virale": senza pubblico e obiettivo, il risultato è generico.
+- Usare lo stesso testo su tutti i canali: chiedi un adattamento per ciascuno.
+
+### Prova tu
+Scegli un servizio reale. Chiedi 10 headline con il prompt sopra, scegli le tre migliori e chiedi un post LinkedIn per ciascuna.
 
 ---
 
-## Parte C — Metodo e connessioni
+## 7 · Design: UX, UI e art direction
 
-### Modulo 5 — Skills
+### In breve
+Claude non sostituisce il designer: accelera le parti di analisi, scrittura e prima esplorazione. Sintetizza ricerche, scrive microcopy, valuta schermate, genera prototipi con Claude Design e legge i file Figma tramite connettore.
 
-**Obiettivo.** Creare una Skill, installarla e farla attivare in modo affidabile, poi migliorarla con test ripetibili.
+### Cosa puoi fare
 
-**Prerequisiti.** Un processo ripetuto con output giudicabile. Piano Team con Skills abilitate dall'admin (già confermato per il vostro team).
-
-**Concetto.** Una Skill è un metodo scritto una volta e riutilizzabile. Si distingue dal prompt così:
-
-| | Prompt | Skill |
+| Area | Esempi di compiti | Strumento |
 |---|---|---|
-| Quando si usa | Una volta | Ogni volta che il compito si ripete |
-| Dove vive | Nella chat | In una cartella con `SKILL.md` |
-| Chi la usa | Chi scrive | Chi ha la Skill disponibile (anche il team) |
-| Come si attiva | Si scrive | Claude la sceglie dalla sua descrizione |
+| **Ricerca** | Sintesi di interviste, personas, job to be done, insight | Chat con file |
+| **Architettura** | User journey, sitemap, flussi, architettura dell'informazione | Chat, Artifact |
+| **Valutazione** | Analisi euristica da screenshot, accessibilità, coerenza | Chat con immagini |
+| **Contenuti UI** | Microcopy, messaggi di errore, stati vuoti, onboarding | Chat + Project |
+| **Prototipi** | Landing, flussi, slide, one-pager | Claude Design |
+| **Design system** | Lettura di token e componenti da Figma | Connettore Figma |
+| **Art direction** | Concept, moodboard testuali, naming, brief per generatori di immagini | Chat |
 
-**Struttura della cartella.**
+### Prompt pronti
+
+**Sintesi di interviste**
+```
+<interviste>[incolla trascrizioni o carica i file]</interviste>
+Trova i 5 bisogni più ricorrenti. Per ciascuno: descrizione, quante
+persone lo citano, due citazioni testuali con il nome dell'intervista.
+Poi le 3 contraddizioni più interessanti.
+Non inventare citazioni: usa solo testo presente nelle interviste.
+```
+
+**Analisi euristica da screenshot**
+```
+[carica lo screenshot]
+Valuta questa schermata con le 10 euristiche di Nielsen.
+Per ogni problema: euristica, dove si trova, gravità (1–4), proposta.
+Formato: tabella ordinata per gravità. Poi i 3 interventi più rapidi.
+```
+
+**Revisione di accessibilità**
+```
+[carica lo screenshot o incolla l'HTML]
+Controlla contrasto, dimensione dei testi, etichette dei campi, ordine
+di lettura, dimensione dei target touch. Indica il criterio WCAG
+di riferimento per ogni problema. Segnala ciò che non puoi verificare
+da un'immagine.
+```
+
+**Brief per un generatore di immagini**
+```
+Scrivi 3 prompt per un generatore di immagini per la campagna [nome].
+Concept: [idea]. Stile: [riferimenti]. Formato: 4:5 per Instagram.
+Per ogni prompt: soggetto, ambientazione, luce, inquadratura, palette.
+```
+
+### Skill di design già installate nel repo
+Nel repository ci sono le Skill del pacchetto `emilkowalski/skill`, tra cui `emil-design-eng` (rifinitura delle interfacce), `apple-design` (interfacce fluide in stile Apple), `mobile-native` (esperienza da telefono), `review-animations` e `break-ui` (stress test con dati estremi). Le abbiamo usate per rifinire la presentazione di questo corso.
+
+### Workflow completo: redesign di una pagina
+1. **Audit**: screenshot della pagina attuale + analisi euristica.
+2. **Ricerca**: sintesi dei feedback degli utenti.
+3. **Brief**: obiettivo, pubblico, problemi da risolvere.
+4. **Prototipo**: tre strutture in Claude Design, una scelta, revisioni (cap. 9).
+5. **Design system**: token da Figma tramite connettore.
+6. **Handoff**: passaggio a Claude Code per lo sviluppo (cap. 10).
+7. **Verifica**: test con utenti reali e controllo di accessibilità.
+
+### Errori da evitare
+- Prendere un'analisi euristica come test con utenti: è un'ipotesi da verificare.
+- Lasciar inventare citazioni nella sintesi delle interviste.
+- Scrivere direttamente sui file Figma del team: lavora su una copia.
+
+### Prova tu
+Fai uno screenshot di una pagina di un cliente. Chiedi l'analisi euristica e confronta i tre interventi proposti con quelli che avresti scelto tu.
+
+---
+
+## 8 · Sviluppo
+
+### In breve
+Claude aiuta a capire, scrivere, correggere e documentare codice. Per il lavoro vero, lo strumento è **Claude Code**, che lavora direttamente nel repository: legge i file, propone un piano, modifica, esegue i test, prepara i commit.
+
+### Cosa puoi fare
+
+| Area | Esempi di compiti | Strumento |
+|---|---|---|
+| **Capire** | Spiegare codice, mappare un progetto, documentare | Claude Code |
+| **Scrivere** | Funzioni, componenti, script, query, regex | Chat o Claude Code |
+| **Correggere** | Debug, analisi di errori, regressioni | Claude Code |
+| **Qualità** | Test, code review, refactoring, sicurezza | Claude Code |
+| **Design to code** | Componenti dai token del design system | Claude Code + Figma |
+| **Automazione** | Script ripetitivi, migrazioni, attività programmate | Claude Code |
+
+### Prompt pronti (in Claude Code)
+
+**Capire un progetto nuovo**
+```
+Spiegami questo progetto: a cosa serve, struttura delle cartelle,
+come si avvia, come si eseguono i test. Indica i 5 file più importanti.
+Non modificare nulla.
+```
+
+**Correggere un bug**
+```
+Il carrello si svuota quando si ricarica la pagina. Trova la causa.
+Prima scrivi un test che riproduce il bug, poi correggi, poi esegui
+tutti i test. Mostrami il piano prima di modificare.
+```
+
+**Code review**
+```
+Fai una review delle modifiche di questo branch rispetto a main.
+Cerca: bug, casi limite non gestiti, problemi di sicurezza, codice
+duplicato. Ordina per gravità. Per ognuno: file, riga, problema, proposta.
+```
+
+**Componente dai token**
+```
+Usando i token in design/tokens.json, crea il componente Card come nello
+screenshot allegato. Nessun colore o spaziatura fuori dai token.
+Aggiungi una pagina di esempio con tre varianti.
+```
+
+### Workflow completo: una nuova funzione
+1. **Richiesta** chiara: cosa deve fare, per chi, come si verifica.
+2. **CLAUDE.md** aggiornato con regole e comandi del progetto.
+3. **Plan mode**: Claude propone il piano, tu lo leggi e lo approvi.
+4. **Implementazione** su un branch separato.
+5. **Test** eseguiti da Claude e verificati da te.
+6. **Commit e pull request** con descrizione.
+7. **Review umana** prima del merge.
+
+### Errori da evitare
+- Approvare un piano senza leggerlo.
+- Accettare codice senza eseguirlo e leggerlo.
+- Mettere password o chiavi nei file del repository.
+
+### Prova tu
+Apri un piccolo progetto con Claude Code. Chiedi la spiegazione del progetto con il primo prompt sopra, senza modifiche.
+
+---
+
+# Parte 4 · Strumenti a fondo
+
+## 9 · Claude Design
+
+### In breve
+Claude Design crea **prototipi, slide, one-pager e landing page** parlando, usando il design system della tua organizzazione. Si imposta una volta il design system, poi ogni progetto del team lo usa in automatico. È un'anteprima di ricerca di Anthropic Labs, presentata ad aprile 2026.
+
+### 9.1 Quando usarlo
+
+| Strumento | Ideale per | Non ideale per |
+|---|---|---|
+| **Claude Design** | Visual coerenti con il brand, prototipi, slide, one-pager, landing | Foto, illustrazioni, video |
+| **Artifact in chat** | Documenti e pagine veloci, uso interno | Materiali che devono rispettare il brand |
+| **Figma** | Design di dettaglio, collaborazione tra designer, design system | Esplorazioni rapide da un brief |
+
+### 9.2 Chi può usarlo
+- Disponibile come anteprima di ricerca per i piani **Pro, Max, Team ed Enterprise**.
+- Su **Enterprise** è disattivato di default: l'admin lo attiva in *Organization settings → Capabilities → Anthropic Labs*.
+- **⚠ Da verificare** nel vostro account Team: punto di accesso e funzioni attive.
+
+### 9.3 Prima volta: il design system dell'organizzazione
+Senza design system, Claude Design produce lavori funzionali ma **non riconoscibili come vostri**. Per questo il primo passo è impostarlo.
+
+**Chi lo fa.** Il designer o il responsabile del brand. Anthropic consiglia di partire con un piccolo gruppo di 2–4 designer di fiducia, che creano e verificano il design system prima di aprirlo al resto del team.
+
+**Passo per passo.**
+1. **Crea l'organizzazione** e completa la procedura iniziale.
+2. **Carica i materiali del brand e del prodotto**: codice dei siti, presentazioni, file di design, riferimenti visivi. Più sono rappresentativi, meglio è.
+3. **Lascia che Claude estragga** colori, tipografia e componenti.
+4. **Rivedi** il risultato. Se è debole, carica materiali diversi o aggiuntivi.
+5. **Pubblica** il design system per il team.
+
+Da quel momento, nei piani Team ed Enterprise, i progetti di tutti usano automaticamente il design system pubblicato. Quando il brand cambia, si aggiorna in Claude Design.
+
+**Cosa preparare prima.**
+- Palette con valori esatti (es. HEX).
+- Font e pesi usati.
+- Logo in buona qualità.
+- 3–5 esempi di lavori approvati (pagine, slide, materiali).
+- Tono di voce: tre aggettivi e un testo di esempio.
+
+### 9.4 Creare un progetto, passo per passo
+
+1. **Scegli cosa creare**: prototipo, slide, one-pager o landing.
+2. **Scrivi il brief** (BRIEF del cap. 4): pubblico, obiettivo, sezioni con il loro messaggio, vincoli.
+3. **Chiedi la struttura prima dello stile.**
+4. **Scegli una struttura** e genera la prima versione.
+5. **Rivedi una cosa per volta.**
+6. **Verifica** contenuti, brand, mobile.
+7. **Esporta** o passa il lavoro.
+
+### 9.5 Prompt pronti
+
+**Landing page**
+```
+Crea una landing per il nostro audit di usabilità gratuito.
+Pubblico: responsabili marketing di e-commerce di medie dimensioni.
+Obiettivo: prenotazione dell'audit di 30 minuti.
+Sezioni: hero con promessa e CTA; tre benefici misurabili; un caso
+studio; come funziona in 3 passi; domande frequenti; CTA finale.
+Vincoli: mobile first, una sola CTA ripetuta, nessun numero inventato
+(usa segnaposto come [X%] dove servono dati).
+Prima proponi tre strutture diverse, senza applicare lo stile.
+```
+
+**Slide**
+```
+Crea una presentazione di 8 slide per presentare il redesign al cliente.
+Pubblico: direttore marketing, poco tempo.
+Struttura: problema, dati attuali, cosa cambiamo, prima/dopo,
+impatto atteso, tempi, costi, prossimi passi.
+Una idea per slide, testo minimo, grafici dove servono.
+```
+
+**One-pager**
+```
+Crea un one-pager sul nostro servizio di UX research.
+Per chi: startup in fase di crescita. Contenuto: problema, cosa facciamo,
+come lavoriamo (3 fasi), risultati tipici, contatti.
+Deve stare su una pagina A4 ed essere leggibile anche stampato.
+```
+
+### 9.6 Revisioni che funzionano
+- **Una modifica per messaggio**, con il perché: "Il titolo è generico: proponi tre alternative con un numero. Applica la prima; non cambiare altro."
+- **Indica la sezione** precisa, non "migliora tutto".
+- **Separa struttura e stile**: prima l'ordine delle sezioni, poi colori e font.
+- **Usa i segnaposto** per i dati che non hai: `[X clienti]`, `[Y%]`.
+
+### 9.7 Esportare e passare il lavoro
+Opzioni riportate dalle fonti: download `.zip`, **PDF**, **PPTX**, **HTML** autonomo, invio a **Canva**, passaggio a **Claude Code** per lo sviluppo. Export come immagine ed export in formato Figma non risultano confermati. **⚠ Da verificare** nel menu di export.
+
+| Formato | Quando |
+|---|---|
+| HTML | Prototipo da mostrare o da passare allo sviluppo |
+| PDF | One-pager da inviare o stampare |
+| PPTX | Presentazione da modificare in PowerPoint o Keynote |
+| Canva | Lavoro da completare in Canva |
+| Claude Code | Trasformare il prototipo in un sito vero |
+
+### Errori da evitare
+- Partire senza design system: il risultato non sembra vostro.
+- Brief vago: "fammi una bella landing" dà un risultato generico.
+- Chiedere struttura e stile insieme.
+- Esportare prima di aver verificato numeri e claim.
+
+### Prova tu
+Con un brief reale, chiedi tre strutture di landing, scegline una, fai tre revisioni singole ed esporta in PDF.
+
+---
+
+## 10 · Claude Code
+
+### In breve
+Claude Code è un **agente**: non risponde solo, **fa**. Lavora dentro una cartella, legge e modifica file, esegue comandi, propone un piano e aspetta il tuo ok. È nato per lo sviluppo, ma è utile a chiunque lavori con file: testi, contenuti, presentazioni, dati.
+
+### 10.1 Dove si usa
+- **Terminale** (la riga di comando).
+- **App desktop**.
+- **Web** (claude.ai/code), anche su repository GitHub.
+- **Editor di codice** (VS Code, JetBrains).
+
+Stesso agente, interfacce diverse. Per chi non programma, l'app desktop o il web sono il punto di partenza più semplice.
+
+### 10.2 Primo avvio
+1. Installa Claude Code (app desktop o terminale) seguendo la documentazione ufficiale. *(⚠ verifica il comando aggiornato)*
+2. Apri una cartella di lavoro. Meglio se è un **repository Git**, così ogni modifica si può annullare.
+3. Prima richiesta, senza modifiche:
+```
+Spiegami cosa c'è in questa cartella e come è organizzata.
+Non modificare nulla.
+```
+4. Poi una piccola modifica, in plan mode (10.4).
+
+Da terminale:
+```bash
+cd percorso/della/cartella
+git init     # solo se non è già un repository
+claude       # avvia Claude Code
+```
+
+### 10.3 CLAUDE.md: le istruzioni del progetto
+Un file `CLAUDE.md` nella cartella principale contiene le regole del progetto. Claude Code lo legge all'inizio di ogni sessione. È come il Project della chat, ma per una cartella.
+
+```markdown
+# Progetto: sito UX Boutique
+
+## Cos'è
+Sito vetrina e pagine servizi. Lingua italiana.
+
+## Comandi
+- Avvio: npm run dev
+- Test: npm test
+
+## Regole
+- Tono dei testi: docs/tono-di-voce.md
+- Colori e font solo da design/tokens.json
+- Non modificare la cartella legacy/
+- Mai password o chiavi nei file
+
+## Come lavorare
+- Prima di modifiche su più file, mostra il piano e aspetta.
+- Dopo ogni modifica, elenca i file cambiati.
+```
+
+**Livelli.** Il file nella cartella del progetto vale per tutto il team. Esiste anche un file personale nella cartella dell'utente (`~/.claude/CLAUDE.md`). *(⚠ verifica i livelli nella documentazione)*
+
+### 10.4 Plan mode e permessi
+- **Plan mode**: Claude propone un piano e aspetta la tua approvazione prima di toccare i file. Si attiva con **Shift+Tab** o con il comando `/plan`. *(⚠ verifica nella versione installata)* Usalo per ogni modifica che tocca più file.
+- **Permessi**: Claude Code chiede conferma prima di modificare file o eseguire comandi. Leggi sempre cosa chiede. Puoi concedere il permesso per una volta o per la sessione. Non concedere "approva tutto" senza sapere cosa farà.
+
+### 10.5 Comandi utili
+| Comando | Cosa fa |
+|---|---|
+| `/help` | Mostra i comandi disponibili |
+| `/clear` | Ricomincia con una conversazione pulita |
+| `/compact` | Riassume la conversazione per liberare spazio |
+| `/plan` | Entra in plan mode |
+| `/plugin` | Gestisce i plugin (cap. 12) |
+
+*(⚠ l'elenco cambia tra versioni: usa `/help` per quello aggiornato)*
+
+### 10.6 Subagent
+Un **subagent** è un aiutante che Claude Code incarica di un sotto-compito, con istruzioni proprie. Ce ne sono di integrati, per esempio **Explore** (cerca nel codice) e **Plan** (prepara il piano in plan mode). Puoi crearne di tuoi per compiti ricorrenti, ad esempio un revisore di accessibilità. *(⚠ verifica la cartella dei subagent personalizzati nella documentazione)*
+
+### 10.7 Skill, MCP e plugin in Claude Code
+- **Skill**: cartelle in `.claude/skills/` nel progetto, o nella cartella personale (cap. 11).
+- **MCP**: collegamento a strumenti esterni con `claude mcp add` (cap. 13).
+- **Plugin**: pacchetti installati con `/plugin` (cap. 12).
+
+### 10.8 Git in breve
+| Parola | Significato |
+|---|---|
+| **Commit** | Una versione salvata, con una descrizione |
+| **Branch** | Una linea di lavoro separata, che non tocca la versione principale |
+| **Push** | Invio delle modifiche al repository online (GitHub) |
+| **Pull request** | Richiesta di unire un branch al principale, con revisione |
+
+### 10.9 Workflow per ruolo
+- **Marketing**: contenuti in file `.md` → revisione per sezioni → generazione di pagine HTML o presentazioni (come questo corso).
+- **Design**: prototipo da Claude Design → componenti con i token del design system → pagina di prova.
+- **Sviluppo**: richiesta → plan mode → branch → test → commit → pull request → review.
+
+### Errori da evitare
+- Lavorare senza Git: non puoi tornare indietro.
+- Approvare piani e permessi senza leggerli.
+- `CLAUDE.md` lunghissimo e disordinato: le regole importanti si perdono.
+
+### Prova tu
+Crea una cartella con un file `testo.md`. Avvia Claude Code e chiedi in plan mode: "Trasforma testo.md in una pagina HTML semplice e leggibile." Leggi il piano prima di approvarlo.
+
+---
+
+## 11 · Skill: usarle e crearle
+
+### In breve
+Una **Skill** è un metodo scritto una volta, che Claude usa ogni volta che serve. È una cartella con un file `SKILL.md`: dentro ci sono il nome, una descrizione che dice **quando** usarla, e le istruzioni. Claude legge la descrizione e decide da solo quando attivarla.
+
+### 11.1 Skill, prompt o Project?
+
+| | Prompt | Project | Skill |
+|---|---|---|---|
+| **Cos'è** | Una richiesta | Un contesto fisso | Un metodo riutilizzabile |
+| **Quando** | Una volta | Per un cliente o un tema | Per un compito che si ripete |
+| **Dove vive** | Nella chat | Nello spazio del Project | In una cartella con `SKILL.md` |
+| **Esempio** | "Scrivi questo post" | "Tutto su cliente Rossi" | "Come scriviamo i post per qualsiasi cliente" |
+
+**Regola pratica.** Se fai lo stesso compito più di tre volte al mese, con lo stesso schema, è un buon candidato per una Skill.
+
+### 11.2 Come funziona: caricamento a strati
+Claude non legge tutte le Skill sempre. Funziona a strati:
+1. **Sempre**: legge solo **nome e descrizione** di ogni Skill. Poche righe ciascuna.
+2. **Quando serve**: se la descrizione corrisponde al compito, legge il **corpo** di `SKILL.md`.
+3. **Solo se richiesto**: legge i **file aggiuntivi** (esempi, riferimenti, script) quando il corpo li indica.
+
+Da qui due conseguenze:
+- **La descrizione è la parte più importante**: è l'unica cosa che Claude vede per decidere.
+- **`SKILL.md` deve essere snello**: i dettagli lunghi vanno in file separati.
+
+### 11.3 Anatomia di una Skill
+
 ```
 tono-ux-boutique/
-├── SKILL.md
-└── esempi/
-    ├── post-buono.md
-    └── post-da-evitare.md
+├── SKILL.md            ← obbligatorio
+├── esempi/             ← opzionale
+│   ├── post-buono.md
+│   └── post-da-evitare.md
+└── riferimenti/        ← opzionale
+    └── glossario.md
 ```
 
-**Regole della struttura** *(fonte: documentazione Anthropic sulle Skills; il nome della cartella deve coincidere con il campo `name`)*:
-- la cartella ha il nome della Skill, in minuscolo con trattini;
-- `SKILL.md` è obbligatorio e inizia con un frontmatter YAML con `name` e `description`;
-- sono opzionali le cartelle di supporto (`scripts/`, `references/`, `assets/`).
+Regole:
+- Il nome della cartella è uguale al campo `name`, in minuscolo con trattini.
+- `SKILL.md` inizia con un'intestazione (frontmatter) con `name` e `description`.
+- La descrizione non supera i 1024 caratteri. *(⚠ limite riportato da fonti di terze parti)*
 
-**Template di SKILL.md.**
+### 11.4 Il file SKILL.md
+
 ```markdown
 ---
 name: tono-ux-boutique
-description: Scrive o revisiona testi per UX Boutique secondo il tono di voce del brand. Usala quando l'utente chiede copy, post, claim, intro o revisione di testi per clienti o per il sito.
+description: Scrive o revisiona testi per UX Boutique secondo il tono di
+  voce del brand. Usala quando l'utente chiede post, claim, intro, email
+  commerciali o revisione di testi per clienti o per il sito. Non usarla
+  per documenti interni o codice.
 ---
 
 # Tono di voce UX Boutique
 
-## Quando usarla
-Testi per clienti, post social, pagine del sito, email commerciali.
-Non usarla per documenti interni o codice.
-
 ## Procedura
 1. Se mancano, chiedi pubblico, obiettivo e lunghezza.
-2. Scrivi la bozza in italiano, tono diretto e concreto.
-3. Ogni affermazione deve avere un beneficio misurabile, oppure va marcata "da verificare".
-4. Applica il glossario: usa i termini "da usare", evita quelli "da non usare".
-5. Rileggi la bozza rispetto ai criteri e segnala le violazioni.
+2. Scrivi in italiano, tono diretto e concreto.
+3. Ogni affermazione ha un beneficio misurabile, oppure va marcata
+   "da verificare".
+4. Applica il glossario in riferimenti/glossario.md.
+5. Rileggi la bozza rispetto ai criteri qui sotto.
 
 ## Criteri di qualità
-- Nessun superlativo vuoto.
-- Una sola call to action per testo.
+- Nessun superlativo vuoto ("il migliore", "rivoluzionario").
+- Una sola call to action.
 - Frasi sotto le 25 parole.
 - Nessun cliente citato senza approvazione.
 
 ## Esempi
-Leggi prima `esempi/post-buono.md`, poi `esempi/post-da-evitare.md`.
+Prima di scrivere, leggi esempi/post-buono.md ed esempi/post-da-evitare.md.
 
 ## Formato di output
 Testo finale, poi "Da verificare:" con le affermazioni da confermare.
 ```
 
-**Come si imposta — claude.ai.**
-1. Preparate la cartella `tono-ux-boutique/` con `SKILL.md`.
-2. Comprimete la cartella in un file `.zip`. La cartella deve essere la radice dell'archivio, non i suoi file sparsi.
-3. Nelle impostazioni dell'account, cercate la sezione **Skills** e scegliete di caricare la Skill dallo zip. *(⚠ da verificare: fonti diverse indicano percorsi diversi, ad esempio "Customize → Skills" oppure "Settings → Capabilities → Skills". Seguite il percorso del vostro account.)*
-4. Attivate la Skill per il vostro account. Con il piano Team l'admin l'ha già abilitata: verificate che sia visibile a voi.
-
-**Come si imposta — Claude Code.**
-1. Nel repository, create `.claude/skills/tono-ux-boutique/SKILL.md`.
-2. Fate commit: così la Skill è condivisa con chi lavora sul repository.
-3. Per una Skill solo personale, usate la cartella dell'utente invece del repository *(⚠ da verificare il percorso personale nella documentazione di Claude Code)*.
-
-**Come si usa.**
-- Chiedete un compito che la Skill copre. Claude la sceglie e segue i passi.
-- Per forzarne l'uso: "Usa la Skill tono-ux-boutique per questo testo."
-- Per verificare quali Skill sono disponibili: "Quali Skill hai per questo compito?"
-
-**Come si testa.** Preparate tre casi:
-1. **Tipico**: il compito per cui è stata scritta. Deve attivarsi e rispettare i criteri.
-2. **Al limite**: un compito simile ma non identico. Deve adattarsi o chiedere.
-3. **Fuori scopo**: un documento interno. Non deve attivarsi.
-
-Per ogni caso annotate: si è attivata? Ha seguito i passi? L'output rispetta i criteri?
-
-**Esempio completo.** Skill "tono-ux-boutique".
-- Caso tipico: "Scrivi un post per il servizio di audit." → si attiva, rispetta il glossario, chiede il pubblico se manca.
-- Caso al limite: "Scrivi una mail commerciale." → si adatta, usa gli stessi criteri.
-- Caso fuori scopo: "Riassumi il verbale della riunione interna." → non si attiva.
-
-**Come si corregge.**
-
-| Sintomo | Causa probabile | Correzione |
-|---|---|---|
-| Non si attiva mai | Descrizione vaga | Riscrivete la descrizione con le parole dell'utente |
-| Si attiva sempre | Descrizione troppo ampia | Aggiungete "non usarla per…" |
-| Si attiva ma sbaglia | Istruzioni ambigue o mancanti | Aggiungete un passo, un esempio "da evitare" |
-| Non compare nella lista | Nome file o struttura errati | Controllate `SKILL.md` maiuscolo e frontmatter |
-| Upload rifiutato | Zip con cartella annidata, nome non valido | Ricomprimete con la cartella come radice |
-
-**Errori comuni.**
-- Descrizione scritta per voi, non per Claude: "Strumento interno del reparto marketing" non dice quando usarla.
-- Istruzioni lunghe senza gerarchia: dividete in passi numerati.
-- Nessun test: la prima versione è sempre da correggere.
-
-**Verifica.**
-1. Quali due campi servono nel frontmatter e a cosa servono?
-2. Perché la descrizione conta più del resto della Skill?
-3. Quali tre casi di test servono e perché?
-
-**Esercizio.** Trasformate un compito ripetuto del vostro ruolo in una Skill. Testatela sui tre casi e portate il risultato in aula.
-
----
-
-### Modulo 6 — Connettori: Google Drive, Figma, Miro
-
-**Obiettivo.** Collegare i tre strumenti del team, verificare i permessi concessi e usare i connettori in modo preciso.
-
-**Prerequisiti.** Account personale per ciascuno strumento. Per il piano Team, l'owner o l'admin deve abilitare il connettore prima che i membri possano collegarlo *(fonte: guide di terze parti, da verificare nella documentazione ufficiale)*.
-
-**Concetto.** Un connettore permette a Claude di leggere, e in alcuni casi scrivere, nei vostri strumenti. Il collegamento appartiene al vostro account Claude: una volta collegato, lo usate in chat, in Claude Code e nelle altre superfici dove il connettore è disponibile *(⚠ da verificare per superficie)*.
-
-**Come si imposta.**
-
-*Passaggio comune.*
-1. Aprite le impostazioni e cercate **Connectors** *(⚠ da verificare il nome della voce)*.
-2. Cercate lo strumento nel catalogo, scegliete **Connect** e accedete con il vostro account.
-3. Verificate i permessi concessi: solo lettura o anche scrittura.
-4. Se il pulsante dice **Request** invece di **Connect**, serve che l'admin abiliti il connettore per il team.
-
-*Google Drive.* Accedete con l'account Google aziendale. Claude può leggere documenti, fogli, presentazioni e PDF secondo i permessi del vostro account *(fonte: guide di terze parti)*.
-
-*Figma.* Servono un account Figma e un accesso ai team o ai file. Il connettore Figma è disponibile su qualsiasi piano Figma *(fonte: help center Figma)*. Se l'accesso è a livello di team, Claude vede solo i team autorizzati.
-
-*Miro.* Collegate il vostro account Miro. Il connettore può risultare "connesso" ma va verificato in ogni conversazione: chiedete esplicitamente di usarlo *(fonte: guida di terze parti)*.
-
-**Come si usa.** Le richieste precise funzionano meglio.
-- Drive: "Cerca nel Drive la cartella del cliente X e riassumi l'ultimo brief caricato."
-- Figma: "Dal file [nome o link], estrai i colori e i font del design system in JSON."
-- Miro: "Nella board [nome], elenca le note del workshop raggruppate per tema."
-
-**Esempio completo.** Workflow di un PM: Miro (note del workshop) → Skill "status report" → Drive (documento di progetto) → Artifact con lo status report. Ogni passaggio ha un controllo umano: verificate le note estratte prima di produrre il documento.
-
-**Errori comuni.**
-- Concedere più permessi del necessario (scrittura quando basta la lettura).
-- Richieste vaghe: Claude trova il file sbagliato o una versione vecchia.
-- Collegare strumenti con dati riservati senza verificare con l'admin.
-- Scambiare "connesso" per "funzionante": testate con una domanda semplice.
-
-**Verifica.**
-1. Cosa fate se il pulsante dice "Request"?
-2. Perché conviene chiedere il permesso minimo?
-3. Come verificate che un connettore funzioni davvero?
-
-**Esercizio.** Collegate Drive e Miro. Fate tre richieste reali (una per strumento) e annotate i risultati.
-
----
-
-### Modulo 7 — MCP e Plugin
-
-**Obiettivo.** Capire cosa sono MCP e i plugin, quando servono e quali rischi comportano.
-
-**Prerequisiti.** Modulo 6.
-
-**Concetto.**
-- **MCP (Model Context Protocol)**: uno standard con cui uno strumento espone le sue funzioni a Claude. È la "presa USB": strumenti e Claude si collegano senza adattatori su misura.
-- **Plugin**: un pacchetto che combina Skill, connettori e impostazioni per un ambito preciso (es. "project management").
-
-**Come si imposta.**
-- Per uno strumento con connettore già pronto (Drive, Figma, Miro): usate il connettore (modulo 6).
-- Per un server MCP non presente nel catalogo, in Claude Code: `claude mcp add nome-server -- comando-del-server`. Per la lista: `claude mcp list`. *(⚠ da verificare la sintassi nella documentazione aggiornata di Claude Code.)*
-- Per i plugin: cercate tra quelli disponibili nel vostro account e leggete cosa includono e quali permessi richiedono *(⚠ da verificare la sezione)*.
-
-**Come si usa.** Installate solo ciò che potete spiegare. Un server MCP può fare azioni reali: scrivere su un file, inviare un messaggio. Controllate le azioni che Claude propone prima di confermarle, soprattutto se scrivono.
-
-**Esempio completo.** Un team vuole un server per il proprio gestionale. Passi: verificare se esiste un server ufficiale → installarlo in un progetto di prova → chiedere solo letture → solo dopo abilitare le scritture, con revisione.
-
-**Errori comuni.**
-- Installare un server di cui non si conosce l'origine.
-- Abilitare le scritture prima di aver testato le letture.
-
-**Verifica.**
-1. Qual è la differenza tra un connettore e un plugin?
-2. Quali due controlli fate prima di installare un server MCP?
-
-**Esercizio.** Elencate tre strumenti del vostro lavoro. Per ciascuno: esiste un connettore? Un server MCP? Cosa cambiereste nel workflow?
-
----
-
-## Parte D — Design
-
-### Modulo 8 — Claude Design
-
-**Obiettivo.** Produrre un prototipo, una presentazione o un one-pager a partire da un brief, con contesto di brand, revisioni controllate ed export verificato.
-
-**Prerequisiti.**
-- Accesso a Claude Design nel vostro account. Claude Design è stato presentato come anteprima di ricerca (research preview) ad aprile 2026, e l'accesso può essere limitato per piano *(⚠ da verificare nel vostro account)*.
-- Un brief con pubblico, obiettivo e formato.
-- Il brand kit o il design system del progetto (colori in HEX, font, logo, componenti). Se non esiste, il modulo parte da riferimenti visivi.
-
-**Concetto.** Claude Design genera output visivi a partire dalla conversazione: prototipi interattivi, slide, one-pager e landing page. Non è un generatore di immagini: produce strutture, testi e stili che si possono rivedere e modificare.
-
-Cosa produce:
-- **Prototipi**: pagine o flussi navigabili.
-- **Slide**: presentazioni da topic, pubblico e numero di slide.
-- **One-pager**: sintesi o proposte su una pagina.
-- **Landing page**: pagine di campagna o di prodotto.
-
-Cosa non produce: fotografie, illustrazioni originali, video. Per quelli servono altri strumenti (modulo 9 e cap. 09 del corso precedente).
-
-**Come si imposta.**
-
-*Passo 1 — Accesso.* Aprite Claude Design dal vostro account. Se non lo vedete, verificate il piano o chiedete all'admin. *(⚠ da verificare: il punto di accesso nell'interfaccia.)*
-
-*Passo 2 — Contesto del brand (una volta sola).* Preparate un documento di brand con:
-- palette con valori HEX (es. primario `#C96442`, testo `#1A1A1A`, sfondo `#FBFAF7`);
-- font e pesi (es. titoli Space Grotesk 600, testo Inter 400);
-- logo in formato vettoriale o PNG trasparente;
-- tono di voce: tre aggettivi, un esempio di testo approvato, un elenco di termini da evitare.
-
-Caricate questo documento nel Project del brand (modulo 3) e, se disponibile, collegatelo a Claude Design come riferimento *(⚠ da verificare il modo di collegarlo)*.
-
-*Passo 3 — Verifica del contesto.* Prima di generare, chiedete: "Descrivi il brand che stai usando: colori, font, tono." Se la risposta non corrisponde al documento, correggete il contesto.
-
-*Passo 4 — Brief.* Usate il BRIEF del modulo 2, con questi elementi:
-- **Formato**: prototipo, slide, one-pager o landing.
-- **Pubblico** e **obiettivo** (es. "far richiedere un audit gratuito").
-- **Contenuto**: sezioni in ordine, con il messaggio di ciascuna.
-- **Riferimento visivo**: uno screenshot di una pagina che vi piace, con una frase su cosa vi piace.
-- **Vincoli**: mobile first, numero di slide, lingua.
-
-*Passo 5 — Struttura prima dello stile.* Primo messaggio: "Proponi tre strutture diverse. Per ciascuna: sezioni in ordine e contenuto. Non applicare ancora colori né font." Scegliete una struttura.
-
-*Passo 6 — Prototipo.* Secondo messaggio: "Procedi con la struttura 2. Applica il brand del contesto. Crea la versione mobile first."
-
-*Passo 7 — Revisioni.* Una modifica per messaggio, con il perché: "Il titolo dell'hero è generico. Proponi tre alternative con un numero concreto. Applica la prima; non cambiare altro."
-
-*Passo 8 — Verifica prima dell'export.*
-- [ ] I contenuti e i numeri sono approvati e verificati.
-- [ ] Colori e font corrispondono al brand kit.
-- [ ] Il layout funziona su mobile.
-- [ ] C'è una sola call to action.
-- [ ] Nessun cliente è citato senza approvazione.
-
-*Passo 9 — Export.* Le opzioni documentate da fonti di terze parti sono: download in `.zip`, PDF, PPTX, HTML autonomo, invio a Canva, e passaggio a Claude Code. Un export come immagine (PNG, JPEG, SVG) non risulta documentato; un export diretto in formato Figma non è confermato *(⚠ da verificare nel menu di export del vostro account)*.
-
-Regola: esportate solo dopo il passo 8. Gli export sono più difficili da correggere della bozza.
-
-| Formato | Quando | Attenzione |
-|---|---|---|
-| **HTML** | Prototipo navigabile, da condividere o da passare allo sviluppo | Controllate il mobile |
-| **PDF** | One-pager o documento da inviare o stampare | Il testo non è facile da modificare |
-| **PPTX** | Presentazione da modificare in PowerPoint o Keynote | Verificate che i font siano disponibili |
-| **Canva** | Lavoro da completare in Canva | Dipende dal vostro account Canva |
-| **Claude Code** | Passaggio della struttura allo sviluppo | Vedi modulo 11 |
-
-**Come si usa — riepilogo.** Brief → tre strutture → una scelta → prototipo → revisioni singole → verifica → export. Il ciclo si ripete finché il risultato è giusto.
-
-**Esempio completo.** Landing per il servizio di audit.
-1. Contesto: Project "UX Boutique — Brand & Tone" con brand kit caricato. Verifica: la descrizione del brand corrisponde.
-2. Brief: pubblico responsabili marketing e-commerce, obiettivo richiesta audit gratuito, sezioni hero, tre benefici misurabili, un caso studio, CTA, footer, mobile first.
-3. Tre strutture. Scelta: la seconda, con caso studio in alto.
-4. Prototipo con brand. Revisione: titolo dell'hero con numero concreto.
-5. Verifica: il numero del caso studio è approvato; la CTA è una sola; il mobile è corretto.
-6. Export in HTML per la revisione del cliente, PDF per la sintesi interna.
-
-**Errori comuni.**
-
-| Sintomo | Causa | Soluzione |
-|---|---|---|
-| Risultato generico | Brief vago | Aggiungete pubblico, obiettivo, sezioni con messaggio |
-| Brand non riconoscibile | Contesto mancante o vecchio | Caricate il brand kit e verificate la descrizione |
-| Claim non verificati | Nessuna regola di verifica | Aggiungete "marca come da verificare" nelle istruzioni |
-| Mobile rotto | Non richiesto | Scrivete "mobile first" nel formato |
-| Struttura e stile cambiano insieme | Due richieste in un messaggio | Separate struttura e stile |
-| Export non come atteso | Non verificato prima | Eseguite il passo 8 prima dell'export |
-
-**Verifica.**
-1. Perché si chiede la struttura prima dello stile?
-2. Quali elementi deve contenere un brief per Claude Design?
-3. Quali controlli fate prima di esportare?
-
-**Esercizio.** In coppie: scegliete un progetto reale (una pagina, una slide, un one-pager). Scrivete il brief, proponete tre strutture, scegliete la migliore, fate tre revisioni singole, verificate con la checklist, esportate. Consegnate il file esportato e il brief.
-
----
-
-### Modulo 9 — Figma MCP e passaggio al codice
-
-**Obiettivo.** Leggere token e componenti da Figma, usarli nel codice e mantenere una fonte unica.
-
-**Prerequisiti.** Account Figma di team. Connettore Figma collegato (modulo 6). Un design system con token.
-
-**Concetto.** Il flusso completo ha tre fasi:
-1. **Design**: il brief diventa un prototipo (modulo 8).
-2. **Figma**: il design system fornisce token (colori, spaziature, font) e componenti.
-3. **Code**: Claude Code usa gli stessi token per generare il componente.
-
-I token sono la fonte unica: se cambia un colore nel design system, cambia nel codice. Senza token, ogni passaggio ricrea le decisioni da capo.
-
-**Come si imposta.**
-1. Collegate il connettore Figma (modulo 6).
-2. Verificate l'accesso: "Elenca i file Figma a cui hai accesso."
-3. Organizzate i token in un file dedicato, ad esempio `design/tokens.json`, e tenetelo nel repository.
-
-**Come si usa.**
-
-*Leggere.* "Dal file [nome o link], estrai i colori e i font del design system in JSON." Verificate i valori sul file originale.
-
-*Scrivere.* Claude può modificare il canvas Figma. Regola: fate le scritture su una copia o su una pagina di prova, e verificate prima di confermare, perché il file è del team.
-
-*Passare al codice.* "Usando i token in `design/tokens.json`, crea il componente card con questo layout. Non introdurre colori fuori dai token." *(Vedi modulo 11 per il flusso in Claude Code.)*
-
-**Esempio completo.** Componente card:
-1. Estrazione dei token dal design system Figma → `design/tokens.json`.
-2. Richiesta a Claude Code, in plan mode: componente card con i token.
-3. Verifica: nessun valore hard-coded; il componente rispetta la spaziatura del design system.
-4. Commit e revisione.
-
-**Errori comuni.**
-- Valori estratti e mai verificati sul file originale.
-- Scritture dirette sul file del team.
-- Colori inseriti nel codice invece dei token.
-
-**Verifica.**
-1. Perché i token sono una fonte unica?
-2. Dove fate le prove di scrittura su Figma e perché?
-
-**Esercizio.** Estraete tre token da un file Figma reale. Usateli per un componente in Claude Code. Verificate che non ci siano valori fuori dai token.
-
----
-
-## Parte E — Agente
-
-### Modulo 10 — Claude Code: installazione, cartelle, Git
-
-**Obiettivo.** Installare Claude Code, avviarlo su una cartella di lavoro e usare Git per tenere le versioni.
-
-**Prerequisiti.** Account Claude con accesso a Claude Code. Un computer con terminale, oppure l'app desktop.
-
-**Concetto.** Claude Code è un agente che lavora dentro una cartella o un repository: legge, modifica e crea file, esegue comandi, con la vostra supervisione. Non è riservato agli sviluppatori: chi lavora su documenti in cartelle ne trae vantaggio.
-
-- **Cartella**: un insieme di file. Claude Code lavora nella cartella da cui è avviato.
-- **Repository**: una cartella con la storia delle modifiche (Git). Ogni modifica è tracciata e reversibile.
-
-**Come si imposta.**
-
-*Installazione.* Scegliete una via: app desktop oppure terminale. Per il terminale, seguite la documentazione ufficiale di installazione *(⚠ da verificare il comando aggiornato)*. Poi accedete con il vostro account.
-
-*Primo avvio.*
-```bash
-cd percorso/della/cartella
-git init                 # solo se la cartella non è già un repository
-claude                   # avvia Claude Code nella cartella
-```
-
-**Come si usa.**
-1. Chiedete una cosa semplice: "Elenca i file di questa cartella e spiega cosa contengono."
-2. Verificate la risposta prima di chiedere modifiche.
-3. Prima di ogni modifica importante, fate un commit.
-
-*Git in breve.*
-- **Commit**: una versione salvata con una descrizione.
-- **Branch**: una linea di lavoro separata, per non toccare la versione principale.
-- **Push**: invio delle modifiche al repository remoto (es. GitHub).
-- **Pull request**: richiesta di unire un branch nel principale, con revisione.
-
-```bash
-git status                          # stato delle modifiche
-git add percorso/del/file
-git commit -m "Descrizione chiara"  # versione salvata
-git log --oneline -5                # ultime versioni
-```
-
-**Esempio completo.** Cartella "landing-audit".
-1. `git init`, primo commit con i file esistenti.
-2. `claude` nella cartella; richiesta: "Spiega la struttura del progetto."
-3. Richiesta di modifica in plan mode (modulo 11).
-4. Verifica, commit con messaggio chiaro.
-
-**Errori comuni.**
-- Lavorare in una cartella senza Git: non si torna indietro.
-- Commit troppo grandi, con modifiche non correlate: difficili da rivedere.
-- Credenziali nei file del repository: non ci vanno mai.
-
-**Verifica.**
-1. Che differenza c'è tra cartella e repository?
-2. Perché fate un commit prima di una modifica importante?
-
-**Esercizio.** Create una cartella di prova con tre file. Inizializzate Git, fate il primo commit, chiedete a Claude Code di spiegare il contenuto, poi modificate un file e fate il secondo commit.
-
----
-
-### Modulo 11 — CLAUDE.md, plan mode, permessi, subagent, comandi
-
-**Obiettivo.** Configurare Claude Code per lavorare in modo prevedibile: istruzioni permanenti, piani approvati, permessi controllati.
-
-**Prerequisiti.** Modulo 10.
-
-**Concetto.**
-
-**CLAUDE.md** è il file di istruzioni permanenti del progetto. Claude Code lo legge all'inizio della sessione. Esistono più livelli: un file nella radice del progetto (condiviso con il team), uno personale nella cartella dell'utente, e impostazioni a livello organizzazione *(fonti: guide di terze parti, da verificare nella documentazione ufficiale)*.
-
-**Plan mode** fa sì che Claude proponga un piano e aspetti la vostra approvazione prima di modificare i file.
-
-**Permessi**: Claude Code chiede conferma per modificare file ed eseguire comandi.
-
-**Subagent**: agenti secondari che svolgono un sotto-compito e riportano il risultato. Claude Code include subagent integrati, tra cui Explore (ricerca nel codice) e Plan (usato in plan mode); la documentazione ufficiale indica che Explore e Plan non caricano CLAUDE.md, per restare veloci *(fonte: documentazione ufficiale dei subagent)*.
-
-**Comandi slash**: comandi che iniziano con `/`, integrati o personalizzati.
-
-**Come si imposta.**
-
-*CLAUDE.md.* Create `CLAUDE.md` nella radice del repository. Lunghezza consigliata: poche centinaia di righe al massimo *(fonte: guida di terze parti, indicazione orientativa)*.
-
-```markdown
-# Progetto: landing audit UX Boutique
-
-## Cos'è
-Landing page per il servizio di audit. Lingua italiana.
-
-## Stack
-- HTML e CSS, nessun framework.
-- Token di design in `design/tokens.json`.
-
-## Regole
-- Tono dei testi: `docs/tono-di-voce.md`.
-- Non modificare la cartella `legacy/`.
-- Non committare file con chiavi o credenziali.
-
-## Come lavorare
-- Prima di modifiche che toccano più file, mostra il piano e aspetta approvazione.
-- Dopo ogni modifica, elenca i file cambiati.
-```
-
-*Plan mode.* Si attiva con Shift+Tab nel terminale, oppure con il comando `/plan`, oppure con il flag di avvio per permission mode plan *(⚠ da verificare nella versione installata)*.
-
-*Permessi.* Quando Claude Code chiede un permesso, leggete cosa vuole fare. Potete concederlo per una singola azione o per la sessione. Non concedete "approva tutto" senza sapere cosa farà.
-
-**Come si usa.**
-
-1. Avviate `claude` nella cartella.
-2. Per modifiche su più file: attivate plan mode, chiedete il piano, leggetelo.
-3. Se un passo non è chiaro, chiedete di spiegarlo prima di approvare.
-4. Approvate, verificate il risultato, fate commit.
-
-*Esempio di richiesta in plan mode:*
-```
-Aggiungi alla landing una sezione "Caso studio" con tre numeri
-da design/tokens.json. Non introdurre colori fuori dai token.
-Mostra il piano con i file che tocchi.
-```
-
-**Esempio completo.** Sezione "Caso studio" nella landing:
-1. Piano: file da modificare, token usati, nessun file nuovo fuori da `sezioni/`.
-2. Approvazione dopo la lettura del piano.
-3. Modifica, verifica del mobile, commit.
-
-**Errori comuni.**
-- Approvare un piano senza leggerlo.
-- CLAUDE.md troppo lungo e confuso: le regole importanti si perdono.
-- Permessi generici concessi per comodità.
-- Subagent senza istruzioni chiare: fanno lavoro diverso dal previsto.
-
-**Verifica.**
-1. Cosa deve contenere un buon CLAUDE.md?
-2. Cosa fate prima di approvare un piano?
-3. Perché non concedere "approva tutto"?
-
-**Esercizio.** Create un CLAUDE.md di dieci righe per un repository di prova. Chiedete una piccola modifica in plan mode. Leggete il piano prima di approvarlo.
-
----
-
-## Parte F — Operatività
-
-### Modulo 12 — Attività programmate
-
-**Obiettivo.** Automatizzare un compito ripetuto con un controllo umano sull'output.
-
-**Prerequisiti.** Una Skill o un Project già testati.
-
-**Concetto.** Un'attività programmata esegue un compito a intervalli regolari (es. ogni lunedì, il report settimanale). Automatizzate solo ciò che avete già fatto a mano almeno una volta con esito positivo.
-
-**Come si imposta.**
-1. Scrivete il compito come lo dareste a un collega: input, passi, output, dove finisce il risultato.
-2. Testatelo una volta a mano.
-3. Programmate con l'intervallo desiderato *(⚠ da verificare dove si configura nel vostro account)*.
-4. Definite il punto di arrivo dell'output (cartella, documento, canale).
-
-**Come si usa.** Ogni output automatico passa da una revisione umana prima di essere inviato a un cliente o pubblicato.
-
-**Esempio completo.** Report settimanale del progetto:
-1. Compito a mano: leggere le note della settimana (Drive), riassumere in cinque punti (Skill "status report").
-2. Programmazione: ogni lunedì mattina.
-3. Output in un documento condiviso, con una riga "Da verificare".
-4. Revisione del PM prima della condivisione.
-
-**Errori comuni.**
-- Automatizzare un compito mai verificato a mano.
-- Inviare direttamente al cliente senza rileggere.
-- Non definire dove finisce l'output.
-
-**Verifica.**
-1. Quali due condizioni servono prima di programmare un compito?
-2. Dove va il controllo umano in un report automatico?
-
-**Esercizio.** Scegliete un report ricorrente del vostro ruolo. Scrivete il compito come per un collega e fatelo una volta a mano.
-
----
-
-### Modulo 13 — Qualità, privacy e checklist
-
-**Obiettivo.** Verificare gli output, proteggere i dati e consegnare materiali affidabili.
-
-**Prerequisiti.** Nessuno.
-
-**Concetto.** Ogni output di Claude è una bozza da verificare. I rischi principali sono tre: fatti e numeri sbagliati, dati riservati caricati senza permesso, diritti d'autore su materiali generati o copiati.
-
-**Come si imposta.** Verificate con l'admin le impostazioni privacy del piano Team: uso dei dati, conservazione, accesso ai Project condivisi. Documentate le scelte.
-
-**Come si usa — regole.**
-- **Verificate i fatti**: chi, cosa, quando. Aprite la fonte.
-- **Ricalcolate i numeri** su un campione.
-- **Eseguite il codice** e leggetelo prima di usarlo.
-- **Non caricate** password, chiavi API, dati personali di clienti senza base legale, documenti coperti da NDA se non lo consentono.
-- **Anonimizzate** quando dovete lavorare su casi reali.
-- **Controllate gli asset**: loghi, font e immagini usati devono essere utilizzabili.
-
-**Checklist prima della consegna.**
-- [ ] Fatti e numeri verificati sulla fonte.
-- [ ] Nessun dato sensibile o coperto da NDA.
-- [ ] Tono e brand rispettati.
-- [ ] Test su mobile e browser diversi (per il digitale).
-- [ ] Asset utilizzabili.
-- [ ] Approvazione del referente.
-
-**Esempio completo.** Consegna di una landing: checklist completa, verifica dei numeri del caso studio con il cliente, controllo che il font sia licenziato per il web, approvazione del referente prima della pubblicazione.
-
-**Errori comuni.**
-- Consegnare senza rileggere perché "l'ha scritto Claude".
-- Caricare un contratto reale per un test.
-- Usare immagini trovate online senza licenza.
-
-**Verifica.**
-1. Quali tre rischi principali deve controllare chi usa Claude per il lavoro?
-2. Cosa fate se un dato sensibile è già stato caricato per errore?
-
-**Esercizio.** Prendete un output reale del vostro lavoro. Applicate la checklist e annotate cosa correggereste.
-
----
-
-## Parte G — Applicazione
-
-### Modulo 14 — Percorsi per ruolo
-
-**Obiettivo.** Applicare il corso al proprio ruolo, con un percorso Base → Intermedio → Avanzato.
-
-**Concetto.** Il livello si raggiunge quando un compito è ripetibile senza di voi. Ogni ruolo ha un percorso e un esercizio per livello.
-
-**Marketing**
-- **Base**: testi, post, varianti di copy. *Esercizio*: cinque varianti di un claim con tre toni.
-- **Intermedio**: Project con brand e tono; piano editoriale mensile; analisi competitor con fonti. *Esercizio*: piano editoriale di un mese con fonti verificate.
-- **Avanzato**: Skill del tono di voce; campagne con Claude Design; report da CSV. *Esercizio*: Skill "revisione copy" testata su dieci testi reali.
-
-**Project Management**
-- **Base**: verbali, email ai clienti, riassunti. *Esercizio*: verbale → cinque punti con responsabili e scadenze.
-- **Intermedio**: Project per cliente; stime; rischi; status report. *Esercizio*: status report da note grezze.
-- **Avanzato**: connettori Drive e Miro; Skill per gli status report; attività programmate. *Esercizio*: report automatizzato con verifica umana.
-
-**UX/UI e Product Design**
-- **Base**: sintesi di interviste, personas, microcopy. *Esercizio*: tre interviste → cinque bisogni con citazioni.
-- **Intermedio**: user journey; architettura dell'informazione; analisi euristica da screenshot. *Esercizio*: analisi euristica di un flusso reale.
-- **Avanzato**: token da Figma; prototipi con Claude Design; handoff a Claude Code; revisione di accessibilità. *Esercizio*: un componente dal design al codice con token condivisi.
-
-**Art Direction e Graphic Design**
-- **Base**: concept, moodboard testuali, naming, claim. *Esercizio*: tre concept per un evento con motivazione.
-- **Intermedio**: brief creativi; analisi di riferimenti; varianti di layout. *Esercizio*: brief creativo completo.
-- **Avanzato**: Claude Design per visual e one-pager; brand kit come contesto; export verso Canva. *Esercizio*: one-pager con brand kit ed export.
-
-**Sviluppo**
-- **Base**: spiegare codice, snippet, regex, query. *Esercizio*: spiegare una funzione riga per riga.
-- **Intermedio**: debug, test, documentazione, code review. *Esercizio*: test per una funzione esistente.
-- **Avanzato**: Claude Code con CLAUDE.md; subagent; GitHub; Figma MCP da design a codice. *Esercizio*: feature completa con piano, commit, revisione.
-
-**Errori comuni.** Saltare al livello avanzato senza aver completato il base. Ogni livello prepara il successivo.
-
-**Verifica.** Per il vostro ruolo: quale livello avete raggiunto? Quale compito è diventato ripetibile senza di voi?
-
----
-
-### Modulo 15 — Workshop finale
-
-**Obiettivo.** Eseguire un workflow completo dall'inizio alla fine in coppie miste, con un output consegnabile.
-
-**Prerequisiti.** Moduli 1–13.
-
-**Formato.** Coppie miste (es. design + sviluppo, marketing + PM). Ogni coppia sceglie un workflow:
-- UX research e analisi dei competitor;
-- redesign di una pagina;
-- nuovo prodotto digitale dal brief al prototipo;
-- campagna marketing dalla strategia ai contenuti;
-- automazione di un processo di PM;
-- sviluppo software dalla richiesta al commit.
-
-**Passi.**
-1. Definire il BRIEF del workflow.
-2. Preparare il Project e, se serve, una Skill.
-3. Collegare i connettori necessari.
-4. Eseguire il workflow con almeno un output in Artifact o Claude Design.
-5. Eseguire la checklist del modulo 13.
-6. Presentare in tre minuti: cosa avete fatto, cosa avete verificato, cosa non avete fatto.
-
-**Criteri di valutazione.**
-- Il BRIEF usa tutte le parti necessarie.
-- Il contesto è nel Project, non ripetuto.
-- Ogni output ha un controllo umano documentato.
-- La checklist è completa.
-
----
-
-## Appendice A — Glossario
-
-| Termine | Significato |
+### 11.5 Scrivere la descrizione giusta
+Formula in tre frasi:
+> **Cosa fa.** Usala quando **[situazioni, con le parole che userebbe chi chiede]**. Non usarla per **[casi esclusi]**.
+
+| ❌ Debole | ✅ Efficace |
 |---|---|
-| **Artifact** | Output autonomo (documento, presentazione, foglio, pagina) modificabile accanto alla chat |
-| **BRIEF** | Metodo a sei parti per scrivere un prompt completo |
-| **CLAUDE.md** | File di istruzioni permanenti per Claude Code |
-| **Connettore** | Collegamento di Claude a uno strumento (Drive, Figma, Miro) |
-| **Effort** | Quanto Claude ragiona prima di rispondere |
-| **Plan mode** | Modalità in cui Claude propone un piano prima di modificare |
-| **MCP** | Standard con cui uno strumento espone funzioni a Claude |
-| **Plugin** | Pacchetto di Skill, connettori e impostazioni |
-| **Project** | Spazio con istruzioni e documenti condivisi tra le chat |
-| **Skill** | Metodo riutilizzabile, in una cartella con `SKILL.md` |
-| **Subagent** | Agente secondario che svolge un sotto-compito |
-| **Token** | Valore di design (colore, spaziatura, font) usato in modo condiviso |
+| "Aiuta con i testi." | "Scrive o revisiona post e pagine per clienti UX Boutique. Usala quando l'utente chiede testi commerciali. Non usarla per documenti interni." |
+| "Strumento del reparto PM." | "Trasforma note di riunione in uno status report di 5 punti. Usala quando l'utente chiede un report, un aggiornamento per il cliente o un riassunto di avanzamento." |
 
----
+### 11.6 Tre modi per creare una Skill
 
-## Appendice B — Risoluzione problemi generale
+**1. Chiedendolo a Claude, in conversazione.** Il modo più semplice. Descrivi il processo e Claude scrive `SKILL.md` per te:
+```
+Voglio creare una Skill per i nostri status report settimanali.
+Ecco come li facciamo oggi: [descrivi i passi].
+Ecco due report riusciti: [incolla].
+Scrivi la Skill completa: SKILL.md con nome, descrizione, procedura,
+criteri di qualità ed esempi. Fammi prima le domande che ti servono.
+```
 
-| Problema | Cosa controllare | Soluzione |
+**2. A mano, con il modello del 11.4.** Utile quando il metodo è già scritto da qualche parte.
+
+**3. Da riga di comando.** Il comando `npx skills init nome-skill` crea la struttura di base da completare.
+
+### 11.7 Esempio completo: Skill "status report"
+1. **Raccogli** tre status report riusciti e le note grezze da cui sono nati.
+2. **Chiedi a Claude** di scrivere la Skill (prompt del 11.6).
+3. **Rispondi** alle sue domande: per chi è il report, cosa non deve mai mancare.
+4. **Controlla** la descrizione: dice cosa fa e quando usarla?
+5. **Testa** con tre casi (11.9).
+6. **Installa** e condividi con il team (11.8).
+
+### 11.8 Installare una Skill
+
+**Su claude.ai (chat, Project)**
+1. Comprimi la cartella in `.zip`: la cartella della Skill deve essere la radice dell'archivio.
+2. Impostazioni → sezione **Skills** → carica lo zip. *(⚠ il percorso cambia: "Customize → Skills" oppure "Settings → Capabilities → Skills")*
+3. Attivala e fai una prova.
+4. Nel piano Team, per renderla disponibile a tutti serve l'admin. *(⚠ verifica)*
+
+**In Claude Code**
+- **Per un progetto**: cartella `.claude/skills/nome-skill/` nel repository, poi commit. Vale per chi lavora su quel repository.
+- **Per te, in tutti i progetti**: cartella personale `~/.claude/skills/`.
+
+**Da un pacchetto online**
+```bash
+npx skills add autore/repository                  # nel progetto
+npx skills add autore/repository -g -a claude-code  # per tutti i tuoi progetti
+```
+
+**Sicurezza.** Una Skill scaricata può contenere istruzioni e script. Leggila prima di usarla, come abbiamo fatto con i pacchetti installati in questo repository.
+
+### 11.9 Testare e correggere
+Prepara tre casi:
+1. **Tipico**: il compito per cui è nata. Deve attivarsi e rispettare i criteri.
+2. **Al limite**: un compito simile. Deve adattarsi o chiedere.
+3. **Fuori scopo**: un compito diverso. Non deve attivarsi.
+
+| Sintomo | Causa | Correzione |
 |---|---|---|
-| Risposta generica | Il BRIEF ha Background e Intento? | Aggiungete le parti mancanti |
-| Contesto ignorato | La chat è nel Project giusto? | Aprite una nuova chat nel Project |
-| Chat lenta o confusa | Chat molto lunga | Riassumete e aprite una chat nuova |
-| Skill non attiva | Descrizione del frontmatter | Riscrivetela con le parole dell'utente |
-| Connettore non trova il file | Nome esatto, permessi | Chiedete il link diretto |
-| Connettore dice "Request" | Abilitazione del team | Chiedete all'owner o all'admin |
-| Numeri sbagliati | Nessuna verifica | Ricalcolate un campione |
-| Claude Code ignora CLAUDE.md | File nella radice? | Spostatelo e chiedete la verifica |
+| Non si attiva | Descrizione vaga | Riscrivila con le parole dell'utente |
+| Si attiva sempre | Descrizione troppo ampia | Aggiungi "Non usarla per…" |
+| Si attiva ma sbaglia | Istruzioni ambigue | Aggiungi un passo o un esempio "da evitare" |
+| Non compare | Nome del file o intestazione | Controlla `SKILL.md` e i campi `name` e `description` |
+| Upload rifiutato | Zip con cartella annidata o nome non valido | Ricomprimi con la cartella come radice |
+
+Per forzare una Skill durante i test: "Usa la Skill tono-ux-boutique per questo testo."
+
+### 11.10 Manutenzione
+- Tieni le Skill in un repository Git: ogni modifica ha una versione.
+- Ogni Skill ha un responsabile.
+- Quando il metodo cambia, aggiorna la Skill e ripeti i tre test.
+
+### 11.11 Idee di Skill per ruolo
+| Ruolo | Skill |
+|---|---|
+| Marketing | Tono di voce, piano editoriale, revisione copy, brief di campagna |
+| PM | Status report, verbale riunione, stima di progetto, analisi rischi |
+| Design | Sintesi interviste, analisi euristica, microcopy, handoff |
+| Art direction | Brief creativo, concept, prompt per immagini |
+| Sviluppo | Code review con le regole del team, documentazione, checklist di rilascio |
+
+### Prova tu
+Scegli un compito che ripeti. Crea la Skill chiedendolo a Claude (11.6, metodo 1), testala sui tre casi e portala al team.
 
 ---
 
-## Appendice C — Fonti e stato della verifica
+## 12 · Plugin
 
-Le informazioni di questo corso provengono da tre tipi di fonti. Ogni modulo indica quando un passaggio non è confermato.
+### In breve
+Un **plugin** è un **pacchetto** che installa insieme più pezzi: Skill, comandi, agenti, connettori, automazioni. Invece di configurare tutto a mano, installi un plugin e hai un kit pronto per un ambito (per esempio marketing o project management).
 
-- **Fonti ufficiali** (documentazione Anthropic e Figma): usate per la struttura delle Skill, i subagent di Claude Code, l'help center Figma.
-- **Fonti di terze parti** (guide e blog): usate per i percorsi di menu, le scorciatoie, le opzioni di export di Claude Design. Vanno verificate nel vostro account.
-- **Verifica interna**: l'indice e le decisioni del team (piano Team, Skills abilitate dall'admin, connettori Drive, Figma e Miro).
+### 12.1 Differenze con gli altri mattoni
 
-**Passaggi da verificare prima della prima sessione:**
-1. Percorso di caricamento delle Skill su claude.ai.
-2. Punto di accesso e opzioni di export di Claude Design nel vostro piano.
-3. Abilitazione dei connettori Miro e Drive da parte dell'owner.
-4. Scorciatoie e comandi di plan mode nella versione installata di Claude Code.
-5. Sintassi aggiornata di `claude mcp add`.
+| | Skill | Connettore / MCP | Plugin |
+|---|---|---|---|
+| **Cos'è** | Un metodo | Un collegamento a uno strumento | Un pacchetto di più pezzi |
+| **Cosa aggiunge** | Il "come si fa" | I dati e le azioni di uno strumento | Metodi + collegamenti + comandi insieme |
+| **Esempio** | Skill "status report" | Connettore Google Drive | Plugin "Project Management" |
+
+### 12.2 Due tipi di plugin
+Attenzione: il nome è lo stesso, ma esistono in due posti diversi.
+
+| | Plugin di Claude Code | Plugin di Cowork |
+|---|---|---|
+| **Dove** | Claude Code (terminale, desktop, web) | Scheda Cowork dell'app desktop |
+| **Contengono** | Comandi slash, subagent, Skill, hook (automazioni), server MCP | Skill, connettori, subagent |
+| **Per chi** | Sviluppo e chi lavora sui file con Claude Code | Chi lavora su documenti, anche senza programmare |
+| **Ufficiali** | Marketplace `claude-plugins-official` | Plugin ufficiali Anthropic per marketing, PM, vendite, supporto e altro |
+
+**⚠ Da verificare** la disponibilità dei plugin di Cowork per il vostro piano.
+
+### 12.3 Installare un plugin in Claude Code
+1. **Aggiungi un marketplace** (un catalogo di plugin):
+```
+/plugin marketplace add autore/repository
+```
+2. **Installa il plugin**:
+```
+/plugin install nome-plugin@nome-marketplace
+```
+3. **Gestisci** i plugin installati con `/plugin`.
+
+Il marketplace ufficiale di Anthropic si chiama `claude-plugins-official`. *(⚠ verifica se è già attivo o va aggiunto)*
+
+### 12.4 Com'è fatto un plugin (Claude Code)
+```
+plugin-ux-boutique/
+├── .claude-plugin/
+│   └── plugin.json      ← nome, descrizione, versione
+├── commands/            ← comandi slash, es. /status-report
+├── agents/              ← subagent
+├── skills/              ← Skill
+├── hooks/               ← automazioni su eventi
+└── .mcp.json            ← server MCP
+```
+*(⚠ verifica i nomi esatti delle cartelle nella documentazione dei plugin)*
+
+`plugin.json` minimo:
+```json
+{
+  "name": "ux-boutique",
+  "description": "Skill e comandi del team UX Boutique",
+  "version": "1.0.0"
+}
+```
+
+**Provare un plugin in locale:**
+```bash
+claude --plugin-dir ./plugin-ux-boutique
+```
+
+### 12.5 Un marketplace per il team
+Un marketplace è un repository con un file `.claude-plugin/marketplace.json` che elenca i plugin. Con un marketplace del team, ogni persona installa gli stessi strumenti con due comandi, e gli aggiornamenti arrivano a tutti.
+
+### 12.6 Plugin di Cowork
+- Si installano dalla scheda Cowork dell'app desktop.
+- Quelli ufficiali di Anthropic sono gratuiti e open source.
+- Cowork aiuta anche a creare plugin personalizzati.
+
+### 12.7 Sicurezza
+- Un plugin può eseguire comandi e collegarsi a strumenti esterni. **Gli hook in particolare eseguono comandi automaticamente.**
+- Installa solo plugin di fonti affidabili.
+- Leggi cosa contiene prima di installarlo.
+- Nel team, decidete chi può aggiungere plugin al marketplace interno.
+
+### Prova tu
+In Claude Code, apri `/plugin` e guarda i plugin disponibili nel marketplace ufficiale. Scegline uno utile al tuo ruolo e leggi cosa contiene prima di installarlo.
 
 ---
 
-## Note per la prossima versione
+## 13 · Connettori e MCP
 
-- Distribuzione dei moduli sulle due giornate da confermare.
-- Il modulo 8 (Claude Design) è il più pratico: prevedete un'ora dedicata in aula.
-- Aggiornare i passaggi marcati ⚠ dopo la prima verifica nel vostro account.
+### In breve
+I **connettori** collegano Claude ai vostri strumenti: Google Drive, Figma, Miro e altri. **MCP** è lo standard su cui si basano. Con un connettore, Claude può cercare un file, leggere una board, estrarre i token di un design system.
+
+### Passo per passo
+1. Impostazioni → **Connectors** → cerca lo strumento. *(⚠ verifica il nome della voce)*
+2. **Connect** e accesso con il tuo account. Se vedi **Request**, serve l'abilitazione dell'admin. *(⚠ verifica)*
+3. Controlla i permessi: solo lettura o anche scrittura.
+4. Fai un test semplice: "Elenca i file a cui hai accesso."
+
+### I nostri tre connettori
+| Strumento | Cosa fa | Richiesta di esempio |
+|---|---|---|
+| **Google Drive** | Legge documenti, fogli, presentazioni, PDF | "Cerca la cartella del cliente X e riassumi l'ultimo brief." |
+| **Figma** | Legge token e componenti; può scrivere sul canvas | "Dal file [link], estrai colori e font in JSON." |
+| **Miro** | Legge board e note | "Nella board [nome], raggruppa le note per tema." |
+
+Figma è disponibile su qualsiasi piano Figma. Con l'accesso a livello di team, Claude vede solo i team autorizzati. Per Miro, chiedi esplicitamente di usarlo in ogni conversazione.
+
+### MCP in Claude Code
+```bash
+claude mcp add nome-server -- comando-del-server
+claude mcp list
+```
+*(⚠ verifica la sintassi aggiornata)*
+
+### Errori da evitare
+- Dare più permessi del necessario.
+- Richieste vaghe che trovano il file sbagliato.
+- Scrivere su Figma direttamente sul file del team: usa una copia.
+
+---
+
+# Parte 5 · Lavorare bene
+
+## 14 · Metodo: prima i file, poi l'artefatto
+
+### In breve
+Prepara i contenuti in file di testo (`.md`) e trasformali in artefatto, presentazione o pagina solo alla fine. Ogni modifica tocca solo la parte che serve, e la storia resta in Git.
+
+### Perché
+- Un artefatto si ripubblica per intero a ogni modifica.
+- Un file si modifica per sezioni, si confronta con `git diff`, si recupera se serve.
+- Nei documenti lunghi, lavorare per file è più economico anche in termini di token. Il vantaggio è pratico, non l'ho misurato.
+
+### Passo per passo
+1. Una cartella `contenuti/progetto/` con un file per sezione e un `indice.md`.
+2. "Modifica solo `02-servizi.md`: riduci a tre punti."
+3. `git diff` per vedere cosa è cambiato, un commit per sezione approvata.
+4. Alla fine: "Crea la presentazione HTML a partire dai file in contenuti/progetto/."
+
+Questo corso è stato costruito così.
+
+---
+
+## 15 · Qualità, privacy e checklist
+
+### In breve
+Ogni risultato di Claude è una bozza da verificare. Non caricare dati che non puoi condividere.
+
+### Verificare
+- **Fatti**: chi, cosa, quando. Apri la fonte.
+- **Numeri**: ricalcola un campione.
+- **Codice**: eseguilo e leggilo.
+- **Citazioni**: controlla che esistano davvero.
+
+### Non caricare mai
+- Password, chiavi API, credenziali.
+- Dati personali di clienti senza una base legale.
+- Documenti coperti da NDA, se non lo consentono.
+
+Quando lavori su casi reali, **anonimizza**. Verifica con l'admin le impostazioni privacy del piano Team.
+
+### Checklist prima della consegna
+- [ ] Fatti e numeri verificati sulla fonte
+- [ ] Nessun dato sensibile o coperto da NDA
+- [ ] Tono e brand rispettati
+- [ ] Test su telefono e su browser diversi (per il digitale)
+- [ ] Immagini e font con licenza utilizzabile
+- [ ] Approvazione del referente
+
+---
+
+# Parte 6 · Pratica
+
+## 16 · Percorso di esercizi
+
+Otto esercizi in ordine di difficoltà. Ognuno richiede 15–30 minuti.
+
+| # | Esercizio | Capitolo |
+|---|---|---|
+| 1 | Riscrivi un tuo prompt con il modello BRIEF e confronta i risultati | 4 |
+| 2 | Crea il Project del tuo ruolo e testalo | 5 |
+| 3 | Fai tre compiti del tuo ruolo con i prompt pronti | 6–8 |
+| 4 | Crea una landing in Claude Design: tre strutture, tre revisioni, export | 9 |
+| 5 | Con Claude Code, trasforma un file `.md` in pagina HTML in plan mode | 10 |
+| 6 | Crea una Skill chiedendola a Claude e testala sui tre casi | 11 |
+| 7 | Esplora `/plugin` e valuta un plugin per il tuo ruolo | 12 |
+| 8 | Collega Drive o Miro e usa i dati in un report | 13 |
+
+### Workshop finale a coppie miste
+Coppie miste (design + sviluppo, marketing + PM). Ogni coppia sceglie un workflow (campagna, redesign, nuovo prodotto, automazione di un report, nuova funzione) e lo porta a termine:
+1. BRIEF del lavoro.
+2. Project e, se serve, una Skill.
+3. Connettori necessari.
+4. Output in Artifact, Claude Design o Claude Code.
+5. Checklist del cap. 15.
+6. Tre minuti di presentazione: cosa avete fatto, cosa avete verificato, cosa non avete fatto.
+
+---
+
+# Appendici
+
+## A · Scelta rapida
+
+| Voglio… | Strumento | Capitolo |
+|---|---|---|
+| Una risposta, un testo, un'analisi | Chat | 4 |
+| Lavorare sempre con lo stesso contesto | Project | 5 |
+| Un visual, un prototipo, una slide | Claude Design | 9 |
+| Lavorare su file e cartelle senza programmare | Cowork | 2 |
+| Codice, siti, file con versioni | Claude Code | 10 |
+| Fare un compito sempre allo stesso modo | Skill | 11 |
+| Installare un kit completo | Plugin | 12 |
+| Usare i dati di Drive, Figma, Miro | Connettori | 13 |
+
+## B · Glossario
+
+| Termine | Significato semplice |
+|---|---|
+| **Agente** | Un Claude che esegue compiti in più passaggi, non solo risponde |
+| **Artifact** | Un risultato modificabile accanto alla chat: documento, pagina, presentazione |
+| **BRIEF** | Il metodo in sei parti per scrivere un buon prompt |
+| **CLAUDE.md** | Il file con le regole di un progetto per Claude Code |
+| **Connettore** | Il collegamento di Claude a uno strumento (Drive, Figma, Miro) |
+| **Cowork** | La scheda dell'app desktop in cui Claude lavora sui file del computer |
+| **Design system** | Colori, font e componenti di un brand, usati in modo coerente |
+| **Hook** | Un'automazione che esegue un comando quando succede qualcosa |
+| **Marketplace** | Un catalogo di plugin |
+| **MCP** | Lo standard con cui gli strumenti si collegano a Claude |
+| **Modello** | Il "cervello" di Claude: Haiku, Sonnet, Opus |
+| **Plan mode** | Claude propone un piano prima di modificare i file |
+| **Plugin** | Un pacchetto di Skill, comandi, agenti e connettori |
+| **Project** | Uno spazio con istruzioni e documenti fissi |
+| **Prompt** | La richiesta che scrivi a Claude |
+| **Skill** | Un metodo riutilizzabile, in una cartella con `SKILL.md` |
+| **Subagent** | Un aiutante a cui Claude Code affida un sotto-compito |
+| **Token (design)** | Un valore di design condiviso: un colore, una spaziatura, un font |
+
+## C · Da verificare prima del corso
+1. Posizionamento del modello Fable nel selettore.
+2. Disponibilità di Cowork e Claude Design nel piano Team, e punto di accesso.
+3. Percorso di caricamento delle Skill su claude.ai e condivisione nel team.
+4. Opzioni di export di Claude Design.
+5. Abilitazione dei connettori Drive, Figma e Miro da parte dell'admin.
+6. Plan mode, comandi slash e cartella dei subagent nella versione di Claude Code installata.
+7. Struttura delle cartelle di un plugin e marketplace ufficiale.
+8. Sintassi di `claude mcp add`.
+
+## D · Fonti
+**Documentazione ufficiale**
+- Anthropic, *Introducing Claude Design by Anthropic Labs*: https://www.anthropic.com/news/claude-design-anthropic-labs
+- Claude Help Center, guida admin di Claude Design: https://support.claude.com/en/articles/14604406-claude-design-admin-guide-for-team-and-enterprise-plans
+- Claude Code, plugin: https://code.claude.com/docs/en/discover-plugins e https://code.claude.com/docs/en/plugin-marketplaces
+- Claude Code, subagent: https://code.claude.com/docs/en/sub-agents
+- Anthropic, *Customize Claude Code with plugins*: https://claude.com/blog/claude-code-plugins
+- Skills, guida: https://claude.com/docs/skills/how-to
+- Figma Help Center, connettore Claude: https://help.figma.com/hc/en-us/articles/37883260397975
+
+**Fonti secondarie (da verificare)**
+- Cowork e plugin di Cowork: guide di terze parti (es. buildfastwithai.com, digitalapplied.com).
+- Opzioni di export di Claude Design: DataCamp (datacamp.com/blog/claude-design).
+- Modelli della famiglia 5.5: guide comparative di terze parti.
+- Limiti del frontmatter delle Skill: guide di terze parti.
+
+---
+
+### Note per la prossima versione
+- Distribuzione dei capitoli sulle due giornate: da confermare. Proposta: giorno 1 capitoli 1–8, giorno 2 capitoli 9–16.
+- Aggiornare i passaggi ⚠ dopo la verifica nel vostro account.
