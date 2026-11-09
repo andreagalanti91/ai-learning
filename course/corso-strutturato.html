@@ -1,0 +1,1111 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Corso Claude AI</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Presentazione del corso strutturato su Claude AI: 15 moduli in 7 parti, UX Boutique.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: presenter deck, one module view at a time, with a part index and verification badges taken from the course's own conventions. */
+:root{
+  --bg:#F3F4F1;
+  --surface:#FFFFFF;
+  --ink:#15202B;
+  --muted:#56606C;
+  --line:#D9DDD6;
+  --accent:#1E5BBF;
+  --accent-soft:#E2EBF8;
+  --warn:#8A5200;
+  --warn-soft:#FBEFD8;
+  --code-bg:#ECEEEA;
+  --on-accent:#FFFFFF;
+  --font-body:"IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-mono:"IBM Plex Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F141A; --surface:#17202A; --ink:#E6EBF0; --muted:#9BA7B3; --line:#2A3542;
+    --accent:#86AEF6; --accent-soft:#1C2B45; --warn:#F2B55C; --warn-soft:#382A13;
+    --code-bg:#121A22; --on-accent:#0F141A; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F141A; --surface:#17202A; --ink:#E6EBF0; --muted:#9BA7B3; --line:#2A3542;
+  --accent:#86AEF6; --accent-soft:#1C2B45; --warn:#F2B55C; --warn-soft:#382A13;
+  --code-bg:#121A22; --on-accent:#0F141A; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:var(--font-body); font-size:17px; line-height:1.55;
+  padding-block:0;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+  -webkit-font-smoothing:antialiased;
+}
+.deck{height:100%; display:flex; flex-direction:column; max-width:1180px; margin-inline:auto}
+.bar{display:flex; align-items:center; gap:12px; padding-block:12px; border-bottom:1px solid var(--line); flex:none}
+.bar .part{font-family:var(--font-mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.bar select{font:inherit; font-size:14px; color:var(--ink); background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:6px 8px; max-width:min(52vw, 360px)}
+.progress{height:3px; background:var(--line); flex:none}
+.progress span{display:block; height:100%; width:0; background:var(--accent); transition:width .25s ease}
+.stage{flex:1; min-height:0; overflow-y:auto; overflow-x:hidden}
+.slide{display:none; flex-direction:column; gap:22px; padding-block:clamp(24px, 4vw, 52px)}
+.slide.active{display:flex}
+.eyebrow{font-family:var(--font-mono); font-size:13px; font-weight:500; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); margin:0}
+h1,h2,h3{margin:0; text-wrap:balance; letter-spacing:-.01em}
+h1{font-size:clamp(36px, 5.6vw, 66px); line-height:1.05; font-weight:700; max-width:18ch}
+h2{font-size:clamp(28px, 3.6vw, 42px); line-height:1.12; font-weight:650}
+h3{font-size:17px; font-weight:600; line-height:1.3}
+p{margin:0}
+.lead{font-size:clamp(17px, 1.9vw, 20px); color:var(--muted); max-width:64ch}
+.goal{font-size:16px; color:var(--muted); max-width:72ch}
+.goal b{color:var(--ink); font-weight:600}
+.cols{display:grid; gap:16px; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr))}
+.cols > *{min-width:0}
+.panel{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:18px 20px; display:flex; flex-direction:column; gap:10px}
+.panel ul, .panel ol, .plain{margin:0; padding-left:20px}
+.panel li, .plain li{margin-block:4px}
+.label{font-family:var(--font-mono); font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+ol.steps{list-style:none; counter-reset:step; margin:0; padding:0; display:grid; gap:12px}
+ol.steps > li{counter-increment:step; display:grid; grid-template-columns:34px 1fr; gap:12px; align-items:start}
+ol.steps > li::before{content:counter(step); font-family:var(--font-mono); font-size:14px; font-weight:500; width:30px; height:30px; border-radius:50%; display:grid; place-items:center; background:var(--accent-soft); color:var(--accent)}
+ol.steps > li > div{min-width:0; display:flex; flex-direction:column; gap:4px}
+ol.steps.start5{counter-reset:step 4}
+ul.check{list-style:none; margin:0; padding:0; display:grid; gap:8px}
+ul.check li{display:grid; grid-template-columns:22px 1fr; gap:10px; align-items:start}
+ul.check li::before{content:""; width:16px; height:16px; margin-top:4px; border:1.5px solid var(--muted); border-radius:3px}
+.tw{overflow-x:auto; border:1px solid var(--line); border-radius:10px; background:var(--surface)}
+table{border-collapse:collapse; width:100%; font-size:15.5px}
+th,td{text-align:left; vertical-align:top; padding:10px 14px; border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:none}
+th{font-family:var(--font-mono); font-size:12px; font-weight:500; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); background:var(--bg)}
+td b{font-weight:600}
+pre{margin:0; background:var(--code-bg); border:1px solid var(--line); border-radius:10px; padding:14px 16px; overflow-x:auto; font-family:var(--font-mono); font-size:13.5px; line-height:1.55; white-space:pre}
+code{font-family:var(--font-mono); font-size:.9em; background:var(--code-bg); padding:1px 5px; border-radius:4px}
+pre code{background:none; padding:0; font-size:inherit}
+.v{display:inline-block; font-family:var(--font-mono); font-size:12px; font-weight:500; color:var(--warn); background:var(--warn-soft); border-radius:4px; padding:1px 6px; white-space:nowrap; vertical-align:1px}
+.note{border-left:3px solid var(--accent); padding:4px 0 4px 14px; color:var(--muted); max-width:78ch}
+.meta{display:grid; gap:12px 28px; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); margin:0}
+.meta div{display:flex; flex-direction:column; gap:2px; border-top:1px solid var(--line); padding-top:10px}
+.meta dt{font-family:var(--font-mono); font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+.meta dd{margin:0; font-weight:500}
+.divider{justify-content:center; min-height:100%}
+.divider .letter{font-family:var(--font-mono); font-size:clamp(64px, 12vw, 140px); line-height:1; color:var(--accent); font-weight:500}
+.divider ul{list-style:none; margin:0; padding:0; display:grid; gap:6px; font-size:18px; color:var(--muted)}
+.divider ul b{color:var(--ink); font-family:var(--font-mono); font-weight:500; margin-right:8px}
+.flow{display:grid; gap:12px; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); align-items:stretch}
+.nav{display:flex; align-items:center; justify-content:space-between; gap:12px; padding-block:12px; border-top:1px solid var(--line); flex:none}
+.nav button{font:inherit; font-size:15px; padding:9px 16px; border-radius:8px; border:1px solid var(--line); background:var(--surface); color:var(--ink); cursor:pointer}
+.nav button.primary{background:var(--accent); border-color:var(--accent); color:var(--on-accent)}
+.nav button:disabled{opacity:.4; cursor:default}
+.count{font-family:var(--font-mono); font-size:13px; color:var(--muted); font-variant-numeric:tabular-nums; text-align:center}
+.hint{font-size:12px; color:var(--muted)}
+button:focus-visible, select:focus-visible, a:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+a{color:var(--accent)}
+@media (max-width:640px){
+  body{font-size:16px}
+  .hint{display:none}
+  .bar select{max-width:56vw}
+  .nav button{padding:9px 12px}
+}
+@media (prefers-reduced-motion: reduce){ .progress span{transition:none} }
+</style>
+</head>
+<body>
+<div class="deck">
+  <header class="bar">
+    <span class="part" id="part">Introduzione</span>
+    <label class="label" for="jump" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Vai alla slide</label>
+    <select id="jump" aria-label="Vai alla slide"></select>
+  </header>
+  <div class="progress"><span id="progress"></span></div>
+
+  <main class="stage" id="stage">
+
+<!-- ============ INTRODUZIONE ============ -->
+<section class="slide active" data-part="Introduzione" data-title="Copertina">
+  <p class="eyebrow">Corso strutturato · versione 1.0 · UX Boutique</p>
+  <h1>Claude AI, dal prompt al building</h1>
+  <p class="lead">Quindici moduli in sette parti per usare Claude nel lavoro di ogni giorno: scrivere richieste chiare, organizzare il contesto, creare metodi riutilizzabili, collegare gli strumenti del team e lavorare con un agente.</p>
+  <dl class="meta">
+    <div><dt>Formato</dt><dd>2 giornate da 4 ore, da remoto</dd></div>
+    <div><dt>Partecipanti</dt><dd>Marketing, PM, design, art direction, sviluppo</dd></div>
+    <div><dt>Piano</dt><dd>Claude Team, Skills abilitate dall’admin</dd></div>
+    <div><dt>Connettori</dt><dd>Google Drive, Figma, Miro</dd></div>
+  </dl>
+</section>
+
+<section class="slide" data-part="Introduzione" data-title="Come è fatto ogni modulo">
+  <p class="eyebrow">Come leggere il corso</p>
+  <h2>Ogni modulo segue la stessa struttura</h2>
+  <ol class="steps cols" style="grid-template-columns:repeat(auto-fit, minmax(240px, 1fr))">
+    <li><div><h3>Obiettivo</h3><p>Cosa saprete fare alla fine.</p></div></li>
+    <li><div><h3>Prerequisiti</h3><p>Cosa serve avere già pronto.</p></div></li>
+    <li><div><h3>Concetto</h3><p>Cos’è la funzione e a cosa serve.</p></div></li>
+    <li><div><h3>Come si imposta</h3><p>Configurazione, una volta sola.</p></div></li>
+    <li><div><h3>Come si usa</h3><p>Utilizzo di ogni giorno.</p></div></li>
+    <li><div><h3>Esempio completo</h3><p>Un caso reale dall’inizio alla fine.</p></div></li>
+    <li><div><h3>Errori comuni</h3><p>Cosa va storto e come si corregge.</p></div></li>
+    <li><div><h3>Verifica</h3><p>Domande per controllare cosa avete capito.</p></div></li>
+    <li><div><h3>Esercizio</h3><p>Lavoro pratico in aula o a casa.</p></div></li>
+  </ol>
+  <p class="note"><span class="v">⚠ da verificare</span> segna un passaggio non confermato nella documentazione ufficiale. Nomi di menu e percorsi cambiano spesso: rifate il passaggio nel vostro account prima della sessione.</p>
+</section>
+
+<section class="slide" data-part="Introduzione" data-title="Mappa del corso">
+  <p class="eyebrow">Mappa del corso</p>
+  <h2>Sette parti, dalla richiesta singola all’agente</h2>
+  <div class="tw"><table>
+    <tr><th>Parte</th><th>Moduli</th><th>Tema</th></tr>
+    <tr><td><b>A</b></td><td>1–2</td><td>Fondamenti e prompt</td></tr>
+    <tr><td><b>B</b></td><td>3, 4, 4b</td><td>Contesto, output e lavoro per file</td></tr>
+    <tr><td><b>C</b></td><td>5–7</td><td>Skill, connettori, MCP e plugin</td></tr>
+    <tr><td><b>D</b></td><td>8–9</td><td>Claude Design e Figma</td></tr>
+    <tr><td><b>E</b></td><td>10–11</td><td>Claude Code</td></tr>
+    <tr><td><b>F</b></td><td>12–13</td><td>Attività programmate, qualità e privacy</td></tr>
+    <tr><td><b>G</b></td><td>14–15</td><td>Percorsi per ruolo e workshop finale</td></tr>
+  </table></div>
+  <p class="note">Distribuzione dei moduli sulle due giornate: da confermare. Il modulo 8 (Claude Design) richiede circa un’ora in aula.</p>
+</section>
+
+<!-- ============ PARTE A ============ -->
+<section class="slide divider" data-part="Parte A · Fondamenti" data-title="Parte A · Fondamenti">
+  <span class="letter">A</span>
+  <h2>Fondamenti</h2>
+  <ul>
+    <li><b>01</b>Come funziona Claude</li>
+    <li><b>02</b>Prompt con il metodo BRIEF</li>
+  </ul>
+</section>
+
+<section class="slide" data-part="Parte A · Fondamenti" data-title="1 · Come funziona Claude">
+  <p class="eyebrow">Modulo 1</p>
+  <h2>Come funziona Claude</h2>
+  <p class="goal"><b>Obiettivo:</b> scegliere il modello giusto per un compito e riconoscere i limiti del sistema.</p>
+  <div class="cols">
+    <div class="panel">
+      <span class="label">Concetto</span>
+      <p>Claude genera risposte a partire da ciò che vede nella conversazione. Non consulta un database e non ricorda ciò che non gli avete dato.</p>
+      <ul>
+        <li>È molto bravo con testo, struttura, ragionamento e codice.</li>
+        <li>Può sbagliare fatti, numeri e citazioni, e lo fa con sicurezza.</li>
+        <li>La qualità dipende dal contesto che fornite.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <span class="label">Effort, contesto, verifica</span>
+      <ul>
+        <li><b>Effort:</b> più ragionamento, risposte più accurate su problemi complessi, ma più lente.</li>
+        <li><b>Finestra di contesto:</b> in una chat molto lunga le informazioni iniziali perdono peso.</li>
+        <li><b>Verifica:</b> ogni fatto, numero o citazione va controllato sulla fonte.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="tw"><table>
+    <tr><th>Modello</th><th>Quando usarlo</th><th>Esempio</th></tr>
+    <tr><td><b>Haiku</b></td><td>Compiti semplici e ripetitivi, in volume</td><td>Correggere 50 descrizioni prodotto</td></tr>
+    <tr><td><b>Sonnet</b></td><td>Lavoro quotidiano: il default consigliato</td><td>Scrivere un post, riassumere un verbale</td></tr>
+    <tr><td><b>Opus</b></td><td>Ragionamenti complessi, lavori delicati</td><td>Analizzare una strategia o un contratto</td></tr>
+  </table></div>
+  <p class="note"><b>Esercizio:</b> eseguite un compito della vostra settimana con due modelli diversi. Annotate differenza di qualità e tempo.</p>
+</section>
+
+<section class="slide" data-part="Parte A · Fondamenti" data-title="2 · Il metodo BRIEF">
+  <p class="eyebrow">Modulo 2</p>
+  <h2>Il metodo BRIEF: sei parti per un buon prompt</h2>
+  <p class="goal"><b>Obiettivo:</b> scrivere un prompt che produce un risultato utilizzabile al primo o al secondo tentativo.</p>
+  <div class="tw"><table>
+    <tr><th>Lettera</th><th>Parte</th><th>Domanda guida</th><th>Esempio</th></tr>
+    <tr><td><b>B</b></td><td>Background</td><td>Qual è il contesto?</td><td>“UX Boutique offre audit di usabilità per e-commerce medi.”</td></tr>
+    <tr><td><b>R</b></td><td>Ruolo</td><td>Chi risponde, con quale competenza?</td><td>“Sei un copywriter senior, tono sobrio.”</td></tr>
+    <tr><td><b>I</b></td><td>Intento</td><td>Cosa deve ottenere chi legge?</td><td>“Far richiedere un audit gratuito.”</td></tr>
+    <tr><td><b>E</b></td><td>Esempi</td><td>Come deve essere il risultato?</td><td>“Tono come in questo esempio: …”</td></tr>
+    <tr><td><b>F</b></td><td>Formato</td><td>Lunghezza, struttura, cosa escludere?</td><td>“120 parole, due hashtag, niente emoji.”</td></tr>
+    <tr><td><b>+</b></td><td>Verifica</td><td>Come controllo il risultato?</td><td>“Elenca le affermazioni contestabili.”</td></tr>
+  </table></div>
+  <ol class="steps">
+    <li><div><h3>Scrivete le sei parti</h3><p>Anche in forma breve. Un compito semplice ne richiede due o tre.</p></div></li>
+    <li><div><h3>Leggete l’output</h3><p>Annotate cosa manca rispetto a ciò che vi aspettavate.</p></div></li>
+    <li><div><h3>Correggete una cosa per volta</h3><p>“Il titolo è generico: proponi tre alternative con un numero.”</p></div></li>
+  </ol>
+</section>
+
+<section class="slide" data-part="Parte A · Fondamenti" data-title="2 · Prima e dopo, tecniche">
+  <p class="eyebrow">Modulo 2 · Esempio completo</p>
+  <h2>Lo stesso compito, scritto in due modi</h2>
+  <div class="cols">
+    <div class="panel">
+      <span class="label">Prima</span>
+      <pre><code>Scrivi un post Instagram sul nostro
+servizio di audit.</code></pre>
+      <p>Claude decide da solo pubblico, tono, lunghezza e formato.</p>
+    </div>
+    <div class="panel">
+      <span class="label">Dopo</span>
+      <pre><code>Background: UX Boutique offre audit di
+usabilità per e-commerce medi. Pubblico:
+responsabili marketing, non designer.
+Ruolo: copywriter senior, tono sobrio.
+Intento: far richiedere l'audit gratuito.
+Esempio di tono: "Il checkout perde utenti?
+Di solito il problema è in tre passaggi."
+Formato: max 120 parole, due hashtag,
+nessuna emoji, chiusura con l'invito.
+Verifica: elenca le affermazioni che un
+cliente potrebbe contestare.</code></pre>
+    </div>
+  </div>
+  <div class="cols">
+    <div class="panel">
+      <span class="label">Tecniche utili</span>
+      <ul>
+        <li><b>Tag XML</b> per separare istruzioni e materiali: <code>&lt;istruzioni&gt;</code> e <code>&lt;testo&gt;</code>.</li>
+        <li><b>Few-shot:</b> due o tre esempi valgono più di una descrizione lunga.</li>
+        <li><b>Prompt a catena:</b> estrai i fatti, scrivi la bozza, rivedi con i criteri.</li>
+        <li><b>Autocritica:</b> “Rileggi la bozza rispetto ai criteri e segnala cosa non rispetta.”</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <span class="label">Errori comuni</span>
+      <ul>
+        <li>Descrivere il compito ma non il pubblico.</li>
+        <li>Chiedere “un tono professionale” senza esempio.</li>
+        <li>Cambiare tre cose insieme nella revisione.</li>
+        <li>Non dire cosa escludere.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PARTE B ============ -->
+<section class="slide divider" data-part="Parte B · Contesto e output" data-title="Parte B · Contesto e output">
+  <span class="letter">B</span>
+  <h2>Contesto e output</h2>
+  <ul>
+    <li><b>03</b>Projects</li>
+    <li><b>04</b>Artifacts, ricerca web e analisi di file</li>
+    <li><b>4b</b>Lavorare per file: il metodo markdown-first</li>
+  </ul>
+</section>
+
+<section class="slide" data-part="Parte B · Contesto e output" data-title="3 · Projects">
+  <p class="eyebrow">Modulo 3</p>
+  <h2>Projects: istruzioni e documenti sempre presenti</h2>
+  <p class="goal"><b>Obiettivo:</b> un Project che rende Claude coerente con il vostro lavoro senza ripetere il contesto. <b>Prerequisiti:</b> almeno due documenti di riferimento approvati.</p>
+  <div class="cols">
+    <div class="panel">
+      <span class="label">Come si imposta</span>
+      <ol class="steps">
+        <li><div><p>Barra laterale → <b>Projects</b> → Nuovo Project. <span class="v">⚠ da verificare</span></p></div></li>
+        <li><div><p>Nome preciso: “UX Boutique — Brand &amp; Tone”.</p></div></li>
+        <li><div><p>Scrivete le istruzioni (template a destra).</p></div></li>
+        <li><div><p>Caricate i documenti nella knowledge base.</p></div></li>
+        <li><div><p>Piano Team: decidete se condividerlo. <span class="v">⚠ da verificare</span></p></div></li>
+      </ol>
+    </div>
+    <div class="panel">
+      <span class="label">Template di istruzioni</span>
+      <pre><code>Lavoriamo per UX Boutique, agenzia di UX
+e design digitale. Lingua: italiano.
+Tono diretto e concreto, niente
+superlativi vuoti. Ogni testo per clienti
+indica un beneficio misurabile.
+Non citare clienti senza approvazione.
+Quando non sei sicuro di un fatto,
+dichiaralo. Usa il glossario caricato.</code></pre>
+    </div>
+  </div>
+  <div class="cols">
+    <div class="panel">
+      <span class="label">Cosa caricare</span>
+      <ul>
+        <li><b>Sì:</b> guida al tono, testi approvati, glossario, offerta ufficiale.</li>
+        <li><b>No:</b> bozze, duplicati, dati personali non necessari.</li>
+        <li>Testo selezionabile, non scansioni.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <span class="label">Test del Project</span>
+      <p>Chiedete in una nuova chat dentro il Project: “Scrivi un’intro di 60 parole per la pagina servizi.” Se rispetta tono e glossario senza ripeterli, funziona. Confrontate con una chat fuori dal Project.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-part="Parte B · Contesto e output" data-title="4 · Artifacts, ricerca, file">
+  <p class="eyebrow">Modulo 4</p>
+  <h2>Artifacts, ricerca web e analisi di file</h2>
+  <p class="goal"><b>Obiettivo:</b> documenti modificabili, informazioni recenti verificate, analisi di file affidabili.</p>
+  <div class="cols">
+    <div class="panel">
+      <span class="label">Artifact</span>
+      <ol class="steps">
+        <li><div><p>Chiedete il formato: “Crea un documento Artifact con…”.</p></div></li>
+        <li><div><p>Modificate per sezione: “Nella sezione Metodo, riduci a tre punti.”</p></div></li>
+        <li><div><p>Esportate quando è pronto.</p></div></li>
+      </ol>
+    </div>
+    <div class="panel">
+      <span class="label">Ricerca web</span>
+      <ol class="steps">
+        <li><div><p>Domanda in una frase, con periodo e pubblico.</p></div></li>
+        <li><div><p>“Indica fonte e data per ogni affermazione.”</p></div></li>
+        <li><div><p>Aprite le fonti delle affermazioni che userete.</p></div></li>
+      </ol>
+    </div>
+    <div class="panel">
+      <span class="label">Analisi di file</span>
+      <ul>
+        <li><b>PDF:</b> “Estrai le date di scadenza dei contratti.”</li>
+        <li><b>CSV:</b> “Costo per lead per canale, segnala gli anomali.”</li>
+        <li><b>Screenshot:</b> “Problemi di contrasto e accessibilità.”</li>
+        <li>Verificate a mano un valore su dieci.</li>
+      </ul>
+    </div>
+  </div>
+  <p class="note"><b>Errori comuni:</b> chiedere “migliora tutto” su un Artifact; fidarsi di un numero senza ricalcolarlo; caricare una scansione illeggibile.</p>
+</section>
+
+<section class="slide" data-part="Parte B · Contesto e output" data-title="4b · Lavorare per file">
+  <p class="eyebrow">Modulo 4b</p>
+  <h2>Lavorare per file, poi l’artefatto</h2>
+  <p class="goal"><b>Obiettivo:</b> preparare i contenuti in file <code>.md</code> nel repository, modificarli per parti e produrre l’artefatto visivo solo alla fine.</p>
+  <div class="cols">
+    <div class="panel">
+      <span class="label">Su artefatto</span>
+      <p>Ogni modifica ripubblica la pagina intera. Il contenuto ripassa ogni volta per la chat e per la pubblicazione.</p>
+    </div>
+    <div class="panel">
+      <span class="label">Su file</span>
+      <p>Il contenuto vive nel repository. Si modifica per sezioni, si verifica con Git, diventa artefatto solo quando è pronto. Più economico in token nei documenti lunghi; il vantaggio è pratico, non misurato.</p>
+    </div>
+  </div>
+  <div class="tw"><table>
+    <tr><th>Fase</th><th>Strumento</th><th>Perché</th></tr>
+    <tr><td>Bozza e struttura</td><td>File <code>.md</code></td><td>Veloce da modificare, tracciato in Git</td></tr>
+    <tr><td>Revisione per sezioni</td><td>File <code>.md</code></td><td>Modifiche piccole e verificabili</td></tr>
+    <tr><td>Versione per il team</td><td>Artefatto o presentazione</td><td>Leggibile e condivisibile</td></tr>
+    <tr><td>Versione finale</td><td>Export HTML, PDF, PPTX</td><td>Pronta per il cliente</td></tr>
+  </table></div>
+  <ol class="steps">
+    <li><div><p>Una cartella <code>contenuti/progetto/</code> con un file per sezione e un <code>indice.md</code>.</p></div></li>
+    <li><div><p>“Modifica solo <code>02-servizi.md</code>: riduci a tre punti.” Poi <code>git diff</code> e un commit per sezione approvata.</p></div></li>
+    <li><div><p>Generate l’artefatto o la presentazione dai file approvati.</p></div></li>
+  </ol>
+</section>
+
+<!-- ============ PARTE C ============ -->
+<section class="slide divider" data-part="Parte C · Metodo e connessioni" data-title="Parte C · Metodo e connessioni">
+  <span class="letter">C</span>
+  <h2>Metodo e connessioni</h2>
+  <ul>
+    <li><b>05</b>Skills</li>
+    <li><b>06</b>Connettori: Google Drive, Figma, Miro</li>
+    <li><b>07</b>MCP e plugin</li>
+  </ul>
+</section>
+
+<section class="slide" data-part="Parte C · Metodo e connessioni" data-title="5 · Skill: cos’è">
+  <p class="eyebrow">Modulo 5 · Skills</p>
+  <h2>Una Skill è un metodo scritto una volta</h2>
+  <p class="goal"><b>Prerequisiti:</b> un processo ripetuto con un output che si può giudicare. Skills abilitate dall’admin del piano Team (confermato).</p>
+  <div class="tw"><table>
+    <tr><th></th><th>Prompt</th><th>Skill</th></tr>
+    <tr><td><b>Quando</b></td><td>Una volta</td><td>Ogni volta che il compito si ripete</td></tr>
+    <tr><td><b>Dove vive</b></td><td>Nella chat</td><td>In una cartella con <code>SKILL.md</code></td></tr>
+    <tr><td><b>Chi la usa</b></td><td>Chi la scrive</td><td>Chi ha la Skill disponibile, anche il team</td></tr>
+    <tr><td><b>Come si attiva</b></td><td>Si scrive</td><td>Claude la sceglie dalla descrizione</td></tr>
+  </table></div>
+  <div class="cols">
+    <div class="panel">
+      <span class="label">Struttura della cartella</span>
+      <pre><code>tono-ux-boutique/
+├── SKILL.md
+└── esempi/
+    ├── post-buono.md
+    └── post-da-evitare.md</code></pre>
+    </div>
+    <div class="panel">
+      <span class="label">Regole</span>
+      <ul>
+        <li>Nome della cartella uguale al campo <code>name</code>, minuscolo con trattini.</li>
+        <li><code>SKILL.md</code> obbligatorio, con frontmatter YAML: <code>name</code> e <code>description</code>.</li>
+        <li>Cartelle opzionali: <code>scripts/</code>, <code>references/</code>, <code>assets/</code>.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-part="Parte C · Metodo e connessioni" data-title="5 · Il file SKILL.md">
+  <p class="eyebrow">Modulo 5 · Skills</p>
+  <h2>Il file SKILL.md</h2>
+  <div class="cols" style="grid-template-columns:repeat(auto-fit, minmax(320px, 1fr))">
+    <pre><code>---
+name: tono-ux-boutique
+description: Scrive o revisiona testi per
+  UX Boutique secondo il tono di voce del
+  brand. Usala quando l'utente chiede copy,
+  post, claim, intro o revisione di testi
+  per clienti o per il sito.
+---
+
+# Tono di voce UX Boutique
+
+## Quando usarla
+Testi per clienti, post, pagine del sito.
+Non usarla per documenti interni o codice.
+
+## Procedura
+1. Se mancano, chiedi pubblico, obiettivo
+   e lunghezza.
+2. Scrivi in italiano, tono diretto.
+3. Ogni affermazione ha un beneficio
+   misurabile, o va marcata da verificare.
+4. Applica il glossario.
+5. Rileggi rispetto ai criteri.
+
+## Criteri di qualità
+- Nessun superlativo vuoto.
+- Una sola call to action.
+- Frasi sotto le 25 parole.
+
+## Formato di output
+Testo finale, poi "Da verificare: ..."</code></pre>
+    <div class="panel">
+      <span class="label">La descrizione decide l’attivazione</span>
+      <p>Claude legge la descrizione per scegliere se usare la Skill. Scrivetela con le parole che userebbe chi chiede il lavoro.</p>
+      <p><b>Debole:</b> “Aiuta con i testi.”</p>
+      <p><b>Efficace:</b> “Scrive o revisiona post, claim e pagine per clienti UX Boutique. Usala quando l’utente chiede testi commerciali.”</p>
+      <span class="label">Istruzioni</span>
+      <ul>
+        <li>Passi numerati, nell’ordine di esecuzione.</li>
+        <li>Frasi precise: “Se il pubblico manca, chiedilo.”</li>
+        <li>Un esempio buono e uno da evitare.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-part="Parte C · Metodo e connessioni" data-title="5 · Installare una Skill">
+  <p class="eyebrow">Modulo 5 · Skills</p>
+  <h2>Installare una Skill</h2>
+  <div class="cols">
+    <div class="panel">
+      <span class="label">Su claude.ai</span>
+      <ol class="steps">
+        <li><div><p>Preparate la cartella con <code>SKILL.md</code>.</p></div></li>
+        <li><div><p>Comprimetela in <code>.zip</code>. La cartella deve essere la radice dell’archivio.</p></div></li>
+        <li><div><p>Impostazioni → sezione <b>Skills</b> → caricate lo zip. <span class="v">⚠ da verificare</span> Le fonti indicano percorsi diversi, ad esempio “Customize → Skills” o “Settings → Capabilities → Skills”.</p></div></li>
+        <li><div><p>Verificate che sia attiva e visibile per il vostro account.</p></div></li>
+      </ol>
+    </div>
+    <div class="panel">
+      <span class="label">In Claude Code</span>
+      <ol class="steps">
+        <li><div><p>Create <code>.claude/skills/tono-ux-boutique/SKILL.md</code> nel repository.</p></div></li>
+        <li><div><p>Fate commit: la Skill è condivisa con chi lavora sul repository.</p></div></li>
+        <li><div><p>Per una Skill personale, usate la cartella dell’utente. <span class="v">⚠ da verificare</span></p></div></li>
+      </ol>
+    </div>
+  </div>
+  <div class="panel">
+    <span class="label">Come si usa</span>
+    <ul>
+      <li>Chiedete un compito che la Skill copre: Claude la sceglie e segue i passi.</li>
+      <li>Per forzarla: “Usa la Skill tono-ux-boutique per questo testo.”</li>
+      <li>Per controllare: “Quali Skill hai per questo compito?”</li>
+    </ul>
+  </div>
+</section>
+
+<section class="slide" data-part="Parte C · Metodo e connessioni" data-title="5 · Testare e correggere">
+  <p class="eyebrow">Modulo 5 · Skills</p>
+  <h2>Testare con tre casi, poi correggere</h2>
+  <ol class="steps cols">
+    <li><div><h3>Caso tipico</h3><p>“Scrivi un post per il servizio di audit.” Deve attivarsi e rispettare i criteri.</p></div></li>
+    <li><div><h3>Caso al limite</h3><p>“Scrivi una mail commerciale.” Deve adattarsi o chiedere.</p></div></li>
+    <li><div><h3>Caso fuori scopo</h3><p>“Riassumi il verbale interno.” Non deve attivarsi.</p></div></li>
+  </ol>
+  <div class="tw"><table>
+    <tr><th>Sintomo</th><th>Causa probabile</th><th>Correzione</th></tr>
+    <tr><td>Non si attiva mai</td><td>Descrizione vaga</td><td>Riscrivetela con le parole dell’utente</td></tr>
+    <tr><td>Si attiva sempre</td><td>Descrizione troppo ampia</td><td>Aggiungete “non usarla per…”</td></tr>
+    <tr><td>Si attiva ma sbaglia</td><td>Istruzioni ambigue</td><td>Aggiungete un passo o un esempio da evitare</td></tr>
+    <tr><td>Non compare nella lista</td><td>Nome del file o frontmatter</td><td>Controllate <code>SKILL.md</code> e i due campi</td></tr>
+    <tr><td>Upload rifiutato</td><td>Zip con cartella annidata o nome non valido</td><td>Ricomprimete con la cartella come radice</td></tr>
+  </table></div>
+  <p class="note"><b>Esercizio:</b> trasformate un compito ripetuto del vostro ruolo in Skill, testatela sui tre casi e portate il risultato in aula.</p>
+</section>
+
+<section class="slide" data-part="Parte C · Metodo e connessioni" data-title="6 · Connettori">
+  <p class="eyebrow">Modulo 6</p>
+  <h2>Connettori: Google Drive, Figma, Miro</h2>
+  <p class="goal"><b>Prerequisiti:</b> un account personale per ogni strumento. Nel piano Team l’owner o l’admin abilita il connettore prima che i membri lo colleghino. <span class="v">⚠ da verificare</span></p>
+  <ol class="steps">
+    <li><div><p>Impostazioni → <b>Connectors</b> → cercate lo strumento. <span class="v">⚠ da verificare</span></p></div></li>
+    <li><div><p><b>Connect</b> e accesso con il vostro account. Se il pulsante dice <b>Request</b>, serve l’abilitazione dell’admin.</p></div></li>
+    <li><div><p>Controllate i permessi concessi: solo lettura, o anche scrittura.</p></div></li>
+    <li><div><p>Test con una domanda semplice: “connesso” non significa “funzionante”.</p></div></li>
+  </ol>
+  <div class="cols">
+    <div class="panel">
+      <h3>Google Drive</h3>
+      <p>Documenti, fogli, presentazioni e PDF, secondo i vostri permessi.</p>
+      <p class="label">Richiesta</p>
+      <p>“Cerca nel Drive la cartella del cliente X e riassumi l’ultimo brief.”</p>
+    </div>
+    <div class="panel">
+      <h3>Figma</h3>
+      <p>Disponibile su qualsiasi piano Figma. Claude vede solo i team autorizzati.</p>
+      <p class="label">Richiesta</p>
+      <p>“Dal file [link], estrai colori e font del design system in JSON.”</p>
+    </div>
+    <div class="panel">
+      <h3>Miro</h3>
+      <p>Board e note dei workshop. Chiedete esplicitamente di usarlo in ogni conversazione.</p>
+      <p class="label">Richiesta</p>
+      <p>“Nella board [nome], elenca le note raggruppate per tema.”</p>
+    </div>
+  </div>
+  <p class="note"><b>Errori comuni:</b> più permessi del necessario, richieste vaghe che trovano il file sbagliato, strumenti con dati riservati collegati senza consultare l’admin.</p>
+</section>
+
+<section class="slide" data-part="Parte C · Metodo e connessioni" data-title="7 · MCP e plugin">
+  <p class="eyebrow">Modulo 7</p>
+  <h2>MCP e plugin</h2>
+  <div class="cols">
+    <div class="panel">
+      <span class="label">MCP</span>
+      <p>Model Context Protocol: lo standard con cui uno strumento espone le sue funzioni a Claude. Funziona come una presa USB: niente adattatori su misura.</p>
+    </div>
+    <div class="panel">
+      <span class="label">Plugin</span>
+      <p>Un pacchetto che combina Skill, connettori e impostazioni per un ambito preciso, ad esempio project management.</p>
+    </div>
+  </div>
+  <div class="panel">
+    <span class="label">Come si imposta in Claude Code</span>
+    <pre><code>claude mcp add nome-server -- comando-del-server
+claude mcp list</code></pre>
+    <p><span class="v">⚠ da verificare</span> la sintassi nella documentazione aggiornata. Per Drive, Figma e Miro usate i connettori del modulo 6.</p>
+  </div>
+  <ol class="steps">
+    <li><div><p>Verificate se esiste un server ufficiale.</p></div></li>
+    <li><div><p>Installatelo in un progetto di prova e chiedete solo letture.</p></div></li>
+    <li><div><p>Abilitate le scritture solo dopo, con revisione di ogni azione proposta.</p></div></li>
+  </ol>
+</section>
+
+<!-- ============ PARTE D ============ -->
+<section class="slide divider" data-part="Parte D · Design" data-title="Parte D · Design">
+  <span class="letter">D</span>
+  <h2>Design</h2>
+  <ul>
+    <li><b>08</b>Claude Design</li>
+    <li><b>09</b>Figma MCP e passaggio al codice</li>
+  </ul>
+</section>
+
+<section class="slide" data-part="Parte D · Design" data-title="8 · Claude Design: cos’è">
+  <p class="eyebrow">Modulo 8 · Claude Design</p>
+  <h2>Cos’è Claude Design e cosa produce</h2>
+  <p class="goal"><b>Obiettivo:</b> produrre un prototipo, una presentazione o un one-pager da un brief, con contesto di brand, revisioni controllate ed export verificato.</p>
+  <div class="cols">
+    <div class="panel">
+      <span class="label">Cosa produce</span>
+      <ul>
+        <li><b>Prototipi:</b> pagine o flussi navigabili.</li>
+        <li><b>Slide:</b> da argomento, pubblico e numero di slide.</li>
+        <li><b>One-pager:</b> sintesi o proposte su una pagina.</li>
+        <li><b>Landing page:</b> campagne o prodotti.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <span class="label">Cosa non produce</span>
+      <ul>
+        <li>Fotografie e illustrazioni originali.</li>
+        <li>Video.</li>
+      </ul>
+      <p>Genera strutture, testi e stili da rivedere e modificare. Non è un generatore di immagini.</p>
+    </div>
+    <div class="panel">
+      <span class="label">Prerequisiti</span>
+      <ul>
+        <li>Accesso a Claude Design: presentato come anteprima di ricerca ad aprile 2026, l’accesso può dipendere dal piano. <span class="v">⚠ da verificare</span></li>
+        <li>Un brief con pubblico, obiettivo e formato.</li>
+        <li>Brand kit o design system: colori HEX, font, logo, componenti.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-part="Parte D · Design" data-title="8 · Impostare il lavoro">
+  <p class="eyebrow">Modulo 8 · Claude Design · Come si imposta</p>
+  <h2>Prima di generare: accesso, brand, brief</h2>
+  <ol class="steps">
+    <li><div><h3>Accesso</h3><p>Aprite Claude Design dal vostro account. Se non lo vedete, verificate il piano con l’admin. <span class="v">⚠ da verificare il punto di accesso</span></p></div></li>
+    <li><div><h3>Contesto del brand, una volta sola</h3><p>Un documento con palette in HEX, font e pesi, logo vettoriale o PNG trasparente, tono di voce con tre aggettivi, un testo approvato e i termini da evitare. Caricatelo nel Project del brand e, se possibile, collegatelo a Claude Design. <span class="v">⚠ da verificare</span></p></div></li>
+    <li><div><h3>Verifica del contesto</h3><pre><code>Descrivi il brand che stai usando:
+colori, font, tono.</code></pre><p>Se la risposta non corrisponde al documento, correggete il contesto prima di andare avanti.</p></div></li>
+    <li><div><h3>Brief</h3><p>Formato (prototipo, slide, one-pager, landing), pubblico e obiettivo, sezioni in ordine con il loro messaggio, uno screenshot di riferimento con una frase su cosa vi piace, vincoli come “mobile first”.</p></div></li>
+  </ol>
+</section>
+
+<section class="slide" data-part="Parte D · Design" data-title="8 · Dal brief al prototipo">
+  <p class="eyebrow">Modulo 8 · Claude Design · Come si usa</p>
+  <h2>Dal brief al prototipo, un passo per volta</h2>
+  <ol class="steps start5">
+    <li><div><h3>Struttura prima dello stile</h3><pre><code>Proponi tre strutture diverse. Per ciascuna:
+sezioni in ordine e contenuto. Non applicare
+ancora colori né font.</code></pre><p>Se struttura e stile arrivano insieme, non capite quale parte non funziona.</p></div></li>
+    <li><div><h3>Prototipo</h3><pre><code>Procedi con la struttura 2. Applica il brand
+del contesto. Versione mobile first.</code></pre></div></li>
+    <li><div><h3>Revisioni singole</h3><pre><code>Il titolo dell'hero è generico. Proponi tre
+alternative con un numero concreto. Applica
+la prima; non cambiare altro.</code></pre><p>Una modifica per messaggio, sempre con il perché.</p></div></li>
+  </ol>
+</section>
+
+<section class="slide" data-part="Parte D · Design" data-title="8 · Verifica ed export">
+  <p class="eyebrow">Modulo 8 · Claude Design</p>
+  <h2>Verificare, poi esportare</h2>
+  <div class="cols">
+    <div class="panel">
+      <span class="label">Checklist prima dell’export</span>
+      <ul class="check">
+        <li>Contenuti e numeri approvati e verificati</li>
+        <li>Colori e font uguali al brand kit</li>
+        <li>Layout corretto su mobile</li>
+        <li>Una sola call to action</li>
+        <li>Nessun cliente citato senza approvazione</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <span class="label">Regola</span>
+      <p>Esportate solo dopo la checklist. Un export è più difficile da correggere della bozza.</p>
+      <p>Opzioni riportate da fonti di terze parti: <code>.zip</code>, PDF, PPTX, HTML autonomo, invio a Canva, passaggio a Claude Code. Export come immagine ed export in formato Figma non risultano confermati. <span class="v">⚠ da verificare</span></p>
+    </div>
+  </div>
+  <div class="tw"><table>
+    <tr><th>Formato</th><th>Quando</th><th>Attenzione</th></tr>
+    <tr><td><b>HTML</b></td><td>Prototipo da condividere o passare allo sviluppo</td><td>Controllate il mobile</td></tr>
+    <tr><td><b>PDF</b></td><td>One-pager da inviare o stampare</td><td>Testo poco modificabile</td></tr>
+    <tr><td><b>PPTX</b></td><td>Presentazione da modificare in PowerPoint o Keynote</td><td>Verificate i font</td></tr>
+    <tr><td><b>Canva</b></td><td>Lavoro da completare in Canva</td><td>Serve l’account Canva</td></tr>
+    <tr><td><b>Claude Code</b></td><td>Passaggio della struttura allo sviluppo</td><td>Vedi modulo 11</td></tr>
+  </table></div>
+</section>
+
+<section class="slide" data-part="Parte D · Design" data-title="8 · Esempio ed errori">
+  <p class="eyebrow">Modulo 8 · Esempio completo</p>
+  <h2>La landing del servizio di audit</h2>
+  <ol class="steps">
+    <li><div><p><b>Contesto:</b> Project “UX Boutique — Brand &amp; Tone” con brand kit. La descrizione del brand corrisponde.</p></div></li>
+    <li><div><p><b>Brief:</b> responsabili marketing e-commerce, obiettivo audit gratuito; hero, tre benefici misurabili, un caso studio, CTA, footer; mobile first.</p></div></li>
+    <li><div><p><b>Tre strutture,</b> scelta la seconda con il caso studio in alto.</p></div></li>
+    <li><div><p><b>Prototipo e revisione:</b> titolo dell’hero con un numero concreto.</p></div></li>
+    <li><div><p><b>Verifica:</b> numero del caso studio approvato, una CTA, mobile corretto.</p></div></li>
+    <li><div><p><b>Export:</b> HTML per la revisione del cliente, PDF per la sintesi interna.</p></div></li>
+  </ol>
+  <div class="tw"><table>
+    <tr><th>Sintomo</th><th>Causa</th><th>Soluzione</th></tr>
+    <tr><td>Risultato generico</td><td>Brief vago</td><td>Pubblico, obiettivo, sezioni con il loro messaggio</td></tr>
+    <tr><td>Brand non riconoscibile</td><td>Contesto mancante o vecchio</td><td>Brand kit caricato e verificato</td></tr>
+    <tr><td>Claim non verificati</td><td>Nessuna regola di verifica</td><td>“Marca come da verificare” nelle istruzioni</td></tr>
+    <tr><td>Mobile rotto</td><td>Non richiesto</td><td>“Mobile first” nel formato</td></tr>
+    <tr><td>Cambiano struttura e stile insieme</td><td>Due richieste in un messaggio</td><td>Separate struttura e stile</td></tr>
+  </table></div>
+</section>
+
+<section class="slide" data-part="Parte D · Design" data-title="9 · Figma e codice">
+  <p class="eyebrow">Modulo 9</p>
+  <h2>Design, Figma, codice: una fonte unica</h2>
+  <p class="goal"><b>Prerequisiti:</b> account Figma di team, connettore Figma collegato, design system con token.</p>
+  <div class="flow">
+    <div class="panel"><span class="label">1 · Design</span><p>Il brief diventa un prototipo in Claude Design.</p></div>
+    <div class="panel"><span class="label">2 · Figma</span><p>Il design system fornisce token (colori, spaziature, font) e componenti.</p></div>
+    <div class="panel"><span class="label">3 · Code</span><p>Claude Code usa gli stessi token per generare il componente.</p></div>
+  </div>
+  <div class="cols">
+    <div class="panel">
+      <span class="label">Come si imposta</span>
+      <ol class="steps">
+        <li><div><p>Collegate il connettore Figma.</p></div></li>
+        <li><div><p>“Elenca i file Figma a cui hai accesso.”</p></div></li>
+        <li><div><p>Salvate i token in <code>design/tokens.json</code> nel repository.</p></div></li>
+      </ol>
+    </div>
+    <div class="panel">
+      <span class="label">Come si usa</span>
+      <pre><code>Usando i token in design/tokens.json,
+crea il componente card con questo layout.
+Non introdurre colori fuori dai token.</code></pre>
+      <p>Le scritture su Figma si fanno su una copia o su una pagina di prova: il file è del team.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PARTE E ============ -->
+<section class="slide divider" data-part="Parte E · Claude Code" data-title="Parte E · Claude Code">
+  <span class="letter">E</span>
+  <h2>Claude Code</h2>
+  <ul>
+    <li><b>10</b>Installazione, cartelle e Git</li>
+    <li><b>11</b>CLAUDE.md, plan mode, permessi, subagent</li>
+  </ul>
+</section>
+
+<section class="slide" data-part="Parte E · Claude Code" data-title="10 · Installazione e Git">
+  <p class="eyebrow">Modulo 10</p>
+  <h2>Claude Code: un agente che lavora sui file</h2>
+  <p class="goal">Legge, modifica e crea file ed esegue comandi, con la vostra supervisione. Non è solo per sviluppatori: chi lavora su documenti in cartelle ne trae lo stesso vantaggio.</p>
+  <div class="cols">
+    <div class="panel">
+      <span class="label">Installazione e primo avvio</span>
+      <p>App desktop oppure terminale, seguendo la documentazione ufficiale. <span class="v">⚠ da verificare il comando</span></p>
+      <pre><code>cd percorso/della/cartella
+git init      # solo se non è un repository
+claude        # avvia Claude Code</code></pre>
+      <p>Prima richiesta: “Elenca i file di questa cartella e spiega cosa contengono.”</p>
+    </div>
+    <div class="panel">
+      <span class="label">Git in breve</span>
+      <ul>
+        <li><b>Commit:</b> una versione salvata con una descrizione.</li>
+        <li><b>Branch:</b> una linea di lavoro separata.</li>
+        <li><b>Push:</b> invio delle modifiche al repository remoto.</li>
+        <li><b>Pull request:</b> richiesta di unire un branch, con revisione.</li>
+      </ul>
+      <pre><code>git status
+git add percorso/del/file
+git commit -m "Descrizione chiara"
+git log --oneline -5</code></pre>
+    </div>
+  </div>
+  <p class="note"><b>Errori comuni:</b> lavorare senza Git, commit enormi con modifiche non correlate, credenziali nei file del repository.</p>
+</section>
+
+<section class="slide" data-part="Parte E · Claude Code" data-title="11 · CLAUDE.md">
+  <p class="eyebrow">Modulo 11</p>
+  <h2>CLAUDE.md: le istruzioni permanenti del progetto</h2>
+  <div class="cols" style="grid-template-columns:repeat(auto-fit, minmax(320px, 1fr))">
+    <pre><code># Progetto: landing audit UX Boutique
+
+## Cos'è
+Landing page per il servizio di audit.
+Lingua italiana.
+
+## Stack
+- HTML e CSS, nessun framework.
+- Token di design in design/tokens.json.
+
+## Regole
+- Tono dei testi: docs/tono-di-voce.md.
+- Non modificare la cartella legacy/.
+- Non committare chiavi o credenziali.
+
+## Come lavorare
+- Prima di modifiche su più file, mostra
+  il piano e aspetta approvazione.
+- Dopo ogni modifica, elenca i file cambiati.</code></pre>
+    <div class="panel">
+      <span class="label">Dove vive</span>
+      <ul>
+        <li>Nella radice del progetto: condiviso con il team.</li>
+        <li>Nella cartella dell’utente: personale.</li>
+        <li>A livello di organizzazione: impostazioni gestite. <span class="v">⚠ da verificare</span></li>
+      </ul>
+      <span class="label">Regole di scrittura</span>
+      <ul>
+        <li>Breve e ordinato: le regole importanti non devono perdersi.</li>
+        <li>Indicate cosa non toccare e dove sono le regole di stile.</li>
+      </ul>
+      <span class="label">Verifica</span>
+      <p>“Quali regole del CLAUDE.md stai applicando?”</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-part="Parte E · Claude Code" data-title="11 · Plan mode e permessi">
+  <p class="eyebrow">Modulo 11</p>
+  <h2>Plan mode, permessi, subagent</h2>
+  <div class="cols">
+    <div class="panel">
+      <h3>Plan mode</h3>
+      <p>Claude propone un piano e aspetta l’approvazione prima di modificare i file.</p>
+      <p>Attivazione: Shift+Tab, il comando <code>/plan</code> o il flag di avvio. <span class="v">⚠ da verificare</span></p>
+    </div>
+    <div class="panel">
+      <h3>Permessi</h3>
+      <p>Claude Code chiede conferma per modificare file ed eseguire comandi. Concedete per una singola azione o per la sessione, mai “approva tutto” alla cieca.</p>
+    </div>
+    <div class="panel">
+      <h3>Subagent</h3>
+      <p>Agenti secondari per un sotto-compito. Tra quelli integrati ci sono Explore e Plan; secondo la documentazione ufficiale non caricano CLAUDE.md, per restare veloci.</p>
+    </div>
+  </div>
+  <div class="panel">
+    <span class="label">Richiesta in plan mode</span>
+    <pre><code>Aggiungi alla landing una sezione "Caso studio" con tre numeri
+da design/tokens.json. Non introdurre colori fuori dai token.
+Mostra il piano con i file che tocchi.</code></pre>
+  </div>
+  <ol class="steps">
+    <li><div><p>Leggete il piano. Se un passo non è chiaro, chiedete di spiegarlo.</p></div></li>
+    <li><div><p>Approvate, verificate il risultato, fate commit.</p></div></li>
+  </ol>
+</section>
+
+<!-- ============ PARTE F ============ -->
+<section class="slide divider" data-part="Parte F · Operatività" data-title="Parte F · Operatività">
+  <span class="letter">F</span>
+  <h2>Operatività</h2>
+  <ul>
+    <li><b>12</b>Attività programmate</li>
+    <li><b>13</b>Qualità, privacy e checklist</li>
+  </ul>
+</section>
+
+<section class="slide" data-part="Parte F · Operatività" data-title="12 · Attività programmate">
+  <p class="eyebrow">Modulo 12</p>
+  <h2>Attività programmate</h2>
+  <p class="goal"><b>Obiettivo:</b> automatizzare un compito ripetuto con un controllo umano sull’output. <b>Prerequisiti:</b> una Skill o un Project già testati.</p>
+  <div class="cols">
+    <div class="panel">
+      <span class="label">Come si imposta</span>
+      <ol class="steps">
+        <li><div><p>Scrivete il compito come per un collega: input, passi, output, destinazione.</p></div></li>
+        <li><div><p>Fatelo una volta a mano, con esito positivo.</p></div></li>
+        <li><div><p>Programmate l’intervallo. <span class="v">⚠ da verificare dove</span></p></div></li>
+        <li><div><p>Definite dove finisce l’output.</p></div></li>
+      </ol>
+    </div>
+    <div class="panel">
+      <span class="label">Esempio: report settimanale</span>
+      <ol class="steps">
+        <li><div><p>Note della settimana da Drive, riassunte con la Skill “status report”.</p></div></li>
+        <li><div><p>Programmazione: ogni lunedì mattina.</p></div></li>
+        <li><div><p>Output in un documento condiviso, con la riga “Da verificare”.</p></div></li>
+        <li><div><p>Revisione del PM prima della condivisione.</p></div></li>
+      </ol>
+    </div>
+  </div>
+  <p class="note">Nessun output automatico va a un cliente senza essere riletto.</p>
+</section>
+
+<section class="slide" data-part="Parte F · Operatività" data-title="13 · Qualità e privacy">
+  <p class="eyebrow">Modulo 13</p>
+  <h2>Qualità, privacy e checklist</h2>
+  <div class="cols">
+    <div class="panel">
+      <span class="label">Verificare</span>
+      <ul>
+        <li><b>Fatti:</b> chi, cosa, quando. Aprite la fonte.</li>
+        <li><b>Numeri:</b> ricalcolate un campione.</li>
+        <li><b>Codice:</b> eseguitelo e leggetelo.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <span class="label">Non caricare mai</span>
+      <ul>
+        <li>Password, chiavi API, credenziali.</li>
+        <li>Dati personali di clienti senza base legale.</li>
+        <li>Documenti coperti da NDA, se non lo consentono.</li>
+      </ul>
+      <p>Anonimizzate i casi reali. Verificate con l’admin le impostazioni privacy del piano Team.</p>
+    </div>
+    <div class="panel">
+      <span class="label">Prima della consegna</span>
+      <ul class="check">
+        <li>Fatti e numeri verificati sulla fonte</li>
+        <li>Nessun dato sensibile o NDA</li>
+        <li>Tono e brand rispettati</li>
+        <li>Test su mobile e browser diversi</li>
+        <li>Asset con licenza utilizzabile</li>
+        <li>Approvazione del referente</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PARTE G ============ -->
+<section class="slide divider" data-part="Parte G · Applicazione" data-title="Parte G · Applicazione">
+  <span class="letter">G</span>
+  <h2>Applicazione</h2>
+  <ul>
+    <li><b>14</b>Percorsi per ruolo</li>
+    <li><b>15</b>Workshop finale</li>
+  </ul>
+</section>
+
+<section class="slide" data-part="Parte G · Applicazione" data-title="14 · Percorsi per ruolo">
+  <p class="eyebrow">Modulo 14</p>
+  <h2>Percorsi per ruolo</h2>
+  <p class="goal">Un livello è raggiunto quando il compito è ripetibile senza di voi.</p>
+  <div class="tw"><table>
+    <tr><th>Ruolo</th><th>Base</th><th>Intermedio</th><th>Avanzato</th></tr>
+    <tr><td><b>Marketing</b></td><td>Testi, post, varianti di copy</td><td>Project di brand, piano editoriale, competitor con fonti</td><td>Skill del tono, campagne con Claude Design, report da CSV</td></tr>
+    <tr><td><b>Project Management</b></td><td>Verbali, email, riassunti</td><td>Project per cliente, stime, rischi, status report</td><td>Drive e Miro, Skill “status report”, attività programmate</td></tr>
+    <tr><td><b>UX/UI e Product</b></td><td>Sintesi di interviste, personas, microcopy</td><td>User journey, architettura dell’informazione, euristica</td><td>Token da Figma, prototipi, handoff a Claude Code, accessibilità</td></tr>
+    <tr><td><b>Art Direction</b></td><td>Concept, moodboard testuali, naming, claim</td><td>Brief creativi, riferimenti, varianti di layout</td><td>Claude Design per visual e one-pager, brand kit, Canva</td></tr>
+    <tr><td><b>Sviluppo</b></td><td>Spiegare codice, snippet, regex, query</td><td>Debug, test, documentazione, code review</td><td>CLAUDE.md, subagent, GitHub, da Figma al codice</td></tr>
+  </table></div>
+</section>
+
+<section class="slide" data-part="Parte G · Applicazione" data-title="15 · Workshop finale">
+  <p class="eyebrow">Modulo 15</p>
+  <h2>Workshop finale a coppie miste</h2>
+  <div class="cols">
+    <div class="panel">
+      <span class="label">Workflow a scelta</span>
+      <ul>
+        <li>UX research e analisi dei competitor</li>
+        <li>Redesign di una pagina</li>
+        <li>Nuovo prodotto: dal brief al prototipo</li>
+        <li>Campagna: dalla strategia ai contenuti</li>
+        <li>Automazione di un processo di PM</li>
+        <li>Sviluppo: dalla richiesta al commit</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <span class="label">Passi</span>
+      <ol class="steps">
+        <li><div><p>BRIEF del workflow.</p></div></li>
+        <li><div><p>Project e, se serve, una Skill.</p></div></li>
+        <li><div><p>Connettori necessari.</p></div></li>
+        <li><div><p>Output in Artifact o Claude Design.</p></div></li>
+        <li><div><p>Checklist del modulo 13.</p></div></li>
+        <li><div><p>Tre minuti di presentazione: fatto, verificato, non fatto.</p></div></li>
+      </ol>
+    </div>
+    <div class="panel">
+      <span class="label">Criteri di valutazione</span>
+      <ul class="check">
+        <li>BRIEF con tutte le parti necessarie</li>
+        <li>Contesto nel Project, non ripetuto</li>
+        <li>Controllo umano documentato per ogni output</li>
+        <li>Checklist completa</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHIUSURA ============ -->
+<section class="slide" data-part="Chiusura" data-title="Da verificare">
+  <p class="eyebrow">Prima della prima sessione</p>
+  <h2>Cinque passaggi da verificare nel vostro account</h2>
+  <ol class="steps">
+    <li><div><p>Percorso di caricamento delle Skill su claude.ai.</p></div></li>
+    <li><div><p>Punto di accesso e opzioni di export di Claude Design nel vostro piano.</p></div></li>
+    <li><div><p>Abilitazione dei connettori Miro e Drive da parte dell’owner.</p></div></li>
+    <li><div><p>Scorciatoie e comandi di plan mode nella versione installata di Claude Code.</p></div></li>
+    <li><div><p>Sintassi aggiornata di <code>claude mcp add</code>.</p></div></li>
+  </ol>
+  <p class="note">Le fonti del corso sono la documentazione Anthropic e l’help center Figma (struttura delle Skill, subagent, connettore Figma) e guide di terze parti (percorsi di menu, scorciatoie, export di Claude Design). Le seconde vanno verificate.</p>
+</section>
+
+<section class="slide" data-part="Chiusura" data-title="Prossimi passi">
+  <p class="eyebrow">Chiusura</p>
+  <h2>Prossimi passi</h2>
+  <div class="cols">
+    <div class="panel"><span class="label">Entro due settimane</span><p>Una Skill del team, testata sui tre casi.</p></div>
+    <div class="panel"><span class="label">Entro un mese</span><p>Un workflow automatizzato, con controllo umano.</p></div>
+    <div class="panel"><span class="label">Sempre</span><p>Un referente per il playbook AI UX Boutique.</p></div>
+  </div>
+  <p class="lead">Materiali: corso strutturato in <code>course/corso-strutturato.md</code>, questa presentazione in <code>course/corso-strutturato.html</code>.</p>
+</section>
+
+  </main>
+
+  <nav class="nav" aria-label="Navigazione slide">
+    <button id="prev" type="button">← Indietro</button>
+    <div>
+      <div class="count" id="count" aria-live="polite">1 / 1</div>
+      <div class="hint">Frecce o swipe per navigare</div>
+    </div>
+    <button id="next" type="button" class="primary">Avanti →</button>
+  </nav>
+</div>
+
+<script>
+(function () {
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var stage = document.getElementById('stage');
+  var bar = document.getElementById('progress');
+  var count = document.getElementById('count');
+  var part = document.getElementById('part');
+  var jump = document.getElementById('jump');
+  var prev = document.getElementById('prev');
+  var next = document.getElementById('next');
+  var i = 0;
+
+  // Build the jump menu, grouped by part.
+  var groups = {};
+  slides.forEach(function (s, k) {
+    s.id = 's' + (k + 1);
+    var p = s.getAttribute('data-part') || '';
+    if (!groups[p]) {
+      groups[p] = document.createElement('optgroup');
+      groups[p].label = p;
+      jump.appendChild(groups[p]);
+    }
+    var o = document.createElement('option');
+    o.value = String(k);
+    o.textContent = (k + 1) + '. ' + (s.getAttribute('data-title') || '');
+    groups[p].appendChild(o);
+  });
+
+  function show(n, updateHash) {
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach(function (s, k) { s.classList.toggle('active', k === i); });
+    stage.scrollTop = 0;
+    count.textContent = (i + 1) + ' / ' + slides.length;
+    bar.style.width = ((i + 1) / slides.length * 100) + '%';
+    part.textContent = slides[i].getAttribute('data-part') || '';
+    jump.value = String(i);
+    prev.disabled = i === 0;
+    next.disabled = i === slides.length - 1;
+    if (updateHash) {
+      try { history.replaceState(null, '', '#' + slides[i].id); } catch (e) {}
+    }
+  }
+
+  function fromHash() {
+    var m = /^#s(\d+)$/.exec(location.hash || '');
+    return m ? parseInt(m[1], 10) - 1 : 0;
+  }
+
+  prev.addEventListener('click', function () { show(i - 1, true); });
+  next.addEventListener('click', function () { show(i + 1, true); });
+  jump.addEventListener('change', function () { show(parseInt(jump.value, 10), true); });
+  window.addEventListener('hashchange', function () { show(fromHash(), false); });
+
+  document.addEventListener('keydown', function (e) {
+    var t = e.target && e.target.tagName;
+    if (t === 'SELECT' || t === 'INPUT' || t === 'TEXTAREA') return;
+    if (e.key === 'ArrowRight' || e.key === 'PageDown') { e.preventDefault(); show(i + 1, true); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); show(i - 1, true); }
+    else if (e.key === 'Home') { e.preventDefault(); show(0, true); }
+    else if (e.key === 'End') { e.preventDefault(); show(slides.length - 1, true); }
+  });
+
+  var sx = null, sy = null;
+  stage.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
+  stage.addEventListener('touchend', function (e) {
+    if (sx === null) return;
+    var dx = e.changedTouches[0].clientX - sx;
+    var dy = e.changedTouches[0].clientY - sy;
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) { show(dx < 0 ? i + 1 : i - 1, true); }
+    sx = sy = null;
+  }, { passive: true });
+
+  show(fromHash(), false);
+})();
+</script>
+</body>
+</html>
