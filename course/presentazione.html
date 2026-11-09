@@ -1,0 +1,591 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claude AI — Dal prompting al building</title>
+<meta name="description" content="Presentazione del corso Claude AI, dalle basi al building. Indice v0.2, UX Boutique.">
+<style>
+:root{
+  --bg:#faf7f2; --fg:#1f1b16; --muted:#6b6259; --card:#ffffff; --line:#e7e0d5;
+  --accent:#c96442; --accent-soft:#f6e3da;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#171410; --fg:#f3ede4; --muted:#a79d90; --card:#221e19; --line:#3a332b;
+    --accent:#e08a68; --accent-soft:#3a2a22;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#171410; --fg:#f3ede4; --muted:#a79d90; --card:#221e19; --line:#3a332b;
+  --accent:#e08a68; --accent-soft:#3a2a22;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{
+  background:var(--bg); color:var(--fg);
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  overflow:hidden; -webkit-font-smoothing:antialiased;
+}
+.deck{position:fixed;inset:0;display:flex;flex-direction:column}
+.progress{height:4px;background:var(--line);flex:none}
+.progress span{display:block;height:100%;width:0;background:var(--accent);transition:width .3s ease}
+.stage{flex:1;position:relative;overflow:hidden;min-height:0}
+.slide{
+  position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;
+  padding:clamp(24px,5vw,80px) clamp(16px,6vw,110px);overflow-y:auto;
+}
+.slide.active{display:flex}
+.kicker{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700;margin:0 0 12px}
+h1{font-size:clamp(36px,6vw,76px);line-height:1.04;margin:0 0 18px;letter-spacing:-.02em;max-width:18ch}
+h2{font-size:clamp(28px,4.2vw,52px);line-height:1.1;margin:0 0 24px;letter-spacing:-.015em}
+.lead{font-size:clamp(17px,2vw,22px);color:var(--muted);max-width:60ch;margin:0 0 28px;line-height:1.5}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 22px;min-width:0}
+.card h3{margin:0 0 10px;font-size:19px;line-height:1.25}
+.card .num{display:block;font-size:13px;color:var(--accent);font-weight:700;letter-spacing:.08em;margin-bottom:6px}
+.card ul{margin:0;padding-left:18px;font-size:16px;line-height:1.55}
+.card ul ul{color:var(--muted);font-size:14.5px;margin-top:2px}
+.card p{margin:0 0 6px;font-size:16px;line-height:1.5}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.chip{display:inline-block;font-size:14px;padding:6px 12px;border-radius:999px;background:var(--accent-soft);color:var(--accent);font-weight:600}
+.levels{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.level{flex:1 1 160px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 14px;text-align:center}
+.level small{display:block;font-size:12px;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;font-weight:700}
+.level strong{display:block;font-size:20px;margin-top:6px}
+.level em{display:block;font-style:normal;font-size:14px;color:var(--muted);margin-top:6px}
+.arrow{color:var(--muted);font-size:22px;flex:none}
+.brief{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.brief div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+.brief strong{display:block;font-size:40px;color:var(--accent);line-height:1}
+.brief span{display:block;margin-top:8px;font-size:15px;line-height:1.35}
+.note{font-size:15px;color:var(--muted);margin:24px 0 0;border-left:3px solid var(--accent);padding:4px 0 4px 14px;line-height:1.5;max-width:80ch}
+.muted{color:var(--muted)}
+.nav{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;flex:none;
+  padding:12px clamp(16px,4vw,48px);border-top:1px solid var(--line);background:var(--bg);
+}
+.nav button{
+  font:inherit;font-size:15px;padding:10px 18px;border-radius:10px;
+  border:1px solid var(--line);background:var(--card);color:var(--fg);cursor:pointer;
+}
+.nav button:disabled{opacity:.4;cursor:default}
+.nav button.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.count{font-variant-numeric:tabular-nums;color:var(--muted);font-size:14px}
+.hint{color:var(--muted);font-size:13px}
+.final{font-size:clamp(20px,2.4vw,28px);line-height:1.4;max-width:34ch;margin:0}
+@media (max-width:600px){
+  .nav button{padding:10px 12px}
+  .hint{display:none}
+  .card{padding:16px}
+  .arrow{display:none}
+  .level{flex:1 1 100%}
+}
+</style>
+</head>
+<body>
+<div class="deck">
+  <div class="progress"><span id="bar"></span></div>
+
+  <main class="stage" id="stage">
+
+    <!-- 01 COPERTINA -->
+    <section class="slide active" aria-label="Copertina">
+      <p class="kicker">Corso · Bozza v0.2 · UX Boutique</p>
+      <h1>Claude AI — dal prompting al building</h1>
+      <p class="lead">Una guida pratica per portare l'AI nel lavoro di tutti i giorni.</p>
+      <div class="chips">
+        <span class="chip">6 partecipanti</span>
+        <span class="chip">Piano Claude Team per tutti</span>
+        <span class="chip">Account Figma di team</span>
+        <span class="chip">2 giornate da 4 ore</span>
+        <span class="chip">Da remoto</span>
+      </div>
+      <p class="note">Il percorso va dalle basi all'uso avanzato. In ogni capitolo: concetto → demo → esercizio.</p>
+    </section>
+
+    <!-- 02 OBIETTIVO -->
+    <section class="slide" aria-label="Obiettivo del corso">
+      <p class="kicker">00 · Apertura</p>
+      <h2>Da "lo uso ogni tanto" a "è parte del mio metodo"</h2>
+      <div class="grid">
+        <div class="card"><span class="num">0.1</span><h3>Perché questo corso</h3><p>Passare dall'uso occasionale a un metodo di lavoro stabile e condiviso.</p></div>
+        <div class="card"><span class="num">0.3</span><h3>Giro di tavolo</h3><p>Come usiamo l'AI oggi, ruolo per ruolo, prima di partire.</p></div>
+        <div class="card"><span class="num">0.4</span><h3>Setup</h3><p>Account Team, app desktop, controllo degli accessi.</p></div>
+      </div>
+    </section>
+
+    <!-- 03 SCALA 5 LIVELLI -->
+    <section class="slide" aria-label="La scala dei 5 livelli">
+      <p class="kicker">00 · Apertura · 0.2</p>
+      <h2>La scala dei 5 livelli</h2>
+      <div class="levels">
+        <div class="level"><small>Livello 1</small><strong>Prompt</strong><em>Cap. 02</em></div>
+        <span class="arrow">→</span>
+        <div class="level"><small>Livello 2</small><strong>Contesto</strong><em>Cap. 03</em></div>
+        <span class="arrow">→</span>
+        <div class="level"><small>Livello 3</small><strong>Metodo</strong><em>Cap. 05 · Skills</em></div>
+        <span class="arrow">→</span>
+        <div class="level"><small>Livello 4</small><strong>Connessioni</strong><em>Cap. 05 · Connectors, MCP</em></div>
+        <span class="arrow">→</span>
+        <div class="level"><small>Livello 5</small><strong>Agente</strong><em>Cap. 07 · Claude Code</em></div>
+      </div>
+    </section>
+
+    <!-- 04 STRUTTURA GIORNATE -->
+    <section class="slide" aria-label="Struttura delle giornate">
+      <p class="kicker">Struttura del corso</p>
+      <h2>Due giornate da 4 ore</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Giorno 1</h3>
+          <ul>
+            <li>Capitoli 00–04</li>
+            <li>Capitolo 09</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Giorno 2</h3>
+          <ul>
+            <li>Capitoli 05–08</li>
+            <li>Capitoli 10–13</li>
+          </ul>
+        </div>
+      </div>
+      <p class="note"><strong>Da confermare:</strong> la distribuzione dei capitoli sulle due giornate non è ancora definitiva.<br>Il capitolo 08 è il più lungo: in aula una demo per ruolo, il resto va nella dispensa.</p>
+    </section>
+
+    <!-- 05 CAP 00 + 01 -->
+    <section class="slide" aria-label="Capitoli 00 e 01">
+      <p class="kicker">Capitoli 00 e 01</p>
+      <h2>Apertura e fondamenti</h2>
+      <div class="grid">
+        <div class="card">
+          <span class="num">00 · APERTURA</span>
+          <ul>
+            <li>Perché questo corso</li>
+            <li>La scala dei 5 livelli</li>
+            <li>Giro di tavolo: come usate l'AI oggi</li>
+            <li>Setup: account Team, app desktop, controllo degli accessi</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="num">01 · FONDAMENTI</span>
+          <ul>
+            <li>Cos'è un modello linguistico, senza tecnicismi</li>
+            <li>I modelli: Opus, Sonnet, Haiku e quando usare ciascuno</li>
+            <li>Effort e ragionamento: velocità o profondità</li>
+            <li>La finestra di contesto: cosa "vede" Claude e cosa no</li>
+            <li>Limiti, allucinazioni e come verificare</li>
+            <li>Dove si usa Claude: web, desktop, mobile, estensioni</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 CAP 02 BRIEF -->
+    <section class="slide" aria-label="Capitolo 02, framework BRIEF">
+      <p class="kicker">Capitolo 02 · Livello 1 · Prompt</p>
+      <h2>Il framework BRIEF</h2>
+      <div class="brief">
+        <div><strong>B</strong><span>Background: il contesto</span></div>
+        <div><strong>R</strong><span>Ruolo: chi deve rispondere</span></div>
+        <div><strong>I</strong><span>Intento: cosa serve davvero</span></div>
+        <div><strong>E</strong><span>Esempi: come deve essere</span></div>
+        <div><strong>F</strong><span>Formato: in che forma</span></div>
+      </div>
+      <p class="note">Più la verifica finale. Dal prompt semplice al brief, con un esempio "prima e dopo" dello stesso compito.</p>
+    </section>
+
+    <!-- 07 CAP 02 TECNICHE -->
+    <section class="slide" aria-label="Capitolo 02, tecniche avanzate">
+      <p class="kicker">Capitolo 02 · Prompt</p>
+      <h2>Tecniche avanzate e iterazione</h2>
+      <div class="grid">
+        <div class="card">
+          <span class="num">2.3 · TECNICHE</span>
+          <ul>
+            <li>Tag XML per separare istruzioni e materiali</li>
+            <li>Few-shot: insegnare con gli esempi</li>
+            <li>Prompt a catena: dividere i compiti complessi</li>
+            <li>Autocritica e criteri di qualità</li>
+            <li>Chiedere motivazioni e fonti verificabili</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="num">2.4 – 2.5 · ITERARE E DEBUG</span>
+          <ul>
+            <li>Come si dà un feedback a Claude</li>
+            <li>Perché un prompt non funziona</li>
+            <li>Come si sistema, passo per passo</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08 CAP 03 CONTESTO -->
+    <section class="slide" aria-label="Capitolo 03, Projects e memoria">
+      <p class="kicker">Capitolo 03 · Livello 2 · Contesto</p>
+      <h2>Projects e memoria</h2>
+      <div class="grid">
+        <div class="card">
+          <span class="num">3.1 – 3.3</span>
+          <ul>
+            <li>Perché il contesto conta più del prompt</li>
+            <li>Creare un Project: istruzioni e knowledge base</li>
+            <li>Quali documenti caricare e come prepararli</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="num">3.4 – 3.6</span>
+          <ul>
+            <li>Projects condivisi nel piano Team</li>
+            <li>Memoria e ricerca nelle chat passate</li>
+            <li>Chat lunghe: quando ripartire, come riassumere, come dividere il lavoro</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="num">3.7 · ESEMPIO</span>
+          <p>Il Project <strong>"UX Boutique — Brand &amp; Tone"</strong> come caso completo.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 09 CAP 04 OUTPUT -->
+    <section class="slide" aria-label="Capitolo 04, output">
+      <p class="kicker">Capitolo 04 · Output</p>
+      <h2>Dalla risposta al deliverable</h2>
+      <div class="grid">
+        <div class="card"><span class="num">4.1</span><h3>Artifacts</h3><p>Documenti, presentazioni, fogli di calcolo, pagine interattive.</p></div>
+        <div class="card"><span class="num">4.2</span><h3>Ricerca web</h3><p>Ricerca web e ricerca approfondita.</p></div>
+        <div class="card"><span class="num">4.3 – 4.4</span><h3>File e dati</h3><p>Analisi di PDF, Excel, immagini, screenshot. Grafici e analisi dei dati.</p></div>
+        <div class="card"><span class="num">4.5</span><h3>Lavori lunghi</h3><p>Compiti in più passaggi e attività programmate.</p></div>
+      </div>
+    </section>
+
+    <!-- 10 CAP 05 METODO E CONNESSIONI -->
+    <section class="slide" aria-label="Capitolo 05, metodo e connessioni">
+      <p class="kicker">Capitolo 05 · Livelli 3 e 4</p>
+      <h2>Metodo e connessioni</h2>
+      <div class="levels" style="margin-bottom:24px">
+        <div class="level"><small>Metodo</small><strong>Skills</strong><em>Il metodo</em></div>
+        <div class="level"><small>Dati</small><strong>Connectors</strong><em>Drive, Notion, Slack, Gmail, GitHub, Figma</em></div>
+        <div class="level"><small>Pacchetti</small><strong>Plugins</strong><em>Insiemi pronti</em></div>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <span class="num">5.2 – 5.3</span>
+          <ul>
+            <li>Trasformare un metodo ripetuto in uno strumento del team</li>
+            <li>Creare e condividere una Skill aziendale</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="num">5.5 – 5.7</span>
+          <ul>
+            <li>MCP spiegato semplice: la "presa USB" dell'AI</li>
+            <li>Piano Team: cosa abilita l'admin, autenticazione e permessi</li>
+            <li>Workflow integrati: connettore + skill + output</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11 CAP 06 CLAUDE DESIGN E FIGMA -->
+    <section class="slide" aria-label="Capitolo 06, Claude Design e Figma">
+      <p class="kicker">Capitolo 06 · Design</p>
+      <h2>Claude Design e Figma</h2>
+      <div class="grid">
+        <div class="card">
+          <span class="num">6.1 – 6.3</span>
+          <ul>
+            <li>Claude Design: cos'è e cosa produce (prototipi, slide, one-pager, landing)</li>
+            <li>Da un brief a un prototipo</li>
+            <li>Brand e design system come contesto</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="num">6.4 – 6.5</span>
+          <ul>
+            <li>Export: HTML, PDF, PPTX, Canva</li>
+            <li>Figma MCP: leggere i file, estrarre token e componenti, scrivere sul canvas</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="num">6.6 – 6.7</span>
+          <ul>
+            <li>Il flusso Design ↔ Figma ↔ Code</li>
+            <li>Cosa è nativo e cosa richiede MCP o strumenti esterni</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12 CAP 07 CLAUDE CODE -->
+    <section class="slide" aria-label="Capitolo 07, Claude Code">
+      <p class="kicker">Capitolo 07 · Livello 5 · Agente</p>
+      <h2>Claude Code</h2>
+      <div class="grid">
+        <div class="card">
+          <span class="num">7.1 – 7.3</span>
+          <ul>
+            <li>Cos'è Claude Code e perché non è solo per sviluppatori</li>
+            <li>Installazione: app desktop o terminale</li>
+            <li>Cartelle, file e repository</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="num">7.4 – 7.6</span>
+          <ul>
+            <li>CLAUDE.md: le istruzioni permanenti del progetto</li>
+            <li>Plan mode: prima il piano, poi l'esecuzione</li>
+            <li>Permessi e sicurezza</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="num">7.7 – 7.9</span>
+          <ul>
+            <li>Skills, subagent e MCP in Claude Code</li>
+            <li>Git e GitHub in breve</li>
+            <li>Demo: da un <code>.md</code> a una presentazione HTML con il brand UX Boutique</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 13 CAP 08 A -->
+    <section class="slide" aria-label="Capitolo 08, percorsi per ruolo, parte 1">
+      <p class="kicker">Capitolo 08 · Percorsi per ruolo (1/2)</p>
+      <h2>Base → Intermedio → Avanzato</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>8.1 Marketing</h3>
+          <ul>
+            <li>Base: testi, post, varianti di copy, adattamento del tono</li>
+            <li>Intermedio: Project con brand e tono, piano editoriale, analisi competitor con ricerca web</li>
+            <li>Avanzato: Skill del tono di voce, campagne con Claude Design, report da dati Excel o CSV</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>8.2 Project Management</h3>
+          <ul>
+            <li>Base: verbali, email ai clienti, riassunti di documenti</li>
+            <li>Intermedio: Project per cliente, stime, rischi, timeline, status report</li>
+            <li>Avanzato: connettori Drive e Notion, Skill per gli status report, attività programmate, dashboard di progetto</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>8.3 UX/UI e Product Design</h3>
+          <ul>
+            <li>Base: sintesi di interviste, personas, microcopy</li>
+            <li>Intermedio: user journey, architettura dell'informazione, analisi euristica da screenshot</li>
+            <li>Avanzato: design system e token via Figma MCP, prototipi, handoff a Claude Code, revisione di accessibilità</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 14 CAP 08 B -->
+    <section class="slide" aria-label="Capitolo 08, percorsi per ruolo, parte 2">
+      <p class="kicker">Capitolo 08 · Percorsi per ruolo (2/2)</p>
+      <h2>Base → Intermedio → Avanzato</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>8.4 Art Direction e Graphic Design</h3>
+          <ul>
+            <li>Base: concept, moodboard testuali, naming, claim</li>
+            <li>Intermedio: brief creativi, analisi di riferimenti visivi, varianti di layout</li>
+            <li>Avanzato: Claude Design per visual e one-pager, brand kit come contesto, export verso Canva, prompt per AI generative di immagini</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>8.5 Sviluppo</h3>
+          <ul>
+            <li>Base: spiegare codice, snippet, regex, query</li>
+            <li>Intermedio: debug, test, documentazione, code review</li>
+            <li>Avanzato: Claude Code con CLAUDE.md, subagent, GitHub, Figma MCP da design a codice, automazioni</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 15 CAP 09 -->
+    <section class="slide" aria-label="Capitolo 09, scegliere lo strumento">
+      <p class="kicker">Capitolo 09 · Strumenti</p>
+      <h2>Claude o un'altra AI?</h2>
+      <div class="grid">
+        <div class="card">
+          <span class="num">9.1 · PUNTI DI FORZA</span>
+          <p>Scrittura, ragionamento, contesto lungo, codice, lavoro su file.</p>
+        </div>
+        <div class="card">
+          <span class="num">9.2 · DOVE SERVONO ALTRI STRUMENTI</span>
+          <ul>
+            <li>Immagini generative (es. Midjourney, Adobe Firefly)</li>
+            <li>Video e voce</li>
+            <li>AI integrate nei tool che usiamo già (Figma AI, Canva)</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="num">9.3 – 9.5</span>
+          <ul>
+            <li>Confronto con ChatGPT e Gemini: differenze pratiche, non classifiche</li>
+            <li>Combinare più strumenti in un unico workflow</li>
+            <li>Albero decisionale: quale strumento uso per questo compito?</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 16 CAP 10 -->
+    <section class="slide" aria-label="Capitolo 10, qualità, sicurezza e privacy">
+      <p class="kicker">Capitolo 10 · Qualità, sicurezza, privacy</p>
+      <h2>Verificare, proteggere, consegnare</h2>
+      <div class="grid">
+        <div class="card">
+          <span class="num">10.1</span>
+          <h3>Verificare i risultati</h3>
+          <p>Fatti, numeri, fonti, codice.</p>
+        </div>
+        <div class="card">
+          <span class="num">10.2 – 10.3</span>
+          <h3>Dati e privacy</h3>
+          <p>Dati dei clienti, NDA e cosa non caricare mai. Impostazioni privacy del piano Team.</p>
+        </div>
+        <div class="card">
+          <span class="num">10.4 – 10.5</span>
+          <h3>Diritti e consegna</h3>
+          <p>Diritti d'autore e uso degli output generati. Checklist prima della consegna.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 17 CAP 11 -->
+    <section class="slide" aria-label="Capitolo 11, workflow end-to-end">
+      <p class="kicker">Capitolo 11 · Casi reali</p>
+      <h2>Workflow end-to-end</h2>
+      <div class="grid">
+        <div class="card"><span class="num">11.1</span><h3>UX research e analisi dei competitor</h3></div>
+        <div class="card"><span class="num">11.2</span><h3>Redesign di un sito</h3></div>
+        <div class="card"><span class="num">11.3</span><h3>Nuovo prodotto digitale: dal brief al prototipo</h3></div>
+        <div class="card"><span class="num">11.4</span><h3>Campagna marketing: dalla strategia ai contenuti</h3></div>
+        <div class="card"><span class="num">11.5</span><h3>Automazione di un processo di PM</h3></div>
+        <div class="card"><span class="num">11.6</span><h3>Sviluppo software: dalla richiesta al deploy</h3></div>
+      </div>
+    </section>
+
+    <!-- 18 CAP 12 -->
+    <section class="slide" aria-label="Capitolo 12, esercitazioni">
+      <p class="kicker">Capitolo 12 · Esercitazioni (difficoltà crescente)</p>
+      <h2>Esercitazioni pratiche</h2>
+      <div class="grid">
+        <div class="card"><span class="num">12.1</span><h3>Tre livelli, stesso compito</h3><p>Prompt semplice, BRIEF, Project.</p></div>
+        <div class="card"><span class="num">12.2</span><h3>Debug del prompt</h3></div>
+        <div class="card"><span class="num">12.3</span><h3>Il mio Project di ruolo</h3></div>
+        <div class="card"><span class="num">12.4</span><h3>Dal Project alla Skill</h3></div>
+        <div class="card"><span class="num">12.5</span><h3>Da <code>.md</code> a HTML con Claude Code</h3></div>
+        <div class="card"><span class="num">12.6</span><h3>Workshop finale a coppie miste</h3><p>Un workflow dall'inizio alla fine.</p></div>
+      </div>
+    </section>
+
+    <!-- 19 CAP 13 -->
+    <section class="slide" aria-label="Capitolo 13, chiusura">
+      <p class="kicker">Capitolo 13 · Chiusura</p>
+      <h2>Cosa portiamo a casa</h2>
+      <div class="grid">
+        <div class="card"><span class="num">13.1</span><h3>Il playbook AI UX Boutique</h3></div>
+        <div class="card"><span class="num">13.2</span><h3>Prompt library per ruolo</h3></div>
+        <div class="card"><span class="num">13.3</span><h3>Quick reference</h3><p>Una pagina da tenere aperta.</p></div>
+        <div class="card"><span class="num">13.4</span><h3>Repository starter su GitHub</h3></div>
+        <div class="card"><span class="num">13.5</span><h3>Prossimi passi</h3><p>Come continuare a crescere.</p></div>
+      </div>
+    </section>
+
+    <!-- 20 PUNTI APERTI -->
+    <section class="slide" aria-label="Punti aperti per la prossima versione">
+      <p class="kicker">Note per la prossima versione</p>
+      <h2>Punti aperti</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Da confermare</h3>
+          <ul>
+            <li>Distribuzione dei capitoli sulle due giornate (Giorno 1: 00–04 e 09; Giorno 2: 05–08 e 10–13)</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Da ricontrollare</h3>
+          <ul>
+            <li>Nomi e funzioni degli strumenti, la settimana del corso</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Formato</h3>
+          <ul>
+            <li>Il capitolo 08 è il più lungo: una demo per ruolo in aula, il resto in dispensa</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 21 CHIUSURA -->
+    <section class="slide" aria-label="Chiusura">
+      <p class="kicker">Grazie</p>
+      <p class="final">Da "lo uso ogni tanto" a "è parte del mio metodo".</p>
+      <p class="lead" style="margin-top:24px">Corso Claude AI · UX Boutique</p>
+    </section>
+
+  </main>
+
+  <nav class="nav" aria-label="Navigazione">
+    <button id="prev" type="button">← Indietro</button>
+    <div style="text-align:center">
+      <div class="count" id="count">1 / 1</div>
+      <div class="hint">Frecce o swipe per navigare</div>
+    </div>
+    <button id="next" type="button" class="primary">Avanti →</button>
+  </nav>
+</div>
+
+<script>
+(function () {
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var bar = document.getElementById('bar');
+  var count = document.getElementById('count');
+  var prev = document.getElementById('prev');
+  var next = document.getElementById('next');
+  var i = 0;
+
+  function show(n) {
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach(function (s, k) { s.classList.toggle('active', k === i); });
+    slides[i].scrollTop = 0;
+    count.textContent = (i + 1) + ' / ' + slides.length;
+    bar.style.width = ((i + 1) / slides.length * 100) + '%';
+    prev.disabled = i === 0;
+    next.disabled = i === slides.length - 1;
+  }
+
+  prev.addEventListener('click', function () { show(i - 1); });
+  next.addEventListener('click', function () { show(i + 1); });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); show(i + 1); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); show(i - 1); }
+    else if (e.key === 'Home') { show(0); }
+    else if (e.key === 'End') { show(slides.length - 1); }
+  });
+
+  var startX = null;
+  document.addEventListener('touchstart', function (e) { startX = e.touches[0].clientX; }, { passive: true });
+  document.addEventListener('touchend', function (e) {
+    if (startX === null) return;
+    var dx = e.changedTouches[0].clientX - startX;
+    if (Math.abs(dx) > 50) { show(dx < 0 ? i + 1 : i - 1); }
+    startX = null;
+  }, { passive: true });
+
+  show(0);
+})();
+</script>
+</body>
+</html>
