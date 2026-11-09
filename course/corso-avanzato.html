@@ -1,0 +1,968 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Corso Claude Avanzato</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#F3F4F1">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0F141A">
+<meta name="description" content="Corso Claude avanzato: Figma MCP, Adobe, loghi, Claude Code con hook e agenti, marketing e PM con connettori.">
+<style>
+/* Layout: full-bleed presenter deck. Translucent chrome floats over the active slide, which scrolls underneath; on touch, slides track the finger and settle with a critically damped spring. */
+:root{
+  --bg:#F5F5F7;
+  --surface:#FFFFFF;
+  --ink:#1D1D1F;
+  --muted:#6E6E73;
+  --line:#D2D2D7;
+  --accent:#0066CC;
+  --accent-soft:#E6F0FA;
+  --warn:#975A00;
+  --warn-soft:#FFF1DA;
+  --code-bg:#EFEFF3;
+  --on-accent:#FFFFFF;
+  --chrome:rgba(245,245,247,.72);
+  --chrome-solid:#F5F5F7;
+  --shadow:0 1px 2px rgba(0,0,0,.04), 0 6px 20px rgba(0,0,0,.05);
+  --font:-apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display:-apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono:ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+  --ease-out:cubic-bezier(0.23, 1, 0.32, 1);
+  --bar-h:56px;
+  --nav-h:68px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#000000; --surface:#1C1C1E; --ink:#F5F5F7; --muted:#A1A1A6; --line:#38383A;
+    --accent:#2997FF; --accent-soft:#0E2A47; --warn:#FFB340; --warn-soft:#3A2A10;
+    --code-bg:#2C2C2E; --on-accent:#000000; --chrome:rgba(22,22,24,.72); --chrome-solid:#161618;
+    --shadow:none; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#000000; --surface:#1C1C1E; --ink:#F5F5F7; --muted:#A1A1A6; --line:#38383A;
+  --accent:#2997FF; --accent-soft:#0E2A47; --warn:#FFB340; --warn-soft:#3A2A10;
+  --code-bg:#2C2C2E; --on-accent:#000000; --chrome:rgba(22,22,24,.72); --chrome-solid:#161618;
+  --shadow:none; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+html{-webkit-tap-highlight-color:transparent; -webkit-text-size-adjust:100%; text-size-adjust:100%}
+body{
+  margin:0; overflow:hidden; background:var(--bg); color:var(--ink);
+  font:400 1.0625rem/1.55 var(--font); letter-spacing:-0.003em;
+  -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+}
+
+/* Shell */
+.deck{position:relative; height:100%; overflow:hidden}
+.stage{position:absolute; inset:0; overflow:hidden}
+.slide{
+  position:absolute; inset:0; display:none; flex-direction:column; gap:1.375rem;
+  overflow-y:auto; overflow-x:hidden; overscroll-behavior:contain; touch-action:pan-y;
+  background:var(--bg);
+  padding-top:calc(var(--bar-h) + clamp(20px, 4vw, 48px));
+  padding-bottom:calc(var(--nav-h) + 32px);
+  padding-left:max(16px, env(safe-area-inset-left, 0px), calc((100% - 1120px) / 2));
+  padding-right:max(16px, env(safe-area-inset-right, 0px), calc((100% - 1120px) / 2));
+}
+.slide.active, .slide.peek{display:flex}
+.slide > *{flex-shrink:0; min-width:0}
+.stage.dragging .slide{will-change:transform}
+
+/* Translucent chrome */
+.chrome{
+  position:absolute; left:0; right:0; z-index:5;
+  background:var(--chrome);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);
+  backdrop-filter:saturate(180%) blur(20px);
+  transition:box-shadow 200ms ease;
+}
+.chrome.top{top:0}
+.chrome.bottom{bottom:0}
+.chrome.top.edge{box-shadow:0 1px 0 var(--line)}
+.chrome.bottom.edge{box-shadow:0 -1px 0 var(--line)}
+.chrome-inner{
+  display:flex; align-items:center; gap:12px; max-width:1120px; margin-inline:auto;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+}
+.top .chrome-inner{height:calc(var(--bar-h) - 2px)}
+.bottom .chrome-inner{height:var(--nav-h); justify-content:space-between}
+.part{font:600 .8125rem/1.2 var(--font); letter-spacing:.01em; color:var(--muted); flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.progress{height:2px; overflow:hidden}
+.progress span{display:block; height:100%; width:100%; background:var(--accent); transform:scaleX(0); transform-origin:left center}
+
+.select{position:relative; display:inline-flex; max-width:min(56vw, 360px)}
+.select::after{content:""; position:absolute; right:15px; top:50%; width:7px; height:7px; border-right:2px solid var(--accent); border-bottom:2px solid var(--accent); transform:translateY(-70%) rotate(45deg); pointer-events:none}
+.select select{
+  -webkit-appearance:none; appearance:none; width:100%; min-width:0;
+  font:500 1rem/1.2 var(--font); color:var(--accent); background:var(--accent-soft);
+  border:0; border-radius:980px; padding:8px 36px 8px 15px; cursor:pointer;
+  text-overflow:ellipsis; white-space:nowrap; overflow:hidden;
+}
+
+/* Type: tracking tightens as size grows, leading loosens as size shrinks */
+p{margin:0}
+h1,h2,h3{margin:0; text-wrap:balance}
+h1{font-family:var(--font-display); font-size:clamp(2.5rem, 6vw, 4.5rem); line-height:1.04; letter-spacing:-0.03em; font-weight:700; max-width:16ch}
+h2{font-family:var(--font-display); font-size:clamp(1.875rem, 3.8vw, 2.75rem); line-height:1.08; letter-spacing:-0.022em; font-weight:700}
+h3{font-size:1.0625rem; line-height:1.3; letter-spacing:-0.01em; font-weight:600}
+.eyebrow{font:600 .9375rem/1.3 var(--font); letter-spacing:-0.005em; color:var(--accent); margin:0}
+.lead{font-size:clamp(1.125rem, 2vw, 1.375rem); line-height:1.45; letter-spacing:-0.012em; color:var(--muted); max-width:60ch}
+.goal{color:var(--muted); max-width:72ch}
+.goal b{color:var(--ink); font-weight:600}
+.label{font:600 .75rem/1.2 var(--font); letter-spacing:.03em; text-transform:uppercase; color:var(--muted)}
+.muted{color:var(--muted)}
+a{color:var(--accent)}
+
+/* Groups */
+.cols{display:grid; gap:16px; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr))}
+.cols > *{min-width:0}
+.flow{display:grid; gap:16px; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); align-items:stretch}
+.panel{background:var(--surface); border-radius:18px; padding:20px 22px; box-shadow:var(--shadow); display:flex; flex-direction:column; gap:10px}
+.panel ul, .panel ol, .plain{margin:0; padding-left:20px}
+.panel li, .plain li{margin-block:4px}
+.note{border-left:3px solid var(--accent); padding:2px 0 2px 14px; color:var(--muted); max-width:78ch}
+
+ol.steps{list-style:none; counter-reset:step; margin:0; padding:0; display:grid; gap:14px}
+ol.steps > li{counter-increment:step; display:grid; grid-template-columns:32px 1fr; gap:12px; align-items:start}
+ol.steps > li::before{content:counter(step); font:600 .8125rem/1 var(--font); font-variant-numeric:tabular-nums; width:28px; height:28px; border-radius:50%; display:grid; place-items:center; background:var(--accent-soft); color:var(--accent)}
+ol.steps > li > div{min-width:0; display:flex; flex-direction:column; gap:4px}
+ol.steps.start5{counter-reset:step 4}
+
+ul.check{list-style:none; margin:0; padding:0; display:grid; gap:9px}
+ul.check li{display:grid; grid-template-columns:24px 1fr; gap:10px; align-items:start}
+ul.check li::before{content:""; width:18px; height:18px; margin-top:3px; border:1.5px solid var(--muted); border-radius:6px}
+
+.tw{overflow-x:auto; background:var(--surface); border-radius:18px; box-shadow:var(--shadow)}
+table{border-collapse:collapse; width:100%; font-size:.96875rem}
+th,td{text-align:left; vertical-align:top; padding:11px 16px; border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:none}
+th{font:600 .75rem/1.3 var(--font); letter-spacing:.03em; text-transform:uppercase; color:var(--muted)}
+td b{font-weight:600}
+
+pre{margin:0; background:var(--code-bg); border-radius:14px; padding:14px 16px; overflow-x:auto; font:400 .8125rem/1.6 var(--font-mono); white-space:pre}
+code{font-family:var(--font-mono); font-size:.88em; background:var(--code-bg); padding:1px 6px; border-radius:6px}
+pre code{background:none; padding:0; font-size:inherit}
+.v{display:inline-block; font:600 .75rem/1.4 var(--font); color:var(--warn); background:var(--warn-soft); border-radius:6px; padding:1px 7px; white-space:nowrap; vertical-align:1px}
+
+.meta{display:grid; gap:14px 28px; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); margin:0}
+.meta div{display:flex; flex-direction:column; gap:3px; border-top:1px solid var(--line); padding-top:12px}
+.meta dt{font:600 .75rem/1.2 var(--font); letter-spacing:.03em; text-transform:uppercase; color:var(--muted)}
+.meta dd{margin:0; font-weight:600; letter-spacing:-0.01em}
+
+.slide.divider{justify-content:safe center}
+.divider .letter{font-family:var(--font-display); font-size:clamp(5rem, 14vw, 10rem); line-height:.9; letter-spacing:-0.05em; font-weight:700; color:var(--accent)}
+.divider ul{list-style:none; margin:0; padding:0; display:grid; gap:8px; font-size:1.125rem; color:var(--muted); letter-spacing:-0.01em}
+.divider ul b{color:var(--ink); font-weight:600; font-variant-numeric:tabular-nums; margin-right:10px}
+
+.inbreve{background:var(--accent-soft); color:var(--ink); border-radius:18px; padding:16px 20px; font-size:1.0625rem; line-height:1.5; max-width:80ch}
+.inbreve b{color:var(--accent)}
+
+/* Controls: feedback on press, hover only for fine pointers */
+.btn{
+  font:600 .9375rem/1 var(--font); letter-spacing:-0.01em; padding:12px 18px; border-radius:980px; border:0;
+  background:var(--accent-soft); color:var(--accent); cursor:pointer;
+  touch-action:manipulation; user-select:none; -webkit-user-select:none;
+  transition:transform 100ms ease-out, filter 150ms ease;
+}
+.btn.primary{background:var(--accent); color:var(--on-accent)}
+.btn:not(:disabled):active{transform:scale(0.97)}
+.btn:disabled{opacity:.35; cursor:default}
+@media (hover: hover) and (pointer: fine){
+  .btn:not(:disabled):hover{filter:brightness(1.06)}
+  .select select:hover{filter:brightness(0.98)}
+}
+.count-wrap{text-align:center}
+.count{font:600 .8125rem/1.3 var(--font); font-variant-numeric:tabular-nums; color:var(--ink)}
+.hint{font-size:.75rem; color:var(--muted)}
+button:focus-visible, select:focus-visible, a:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+
+/* Cover entrance: first load only, never during navigation */
+@keyframes rise{from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none}}
+.slide.intro > *{animation:rise 360ms var(--ease-out) both}
+.slide.intro > :nth-child(2){animation-delay:50ms}
+.slide.intro > :nth-child(3){animation-delay:100ms}
+.slide.intro > :nth-child(4){animation-delay:150ms}
+
+@media (max-width:640px){
+  :root{--bar-h:52px; --nav-h:64px}
+  body{font-size:1rem}
+  .hint{display:none}
+  .btn{padding:11px 14px}
+}
+@media (prefers-reduced-motion: reduce){
+  @keyframes fade{from{opacity:0} to{opacity:1}}
+  .slide.intro > *{animation:fade 200ms ease both; animation-delay:0ms}
+  .btn:not(:disabled):active{transform:none}
+}
+@media (prefers-reduced-transparency: reduce){
+  .chrome{background:var(--chrome-solid); -webkit-backdrop-filter:none; backdrop-filter:none}
+}
+@media (prefers-contrast: more){
+  .chrome{background:var(--chrome-solid); -webkit-backdrop-filter:none; backdrop-filter:none}
+  .chrome.top{box-shadow:0 1px 0 var(--ink)}
+  .chrome.bottom{box-shadow:0 -1px 0 var(--ink)}
+  .panel, .tw{box-shadow:none; border:1px solid var(--ink)}
+  .muted, .goal, .lead, .note, .part, .hint{color:var(--ink)}
+}
+
+/* ---- Clean layer (v3): fewer boxes, more air, one idea per slide ---- */
+.slide{gap:1.75rem;
+  padding-top:calc(var(--bar-h) + clamp(28px, 6vh, 72px));
+  padding-left:max(20px, env(safe-area-inset-left, 0px), calc((100% - 1000px) / 2));
+  padding-right:max(20px, env(safe-area-inset-right, 0px), calc((100% - 1000px) / 2));
+  justify-content:safe center}
+h2{font-size:clamp(2rem, 4.2vw, 3.1rem); max-width:22ch}
+.lead{max-width:52ch}
+.panel{background:none; box-shadow:none; border-radius:0; padding:16px 0 0; border-top:1px solid var(--line); gap:8px}
+.cols{gap:28px}
+.tw{background:none; box-shadow:none; border-radius:0; border-top:1px solid var(--line)}
+th,td{padding:14px 20px 14px 0}
+th{padding-top:12px}
+.note{border-left:0; padding:0; font-size:.9375rem}
+.statement{font-family:var(--font-display); font-size:clamp(1.75rem, 3.6vw, 2.75rem); line-height:1.15; letter-spacing:-0.022em; font-weight:700; max-width:24ch; margin:0; text-wrap:balance}
+.quote{font-size:1.25rem; line-height:1.4; letter-spacing:-0.01em}
+.plain-list{list-style:none; margin:0; padding:0; display:grid; gap:10px}
+ol.steps.big{gap:22px}
+ol.steps.big > li{grid-template-columns:44px 1fr; gap:16px}
+ol.steps.big > li::before{width:36px; height:36px; font-size:.9375rem}
+ol.steps.big h3{font-size:1.25rem}
+ul.check.big{gap:16px; font-size:1.25rem; letter-spacing:-0.01em}
+ul.check.big li::before{margin-top:6px}
+.brief-table td{font-size:1.125rem; vertical-align:middle; padding-top:9px; padding-bottom:9px}
+.letter-cell{font-family:var(--font-display); font-size:2rem !important; font-weight:700; color:var(--accent); width:56px}
+pre{font-size:.8125rem; line-height:1.65; padding:18px 20px}
+
+/* ---- v4: diagrams, index, example card ---- */
+.dia-wrap{overflow-x:auto; margin-inline:-4px; padding:4px}
+.diagram{display:block; width:100%; max-width:920px; height:auto; min-width:640px; overflow:visible}
+.diagram text{font-family:var(--font)}
+.diagram .node{fill:var(--surface); stroke:var(--line); stroke-width:1.5}
+.diagram .node.accent{fill:var(--accent-soft); stroke:var(--accent)}
+.diagram .t{fill:var(--ink); font-size:20px; font-weight:600; letter-spacing:-0.01em}
+.diagram .s{fill:var(--muted); font-size:15px}
+.diagram .n{fill:var(--accent); font-size:15px; font-weight:700}
+.diagram .ln{stroke:var(--muted); stroke-width:1.75; fill:none}
+.diagram .accent-ln{stroke:var(--accent); stroke-dasharray:5 5}
+.ac{fill:var(--muted)}
+.diagram .badge{fill:var(--accent)}
+.diagram .bl{fill:var(--on-accent); font-size:22px; font-weight:700; text-anchor:middle}
+.diagram .tagbox{fill:var(--code-bg)}
+.diagram .mono{font-family:var(--font-mono); font-size:16px; fill:var(--ink)}
+.index{display:grid; grid-template-columns:repeat(auto-fit, minmax(270px, 1fr)); gap:22px 36px}
+.index > div{display:flex; flex-direction:column; gap:6px; border-top:1px solid var(--line); padding-top:14px}
+.index .label{margin-bottom:4px; color:var(--accent)}
+.index a{color:var(--ink); text-decoration:none; font-size:1rem; line-height:1.35}
+@media (hover: hover) and (pointer: fine){ .index a:hover{color:var(--accent)} }
+.cols.four{grid-template-columns:repeat(auto-fit, minmax(190px, 1fr))}
+.cols.wide-left{grid-template-columns:minmax(0, 1.35fr) minmax(0, 1fr); align-items:start}
+@media (max-width:760px){ .cols.wide-left{grid-template-columns:1fr} }
+ol.steps.two-col{grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); column-gap:36px}
+table.compact th, table.compact td{padding-top:9px; padding-bottom:9px}
+.panel .plain-list{padding-left:0}
+.postcard{margin:0; background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:20px 22px; display:flex; flex-direction:column; gap:10px; box-shadow:var(--shadow)}
+.post-head{display:flex; gap:12px; align-items:center}
+.post-head div{display:flex; flex-direction:column; line-height:1.3}
+.post-head .muted{font-size:.8125rem}
+.avatar{flex:none; width:40px; height:40px; border-radius:50%; background:var(--accent); color:var(--on-accent); display:grid; place-items:center; font-weight:700; font-size:.875rem}
+.accent-text{color:var(--accent); font-weight:600}
+.post-check{background:var(--warn-soft); border-radius:10px; padding:10px 12px; font-size:.875rem; display:flex; flex-direction:column; gap:2px}
+.post-check b{color:var(--warn)}
+.statement.small{font-size:clamp(1.25rem, 2.4vw, 1.75rem); max-width:32ch}
+</style>
+</head>
+<body>
+<div class="deck">
+  <header class="chrome top" id="top">
+    <div class="chrome-inner">
+      <span class="part" id="part">Introduzione</span>
+      <span class="select"><select id="jump" aria-label="Vai alla slide"></select></span>
+    </div>
+    <div class="progress"><span id="progress"></span></div>
+  </header>
+
+  <main class="stage" id="stage">
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" class="ac"/>
+    </marker>
+  </defs>
+</svg>
+
+<!-- 1 -->
+<section class="slide active" data-part="Introduzione" data-title="Copertina">
+  <p class="eyebrow">UX Boutique · Avanzato 1.0</p>
+  <h1>Corso Claude · Avanzato</h1>
+  <p class="lead">Fin dove ci si può spingere: Figma, Adobe e GitHub collegati, agenti, automazioni e sistemi ripetibili. Per designer, sviluppatori, marketing e PM esperti.</p>
+</section>
+
+<!-- 2 -->
+<section class="slide" data-part="Introduzione" data-title="Indice">
+  <p class="eyebrow">Indice</p>
+  <h2>Sei parti, per ruolo</h2>
+  <div class="index">
+    <div><span class="label">A · Fondamenta avanzate</span><a href="#s3">Context engineering</a><a href="#s4">Prompt da produzione</a><a href="#s5">Agenti</a><a href="#s6">Sicurezza</a></div>
+    <div><span class="label">B · Design</span><a href="#s7">Figma MCP</a><a href="#s9">Code Connect</a><a href="#s10">Adobe</a><a href="#s11">Loghi e identità</a><a href="#s13">Mappa dei limiti</a></div>
+    <div><span class="label">C · Sviluppo</span><a href="#s14">CLAUDE.md e subagent</a><a href="#s15">Hook</a><a href="#s16">Worktree</a><a href="#s17">Headless e GitHub Action</a><a href="#s18">Dal design al codice</a></div>
+    <div><span class="label">D · Marketing</span><a href="#s19">Sistema di contenuti</a><a href="#s20">Campagne multicanale</a><a href="#s21">Dati e contenuti in scala</a></div>
+    <div><span class="label">E · Project management</span><a href="#s22">PM con i connettori</a><a href="#s23">Report, rischi, stime</a></div>
+    <div><span class="label">F · Insieme</span><a href="#s24">Dal brief al lancio</a><a href="#s25">Governance</a><a href="#s26">Esercizi per ruolo</a><a href="#s27">Da verificare</a></div>
+  </div>
+</section>
+
+<!-- 3 -->
+<section class="slide" data-part="A · Fondamenta" data-title="Context engineering">
+  <p class="eyebrow">A · Fondamenta avanzate</p>
+  <h2>Il problema non è il prompt: è il contesto</h2>
+  <div class="tw"><table class="compact">
+    <tr><th>Livello</th><th>Quando viene letto</th><th>Cosa ci metti</th></tr>
+    <tr><td><b>Project · CLAUDE.md</b></td><td>A ogni sessione</td><td>Regole stabili: brand, stack, divieti</td></tr>
+    <tr><td><b>Descrizioni delle Skill</b></td><td>Sempre, in breve</td><td>Nome e quando usarla</td></tr>
+    <tr><td><b>Corpo delle Skill</b></td><td>Solo quando serve</td><td>Procedure, criteri, esempi</td></tr>
+    <tr><td><b>MCP e connettori</b></td><td>Quando li usa</td><td>Dati vivi: Figma, Drive, GitHub, Adobe</td></tr>
+    <tr><td><b>Conversazione</b></td><td>Finché c’è spazio</td><td>Il lavoro in corso</td></tr>
+  </table></div>
+  <div class="cols">
+    <div class="panel"><span class="label">Il contesto si consuma</span><p>Ogni file letto occupa spazio. <code>/clear</code> tra i compiti, <code>/compact</code> per riassumere.</p></div>
+    <div class="panel"><span class="label">Riferimenti, non copie</span><p>“Leggi design/tokens.json”, non i token incollati.</p></div>
+    <div class="panel"><span class="label">Un compito, una sessione</span><p>Due compiti insieme si contaminano.</p></div>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="slide" data-part="A · Fondamenta" data-title="Prompt da produzione">
+  <p class="eyebrow">A · Fondamenta avanzate</p>
+  <h2>Un prompt usato ogni settimana è una specifica</h2>
+  <div class="cols">
+    <ol class="steps">
+      <li><div><h3>Versionato</h3><p>Nel repository o in una Skill, con storia Git.</p></div></li>
+      <li><div><h3>Con casi di test</h3><p>5–10 input reali e criteri di accettazione.</p></div></li>
+      <li><div><h3>Criteri misurabili</h3><p>“Max 120 parole, nessuna emoji”, non “tono giusto”.</p></div></li>
+      <li><div><h3>Ritestato a ogni modifica</h3><p>Se migliora un caso e ne peggiora due, non va.</p></div></li>
+    </ol>
+    <pre><code>&lt;prompt&gt;[prompt attuale]&lt;/prompt&gt;
+&lt;casi&gt;[5 casi con gli output]&lt;/casi&gt;
+Trova dove gli output non rispettano
+i criteri. Proponi la modifica minima
+che li risolve senza peggiorare i
+casi corretti. Spiega il perché.</code></pre>
+  </div>
+</section>
+
+<!-- 5 -->
+<section class="slide" data-part="A · Fondamenta" data-title="Agenti">
+  <p class="eyebrow">A · Fondamenta avanzate</p>
+  <h2>Agenti: dal singolo aiutante alla pipeline</h2>
+  <div class="tw"><table class="compact">
+    <tr><th>Tecnica</th><th>Cosa fa</th><th>Quando</th></tr>
+    <tr><td><b>Subagent</b></td><td>Aiutante con istruzioni proprie</td><td>Ricerche, revisioni, controlli</td></tr>
+    <tr><td><b>Worktree</b></td><td>Copie del repo, un agente ciascuna</td><td>Lavori lunghi in parallelo</td></tr>
+    <tr><td><b>Headless</b> · <code>claude -p</code></td><td>Claude Code dentro uno script</td><td>Automazioni</td></tr>
+    <tr><td><b>GitHub Action</b></td><td>Claude su issue e pull request</td><td>Review, issue → PR</td></tr>
+    <tr><td><b>Attività programmate</b></td><td>Compiti a orari fissi</td><td>Report, controlli periodici</td></tr>
+  </table></div>
+  <p class="statement small">Più l’agente è autonomo, più la verifica deve essere automatica.</p>
+</section>
+
+<!-- 6 -->
+<section class="slide" data-part="A · Fondamenta" data-title="Sicurezza">
+  <p class="eyebrow">A · Fondamenta avanzate</p>
+  <h2>Con gli agenti, i contenuti esterni diventano un rischio</h2>
+  <p class="lead">Pagine web, file Figma condivisi, issue ed email possono contenere istruzioni nascoste: è la <b>prompt injection</b>.</p>
+  <div class="cols">
+    <div class="panel"><span class="label">Permessi minimi</span><p>Connettori in sola lettura quando basta. Solo i comandi necessari.</p></div>
+    <div class="panel"><span class="label">Conferma sulle scritture</span><p>Su file Figma condivisi e repository, l’approvazione resta attiva.</p></div>
+    <div class="panel"><span class="label">Segreti fuori</span><p>Mai chiavi nei prompt, nei file o nelle Skill.</p></div>
+    <div class="panel"><span class="label">Terze parti</span><p>Skill e plugin si leggono prima: possono eseguire comandi.</p></div>
+  </div>
+</section>
+
+<!-- 7 -->
+<section class="slide" data-part="B · Design" data-title="Figma MCP">
+  <p class="eyebrow">B · Design · Figma</p>
+  <h2>Figma MCP ora scrive sul canvas</h2>
+  <div class="cols">
+    <div class="panel"><span class="label">Lettura</span><p>Frame, componenti, variabili, struttura, screenshot.</p></div>
+    <div class="panel"><span class="label">Scrittura · use_figma</span><p>Crea e modifica componenti, variabili e schermate intere con elementi veri di Figma, riusando le vostre librerie.</p></div>
+  </div>
+  <pre><code>claude mcp add --transport http figma https://mcp.figma.com/mcp</code></pre>
+  <div class="cols">
+    <div class="panel"><span class="label">Costi</span><p>Scrittura gratuita in beta, poi a consumo.</p></div>
+    <div class="panel"><span class="label">Permessi</span><p>Serve il permesso di modifica sul file. Seat Dev: sola lettura.</p></div>
+    <div class="panel"><span class="label">Server</span><p>Usa il remoto: molti strumenti di scrittura esistono solo lì.</p></div>
+  </div>
+</section>
+
+<!-- 8 -->
+<section class="slide" data-part="B · Design" data-title="Figma MCP: prompt">
+  <p class="eyebrow">B · Design · Figma</p>
+  <h2>Cosa chiedere a Figma MCP</h2>
+  <div class="cols">
+    <div class="panel"><span class="label">Varianti dal design system</span><pre><code>Nel file [link], pagina "Esplorazioni":
+tre varianti della card prodotto con
+SOLO componenti e variabili di
+"UXB Core". A densa, B editoriale,
+C immagine dominante. Auto layout,
+nessun valore fuori variabili.
+Elenca i componenti mancanti.</code></pre></div>
+    <div class="panel"><span class="label">Audit del design system</span><pre><code>Analizza le pagine del file [link].
+Trova colori e font non collegati a
+variabili, componenti staccati,
+spaziature fuori scala.
+Tabella Frame | Problema |
+Correzione. Non modificare nulla.</code></pre></div>
+    <div class="panel"><span class="label">Variabili dal brand</span><pre><code>Da questa palette &lt;brand&gt;…&lt;/brand&gt;
+crea in una pagina di prova le
+collezioni "Color" (Light, Dark) e
+"Spacing". Nomi semantici: surface,
+text, accent.</code></pre></div>
+  </div>
+  <p class="note">Scrivi su una pagina di prova o una copia. Un compito per richiesta.</p>
+</section>
+
+<!-- 9 -->
+<section class="slide" data-part="B · Design" data-title="Code Connect">
+  <p class="eyebrow">B · Design · Figma</p>
+  <h2>Code Connect: Claude usa i vostri componenti, non copie</h2>
+  <div class="dia-wrap"><svg class="diagram" viewBox="0 0 920 150" role="img" aria-label="Componente Figma collegato con Code Connect al componente nel codice; Claude Code legge il frame e usa il componente reale.">
+    <g>
+      <rect class="node" x="0" y="20" width="250" height="90" rx="14"/><text class="t" x="20" y="56">Componente Figma</text><text class="s" x="20" y="84">Button / Primary</text>
+      <rect class="node accent" x="335" y="20" width="250" height="90" rx="14"/><text class="t" x="355" y="56">Code Connect</text><text class="s" x="355" y="84">Mappa proprietà e import</text>
+      <rect class="node" x="670" y="20" width="250" height="90" rx="14"/><text class="t" x="690" y="56">Codice reale</text><text class="mono" x="690" y="86">&lt;Button variant&gt;</text>
+      <line class="ln" x1="252" y1="65" x2="329" y2="65" marker-end="url(#arr)"/>
+      <line class="ln" x1="587" y1="65" x2="664" y2="65" marker-end="url(#arr)"/>
+    </g>
+  </svg></div>
+  <div class="cols">
+    <div class="panel"><span class="label">Senza</span><p>Il server restituisce layout generico: Claude ricostruisce un bottone che somiglia al vostro.</p></div>
+    <div class="panel"><span class="label">Con</span><p>Restituisce il componente reale, gli import e la mappatura delle proprietà.</p></div>
+    <div class="panel"><span class="label">Attenzione</span><p>Le variabili diventano token solo se il design le usa davvero.</p></div>
+  </div>
+</section>
+
+<!-- 10 -->
+<section class="slide" data-part="B · Design" data-title="Adobe">
+  <p class="eyebrow">B · Design · Adobe</p>
+  <h2>Adobe for creativity: oltre 50 strumenti in Claude</h2>
+  <p class="lead">Dal 28 aprile 2026: Photoshop, Illustrator, Express, Firefly, Lightroom, InDesign, Premiere e Stock. Descrivi il risultato, Claude orchestra gli strumenti; il lavoro torna poi nelle app Adobe.</p>
+  <div class="tw"><table class="compact">
+    <tr><th>Compito</th><th>Esempio</th></tr>
+    <tr><td><b>Adattamenti</b></td><td>“Dalla key visual, versioni 1:1, 4:5 e 9:16, logo nell’area sicura.”</td></tr>
+    <tr><td><b>Varianti</b></td><td>“Quattro sfondi con Firefly in stile [riferimento], palette del brand, senza testo.”</td></tr>
+    <tr><td><b>Serie</b></td><td>“Rimuovi lo sfondo da 20 foto prodotto, esporta su bianco.”</td></tr>
+    <tr><td><b>Impaginati</b></td><td>“Volantino A5 in Express con questo testo e la nostra palette.”</td></tr>
+  </table></div>
+  <p class="note">Limite riportato: lavora a livello Express e Firefly, non con tutte le funzioni pro di Photoshop o Premiere desktop. Per uso commerciale, verificate le licenze.</p>
+</section>
+
+<!-- 11 -->
+<section class="slide" data-part="B · Design" data-title="Loghi e identità">
+  <p class="eyebrow">B · Design · Identità</p>
+  <h2>Loghi: Claude esplora, il designer decide</h2>
+  <div class="cols">
+    <div class="panel"><span class="label">Funziona bene</span><ul class="plain-list"><li>Marchi geometrici e monogrammi</li><li>20 direzioni in pochi minuti</li><li>Sistemi di icone coerenti</li><li>Varianti: monocromo, ridotta, favicon</li></ul></div>
+    <div class="panel"><span class="label">Resta a voi</span><ul class="plain-list"><li>Forme organiche e curve di precisione</li><li>Lettering e correzioni ottiche</li><li>Originalità e scelta finale</li><li>Verifica sui marchi registrati</li></ul></div>
+  </div>
+  <p class="note">Claude scrive SVG vero, modificabile in Illustrator e Figma. Le immagini di Firefly invece sono raster: per un logo serve il vettoriale.</p>
+</section>
+
+<!-- 12 -->
+<section class="slide" data-part="B · Design" data-title="Il flusso del logo">
+  <p class="eyebrow">B · Design · Identità</p>
+  <h2>Il flusso del logo, in sei passi</h2>
+  <div class="cols">
+    <ol class="steps">
+      <li><div><p><b>Brief di marca:</b> valori, pubblico, concorrenti, da evitare.</p></div></li>
+      <li><div><p><b>20 concept verbali</b>, raggruppati per metafora.</p></div></li>
+      <li><div><p><b>5 schizzi SVG</b> sulle direzioni scelte.</p></div></li>
+      <li><div><p><b>Costruzione</b> su griglia e modulo.</p></div></li>
+      <li><div><p><b>Rifinitura in Illustrator:</b> curve, pesi, kerning.</p></div></li>
+      <li><div><p><b>Test:</b> 16 px, monocromo, negativo, favicon.</p></div></li>
+    </ol>
+    <pre><code>Disegna 4 varianti del marchio
+"nodo" per UX Boutique in SVG.
+Vincoli: viewBox 0 0 64 64, solo
+path e cerchi, un colore
+(currentColor), nessun testo,
+leggibile a 16 px.
+Per ogni variante: il codice SVG
+e una riga sull'idea.</code></pre>
+  </div>
+</section>
+
+<!-- 13 -->
+<section class="slide" data-part="B · Design" data-title="Mappa dei limiti">
+  <p class="eyebrow">B · Design</p>
+  <h2>Fin dove arriva: la mappa dei limiti</h2>
+  <div class="tw"><table class="compact">
+    <tr><th>Compito</th><th>Claude</th><th>Claude + strumenti</th><th>Designer</th></tr>
+    <tr><td>Esplorare direzioni di marchio</td><td>Sì</td><td></td><td>La scelta</td></tr>
+    <tr><td>Marchio geometrico</td><td>Bozza SVG</td><td>Illustrator</td><td>Il finale</td></tr>
+    <tr><td>Lettering</td><td>Solo idee</td><td>Illustrator</td><td>Il disegno</td></tr>
+    <tr><td>Schermate dal design system</td><td></td><td>Figma MCP</td><td>Revisione</td></tr>
+    <tr><td>Adattamenti di campagna</td><td></td><td>Adobe, Claude Design</td><td>Direzione</td></tr>
+    <tr><td>Foto e illustrazioni</td><td>No</td><td>Firefly via Adobe</td><td>Selezione</td></tr>
+    <tr><td>Ritocco di precisione</td><td>No</td><td>Limitato</td><td>Photoshop</td></tr>
+    <tr><td>Prototipi on-brand</td><td></td><td>Claude Design</td><td>Test utenti</td></tr>
+  </table></div>
+</section>
+
+<!-- 14 -->
+<section class="slide" data-part="C · Sviluppo" data-title="CLAUDE.md e subagent">
+  <p class="eyebrow">C · Sviluppo</p>
+  <h2>CLAUDE.md su più livelli, subagent su misura</h2>
+  <div class="cols">
+    <div class="panel"><span class="label">Tre livelli di CLAUDE.md</span><ul class="plain-list"><li><code>~/.claude/CLAUDE.md</code>: preferenze personali</li><li>Radice del repo: regole del team</li><li>Sottocartelle: regole specifiche</li></ul>
+    <pre><code>## Verifica prima di dire "fatto"
+- npm run lint && npm test
+- UI: controlla a 390 e 1280 px
+## Non toccare
+- packages/legacy/, .env</code></pre></div>
+    <div class="panel"><span class="label">Subagent: revisore di accessibilità</span><pre><code>---
+name: revisore-accessibilita
+description: Controlla l'accessibilità
+  dei componenti modificati. Usalo
+  dopo ogni modifica alla UI.
+---
+Contrasto WCAG AA, etichette, focus,
+tastiera, target di 44 px.
+Tabella File | Problema | Criterio.
+Non modificare: solo segnalare.</code></pre></div>
+  </div>
+</section>
+
+<!-- 15 -->
+<section class="slide" data-part="C · Sviluppo" data-title="Hook">
+  <p class="eyebrow">C · Sviluppo</p>
+  <h2>Hook: le regole che scattano sempre</h2>
+  <p class="lead">CLAUDE.md viene seguito <b>quasi sempre</b>. Un hook è un comando che scatta <b>sempre</b>, in un momento preciso del ciclo di Claude Code.</p>
+  <div class="tw"><table>
+    <tr><th>Esempio</th><th>Momento</th><th>Effetto</th></tr>
+    <tr><td><b>Formattazione</b></td><td>Dopo ogni modifica a un file</td><td>Codice sempre formattato</td></tr>
+    <tr><td><b>Blocco dei segreti</b></td><td>Prima di scrivere un file</td><td>Nessuna chiave salvata</td></tr>
+    <tr><td><b>Test rapidi</b></td><td>Alla fine del compito</td><td>Rotture segnalate subito</td></tr>
+  </table></div>
+  <p class="note">Si configurano in <code>.claude/settings.json</code> e riconoscono anche gli strumenti MCP. Un hook esegue comandi: va rivisto come codice.</p>
+</section>
+
+<!-- 16 -->
+<section class="slide" data-part="C · Sviluppo" data-title="Worktree">
+  <p class="eyebrow">C · Sviluppo</p>
+  <h2>Worktree: più agenti, stesso repository</h2>
+  <div class="dia-wrap"><svg class="diagram" viewBox="0 0 920 180" role="img" aria-label="Un repository con tre worktree, ciascuno con la propria sessione di Claude Code e il proprio branch.">
+    <g>
+      <rect class="node accent" x="0" y="55" width="210" height="70" rx="14"/><text class="t" x="20" y="88">Repository</text><text class="s" x="20" y="110">branch main</text>
+      <rect class="node" x="330" y="0" width="290" height="52" rx="12"/><text class="t" x="350" y="33">Worktree 1 · pagina audit</text>
+      <rect class="node" x="330" y="64" width="290" height="52" rx="12"/><text class="t" x="350" y="97">Worktree 2 · migrazione</text>
+      <rect class="node" x="330" y="128" width="290" height="52" rx="12"/><text class="t" x="350" y="161">Worktree 3 · test modulo</text>
+      <text class="s" x="650" y="33">Claude Code A</text><text class="s" x="650" y="97">Claude Code B</text><text class="s" x="650" y="161">Claude Code C</text>
+      <line class="ln" x1="212" y1="90" x2="324" y2="26" marker-end="url(#arr)"/>
+      <line class="ln" x1="212" y1="90" x2="324" y2="90" marker-end="url(#arr)"/>
+      <line class="ln" x1="212" y1="90" x2="324" y2="154" marker-end="url(#arr)"/>
+    </g>
+  </svg></div>
+  <pre><code>git worktree add ../sito-pagina-audit -b feature/pagina-audit
+cd ../sito-pagina-audit &amp;&amp; claude</code></pre>
+  <p class="note">Worktree per lavori lunghi che modificano file. Per ricerche e letture basta un subagent.</p>
+</section>
+
+<!-- 17 -->
+<section class="slide" data-part="C · Sviluppo" data-title="Headless e GitHub Action">
+  <p class="eyebrow">C · Sviluppo</p>
+  <h2>Automazione: headless e GitHub Action</h2>
+  <div class="cols">
+    <div class="panel"><span class="label">Headless</span><pre><code>claude -p "Leggi CHANGELOG.md e
+scrivi le note di rilascio per i
+clienti, max 150 parole" \
+  &gt; release-notes.md</code></pre></div>
+    <div class="panel"><span class="label">GitHub Action ufficiale</span><p><code>anthropics/claude-code-action@v1</code></p><ul class="plain-list"><li>Review delle pull request con le regole del team</li><li>Da issue a pull request</li><li>Aggiornamenti delle dipendenze con test</li></ul></div>
+  </div>
+  <p class="statement small">Le modifiche automatiche arrivano sempre come pull request, mai sul branch principale.</p>
+</section>
+
+<!-- 18 -->
+<section class="slide" data-part="C · Sviluppo" data-title="Dal design al codice">
+  <p class="eyebrow">C · Sviluppo</p>
+  <h2>Dal design al codice, senza perdite</h2>
+  <div class="dia-wrap"><svg class="diagram" viewBox="0 0 920 110" role="img" aria-label="Figma, Code Connect, Claude Code con Figma MCP, verifica visiva, pull request.">
+    <g>
+      <rect class="node" x="0" y="20" width="160" height="70" rx="12"/><text class="t" x="18" y="62">Figma</text>
+      <rect class="node" x="190" y="20" width="160" height="70" rx="12"/><text class="t" x="208" y="62">Code Connect</text>
+      <rect class="node accent" x="380" y="20" width="160" height="70" rx="12"/><text class="t" x="398" y="62">Claude Code</text>
+      <rect class="node" x="570" y="20" width="160" height="70" rx="12"/><text class="t" x="588" y="62">Screenshot</text>
+      <rect class="node" x="760" y="20" width="160" height="70" rx="12"/><text class="t" x="778" y="62">Pull request</text>
+      <line class="ln" x1="162" y1="55" x2="184" y2="55" marker-end="url(#arr)"/><line class="ln" x1="352" y1="55" x2="374" y2="55" marker-end="url(#arr)"/><line class="ln" x1="542" y1="55" x2="564" y2="55" marker-end="url(#arr)"/><line class="ln" x1="732" y1="55" x2="754" y2="55" marker-end="url(#arr)"/>
+    </g>
+  </svg></div>
+  <pre><code>Implementa il frame [link Figma] come pagina /servizi/audit.
+Usa i componenti collegati con Code Connect e i token di design/tokens.json.
+Nessun colore o spaziatura scritto a mano. Poi avvia il server, fai uno
+screenshot a 390 e 1280 px, confrontalo con il frame ed elenca le
+differenze prima di aprire la pull request.</code></pre>
+</section>
+
+<!-- 19 -->
+<section class="slide" data-part="D · Marketing" data-title="Sistema di contenuti">
+  <p class="eyebrow">D · Marketing</p>
+  <h2>Un sistema di contenuti, non singoli testi</h2>
+  <div class="cols">
+    <div class="panel"><span class="label">Gli elementi</span><ul class="plain-list"><li><b>Project di brand:</b> posizionamento, personas, tono, divieti</li><li><b>Skill di formato</b> per canale (53 già nel repo)</li><li><b>Casi di test</b> per ogni Skill</li><li><b>Prompt approvati</b> versionati</li></ul></div>
+    <div class="panel"><span class="label">Ricavare la Skill di tono</span><pre><code>&lt;testi_approvati&gt;[10 testi]&lt;/testi_approvati&gt;
+&lt;da_evitare&gt;[5 testi]&lt;/da_evitare&gt;
+Ricava le regole del nostro tono:
+lessico, lunghezza delle frasi,
+struttura, divieti. Scrivi una Skill
+con regole verificabili ed esempi.</code></pre></div>
+  </div>
+</section>
+
+<!-- 20 -->
+<section class="slide" data-part="D · Marketing" data-title="Campagne multicanale">
+  <p class="eyebrow">D · Marketing</p>
+  <h2>Una campagna, sette passaggi</h2>
+  <ol class="steps two-col">
+    <li><div><h3>Ricerca approfondita</h3><p>Mercato, competitor, linguaggio dei clienti, con fonti.</p></div></li>
+    <li><div><h3>Strategia</h3><p>Posizionamento e tre messaggi chiave.</p></div></li>
+    <li><div><h3>Concept</h3><p>Tre direzioni, una scelta.</p></div></li>
+    <li><div><h3>Testi per canale</h3><p>Con le Skill di formato.</p></div></li>
+    <li><div><h3>Visual</h3><p>Adattamenti con Adobe, landing in Claude Design.</p></div></li>
+    <li><div><h3>Revisione</h3><p>Cliente scettico simulato, verifica dei claim.</p></div></li>
+    <li><div><h3>Misura</h3><p>Report dai dati della campagna.</p></div></li>
+  </ol>
+</section>
+
+<!-- 21 -->
+<section class="slide" data-part="D · Marketing" data-title="Dati e contenuti in scala">
+  <p class="eyebrow">D · Marketing</p>
+  <h2>Dati, ricerca e contenuti in scala</h2>
+  <div class="cols">
+    <div class="panel"><span class="label">Analisi</span><p>Export delle campagne con calcoli verificabili: “mostra i calcoli di un canale”.</p></div>
+    <div class="panel"><span class="label">SEO e AI search</span><p>Contenuti strutturati per essere citati anche dagli assistenti AI. Skill <code>ai-seo</code> e <code>seo-audit</code>.</p></div>
+    <div class="panel"><span class="label">In scala con Claude Code</span><p>Da un foglio di dati, decine di pagine o schede con lo stesso modello.</p></div>
+  </div>
+  <p class="note">Contenuti in scala: un campione rivisto a mano prima di pubblicare tutto, e niente pagine duplicate o di scarso valore.</p>
+</section>
+
+<!-- 22 -->
+<section class="slide" data-part="E · Project management" data-title="PM con i connettori">
+  <p class="eyebrow">E · Project management</p>
+  <h2>Un assistente che legge tutti gli strumenti</h2>
+  <div class="cols">
+    <div class="panel"><span class="label">Le fonti</span><ul class="plain-list"><li><b>Drive:</b> brief, contratti, verbali</li><li><b>Miro:</b> board dei workshop</li><li><b>Figma:</b> stato dei design</li><li><b>GitHub:</b> issue e pull request</li></ul></div>
+    <div class="panel"><span class="label">Lo stato reale di un progetto</span><pre><code>Per il progetto [nome]: leggi l'ultimo
+verbale su Drive, la board Miro del
+workshop e le issue aperte su GitHub
+con etichetta [cliente].
+Cosa è deciso, cosa è in ritardo,
+quali rischi vedi.
+Cita la fonte di ogni affermazione.</code></pre></div>
+  </div>
+</section>
+
+<!-- 23 -->
+<section class="slide" data-part="E · Project management" data-title="Report, rischi, stime">
+  <p class="eyebrow">E · Project management</p>
+  <h2>Report, rischi e stime, in automatico</h2>
+  <div class="tw"><table class="compact">
+    <tr><th>Attività</th><th>Come</th></tr>
+    <tr><td><b>Status report</b></td><td>Skill + attività programmata il lunedì, revisione prima dell’invio</td></tr>
+    <tr><td><b>Registro dei rischi</b></td><td>Dopo ogni verbale: rischi, probabilità, impatto, mitigazione, responsabile</td></tr>
+    <tr><td><b>Stime</b></td><td>Ragionamento esteso e storico: fasi, ipotesi esplicite, intervallo minimo–massimo</td></tr>
+    <tr><td><b>Dai verbali alle issue</b></td><td>Azioni del verbale → issue GitHub con responsabile e scadenza</td></tr>
+    <tr><td><b>Dashboard</b></td><td>Un Artifact con i dati del progetto, aggiornato a ogni report</td></tr>
+  </table></div>
+  <p class="note">Per i file del computer: Cowork, con il plugin ufficiale di project management.</p>
+</section>
+
+<!-- 24 -->
+<section class="slide" data-part="F · Insieme" data-title="Dal brief al lancio">
+  <p class="eyebrow">F · Il flusso integrato</p>
+  <h2>Dal brief al lancio, tutti i ruoli insieme</h2>
+  <div class="tw"><table class="compact">
+    <tr><th>Fase</th><th>Chi</th><th>Strumento</th><th>Output</th></tr>
+    <tr><td>Brief e piano</td><td>PM</td><td>Drive, Miro</td><td>Brief, piano, rischi</td></tr>
+    <tr><td>Ricerca</td><td>Marketing</td><td>Ricerca approfondita</td><td>Mercato e messaggi</td></tr>
+    <tr><td>Design</td><td>Design</td><td>Figma MCP</td><td>Schermate dal design system</td></tr>
+    <tr><td>Visual</td><td>Design + Mkt</td><td>Adobe, Claude Design</td><td>Key visual e adattamenti</td></tr>
+    <tr><td>Sviluppo</td><td>Dev</td><td>Claude Code, Code Connect</td><td>Pull request con screenshot</td></tr>
+    <tr><td>Qualità</td><td>Dev</td><td>GitHub Action, hook</td><td>Review e test</td></tr>
+    <tr><td>Lancio</td><td>Marketing</td><td>Skill di formato</td><td>Contenuti per canale</td></tr>
+    <tr><td>Controllo</td><td>PM</td><td>Attività programmate</td><td>Report aggiornati</td></tr>
+  </table></div>
+</section>
+
+<!-- 25 -->
+<section class="slide" data-part="F · Insieme" data-title="Governance">
+  <p class="eyebrow">F · Governance</p>
+  <h2>Skill, plugin e costi del team</h2>
+  <div class="cols">
+    <div class="panel"><span class="label">Repository delle Skill</span><p>Responsabile, versioni, casi di test.</p></div>
+    <div class="panel"><span class="label">Marketplace interno</span><p>Lo stesso kit per tutti: <code>/plugin marketplace add</code> sul vostro repo.</p></div>
+    <div class="panel"><span class="label">Revisione</span><p>Obbligatoria per Skill, hook e plugin.</p></div>
+  </div>
+  <div class="cols">
+    <div class="panel"><span class="label">Costi</span><p>Modello per compito: Haiku in volume, Sonnet di base, Opus per i difficili. Figma in scrittura sarà a consumo.</p></div>
+    <div class="panel"><span class="label">Dati</span><p>Cosa si carica, quali connettori sono attivi, chi li abilita.</p></div>
+  </div>
+</section>
+
+<!-- 26 -->
+<section class="slide" data-part="F · Insieme" data-title="Esercizi per ruolo">
+  <p class="eyebrow">F · Pratica</p>
+  <h2>Esercizi avanzati, per ruolo</h2>
+  <div class="cols four">
+    <div class="panel"><span class="label">Design</span><p>Tre varianti di una schermata con Figma MCP, solo libreria del team. Un marchio: 20 concept, 5 SVG, 1 rifinito.</p></div>
+    <div class="panel"><span class="label">Sviluppo</span><p>Un hook di formattazione e un subagent di accessibilità. Un frame Figma con Code Connect e verifica visiva.</p></div>
+    <div class="panel"><span class="label">Marketing</span><p>Skill di tono da 10 testi con 5 casi di test. Una campagna con adattamenti Adobe.</p></div>
+    <div class="panel"><span class="label">PM</span><p>Stato reale di un progetto con fonti da Drive, Miro e GitHub. Status report automatico.</p></div>
+  </div>
+</section>
+
+<!-- 27 -->
+<section class="slide" data-part="F · Insieme" data-title="Da verificare">
+  <p class="eyebrow">Prima del corso</p>
+  <h2>Da verificare nel vostro account</h2>
+  <ul class="check">
+    <li>Seat e costi di Figma MCP in scrittura</li>
+    <li>Limiti e abbonamento del connettore Adobe</li>
+    <li>Schema degli hook e cartella dei subagent</li>
+    <li>Configurazione e permessi della GitHub Action</li>
+    <li>Connettori disponibili per il PM</li>
+  </ul>
+  <p class="note">Dispensa completa con fonti: <code>course/corso-avanzato.md</code>. Corso base: <code>course/corso-strutturato.html</code>.</p>
+</section>
+
+  </main>
+
+  <nav class="chrome bottom" id="bottom" aria-label="Navigazione slide">
+    <div class="chrome-inner">
+      <button id="prev" type="button" class="btn">← Indietro</button>
+      <div class="count-wrap">
+        <div class="count" id="count" aria-live="polite">1 / 1</div>
+      </div>
+      <button id="next" type="button" class="btn primary">Avanti →</button>
+    </div>
+  </nav>
+</div>
+
+<script>
+(function () {
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var stage = document.getElementById('stage');
+  var bar = document.getElementById('progress');
+  var count = document.getElementById('count');
+  var part = document.getElementById('part');
+  var jump = document.getElementById('jump');
+  var prev = document.getElementById('prev');
+  var next = document.getElementById('next');
+  var topBar = document.getElementById('top');
+  var bottomBar = document.getElementById('bottom');
+  var reduce = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
+  var i = 0;
+
+  // Jump menu, grouped by part.
+  var groups = {};
+  slides.forEach(function (s, k) {
+    s.id = 's' + (k + 1);
+    var p = s.getAttribute('data-part') || '';
+    if (!groups[p]) {
+      groups[p] = document.createElement('optgroup');
+      groups[p].label = p;
+      jump.appendChild(groups[p]);
+    }
+    var o = document.createElement('option');
+    o.value = String(k);
+    o.textContent = (k + 1) + '. ' + (s.getAttribute('data-title') || '');
+    groups[p].appendChild(o);
+  });
+
+  // Scroll edge: the chrome shows a separator only where content actually runs under it.
+  function updateEdges() {
+    var s = slides[i];
+    topBar.classList.toggle('edge', s.scrollTop > 2);
+    bottomBar.classList.toggle('edge', s.scrollTop + s.clientHeight < s.scrollHeight - 2);
+  }
+  stage.addEventListener('scroll', function (e) { if (e.target === slides[i]) updateEdges(); }, true);
+  window.addEventListener('resize', updateEdges);
+
+  // ---------- Spring and gesture ----------
+  var anim = null;
+  var offset = 0;
+
+  function stopAnim() {
+    if (anim) { cancelAnimationFrame(anim.raf); anim = null; }
+  }
+  function clearPeek() {
+    slides.forEach(function (s) { s.classList.remove('peek'); s.style.transform = ''; });
+    stage.classList.remove('dragging');
+    offset = 0;
+  }
+  function peek() {
+    stage.classList.add('dragging');
+    [i - 1, i + 1].forEach(function (k) {
+      if (slides[k] && !slides[k].classList.contains('peek')) {
+        slides[k].classList.add('peek');
+        slides[k].scrollTop = 0;
+      }
+    });
+  }
+  function setOffset(d) {
+    offset = d;
+    var w = stage.clientWidth;
+    slides[i].style.transform = 'translate3d(' + d + 'px,0,0)';
+    if (slides[i + 1]) slides[i + 1].style.transform = 'translate3d(' + (d + w) + 'px,0,0)';
+    if (slides[i - 1]) slides[i - 1].style.transform = 'translate3d(' + (d - w) + 'px,0,0)';
+  }
+  // Critically damped spring (damping 1.0, response 0.4s): no overshoot, starts from the
+  // current on-screen value and inherits the release velocity.
+  function springTo(target, v0, done) {
+    stopAnim();
+    var w0 = 2 * Math.PI / 0.4;
+    var x0 = offset - target;
+    var t0 = performance.now();
+    function step(now) {
+      var t = (now - t0) / 1000;
+      var e = Math.exp(-w0 * t);
+      var x = target + (x0 + (v0 + w0 * x0) * t) * e;
+      var v = (v0 - w0 * (v0 + w0 * x0) * t) * e;
+      setOffset(x);
+      if (Math.abs(x - target) < 0.5 && Math.abs(v) < 20) {
+        anim = null;
+        setOffset(target);
+        done();
+        return;
+      }
+      anim.raf = requestAnimationFrame(step);
+    }
+    anim = { raf: requestAnimationFrame(step) };
+  }
+  // Soft boundary: the further past the edge, the less the slide follows.
+  function rubber(o, dim) {
+    var c = 0.55;
+    return (o * dim * c) / (dim + c * Math.abs(o));
+  }
+  // Momentum projection, as in scroll deceleration.
+  function project(v) {
+    var d = 0.998;
+    return (v / 1000) * d / (1 - d);
+  }
+
+  var g = null;
+  stage.addEventListener('pointerdown', function (e) {
+    if (e.pointerType === 'mouse' || e.button > 0) return;
+    if (e.target.closest && e.target.closest('select, button, a')) return;
+    var grabbed = !!anim;
+    stopAnim();
+    g = { id: e.pointerId, x0: e.clientX, y0: e.clientY, base: grabbed ? offset : 0, axis: grabbed ? 'x' : null, samples: [], dx: 0 };
+    if (grabbed) {
+      try { stage.setPointerCapture(e.pointerId); } catch (_) {}
+      g.samples.push({ x: e.clientX, t: e.timeStamp });
+    }
+  });
+  stage.addEventListener('pointermove', function (e) {
+    if (!g || e.pointerId !== g.id) return;
+    var dx = e.clientX - g.x0;
+    var dy = e.clientY - g.y0;
+    if (!g.axis) {
+      if (Math.abs(dx) < 10 && Math.abs(dy) < 10) return;
+      g.axis = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
+      if (g.axis === 'y') { g = null; return; }
+      try { stage.setPointerCapture(e.pointerId); } catch (_) {}
+      if (!reduce.matches) peek();
+      g.x0 = e.clientX; // start tracking from here: no jump after the threshold
+      dx = 0;
+    }
+    g.dx = dx;
+    if (reduce.matches) return;
+    var d = g.base + dx;
+    var w = stage.clientWidth;
+    if ((d < 0 && i === slides.length - 1) || (d > 0 && i === 0)) d = rubber(d, w);
+    setOffset(d);
+    g.samples.push({ x: e.clientX, t: e.timeStamp });
+    if (g.samples.length > 6) g.samples.shift();
+  });
+  function release(e) {
+    if (!g || e.pointerId !== g.id) return;
+    var gg = g;
+    g = null;
+    if (gg.axis !== 'x') return;
+    var committed = e.type === 'pointerup';
+    if (reduce.matches) {
+      if (committed && Math.abs(gg.dx) > 60) show(i + (gg.dx < 0 ? 1 : -1), true);
+      return;
+    }
+    var v = 0;
+    var s = gg.samples;
+    if (s.length > 1) {
+      var a = s[0], b = s[s.length - 1];
+      var dt = (b.t - a.t) / 1000;
+      if (dt > 0 && e.timeStamp - b.t < 100) v = (b.x - a.x) / dt;
+    }
+    var w = stage.clientWidth;
+    var dir = 0;
+    if (committed) {
+      if (Math.abs(v) > 500) dir = v < 0 ? 1 : -1;
+      else {
+        var proj = offset + project(v);
+        if (proj < -w / 2) dir = 1;
+        else if (proj > w / 2) dir = -1;
+      }
+    }
+    if ((dir === 1 && i === slides.length - 1) || (dir === -1 && i === 0)) dir = 0;
+    if (dir === 0) springTo(0, v, clearPeek);
+    else springTo(dir === 1 ? -w : w, v, function () { show(i + dir, true); });
+  }
+  stage.addEventListener('pointerup', release);
+  stage.addEventListener('pointercancel', release);
+
+  // ---------- Navigation ----------
+  function show(n, updateHash) {
+    stopAnim();
+    clearPeek();
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach(function (s, k) { s.classList.toggle('active', k === i); });
+    slides[i].scrollTop = 0;
+    count.textContent = (i + 1) + ' / ' + slides.length;
+    bar.style.transform = 'scaleX(' + ((i + 1) / slides.length) + ')';
+    if (n !== 0 || updateHash) slides[0].classList.remove('intro');
+    part.textContent = slides[i].getAttribute('data-part') || '';
+    jump.value = String(i);
+    prev.disabled = i === 0;
+    next.disabled = i === slides.length - 1;
+    if (updateHash) {
+      try { history.replaceState(null, '', '#' + slides[i].id); } catch (e) {}
+    }
+    updateEdges();
+  }
+  function fromHash() {
+    var m = /^#s(\d+)$/.exec(location.hash || '');
+    return m ? parseInt(m[1], 10) - 1 : 0;
+  }
+
+  prev.addEventListener('click', function () { show(i - 1, true); });
+  next.addEventListener('click', function () { show(i + 1, true); });
+  jump.addEventListener('change', function () { show(parseInt(jump.value, 10), true); });
+  window.addEventListener('hashchange', function () { show(fromHash(), false); });
+
+  // Keyboard navigation is instant: it is repeated many times per session.
+  document.addEventListener('keydown', function (e) {
+    var t = e.target && e.target.tagName;
+    if (t === 'SELECT' || t === 'INPUT' || t === 'TEXTAREA') return;
+    if (e.key === 'ArrowRight' || e.key === 'PageDown') { e.preventDefault(); show(i + 1, true); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); show(i - 1, true); }
+    else if (e.key === 'Home') { e.preventDefault(); show(0, true); }
+    else if (e.key === 'End') { e.preventDefault(); show(slides.length - 1, true); }
+  });
+
+  var start = fromHash();
+  if (start === 0) slides[0].classList.add('intro');
+  show(start, false);
+})();
+</script>
+</body>
+</html>
