@@ -255,6 +255,57 @@ Usa il glossario caricato; evita i termini segnati come "da non usare".
 
 ---
 
+### Modulo 4b — Lavorare per file: il metodo markdown-first
+
+**Obiettivo.** Preparare contenuti in file di testo nel repository, modificarli per parti e produrre l'artefatto visivo solo alla fine.
+
+**Prerequisiti.** Modulo 4. Un repository Git (modulo 10 per la parte Git; può essere letto anche prima).
+
+**Concetto.** Ci sono due modi di lavorare su un contenuto.
+- **Su artefatto**: ogni modifica ripubblica la pagina intera. Il contenuto passa di nuovo per la chat e per lo strumento di pubblicazione.
+- **Su file**: il contenuto vive in un file `.md` nel repository. Si modifica per sezioni, si verifica con Git e si trasforma in artefatto o presentazione solo quando è pronto.
+
+Il secondo metodo è più economico in termini di token, perché le modifiche riguardano solo le parti toccate e non l'intero documento. Non è una misura precisa: il vantaggio è pratico e si vede soprattutto nei documenti lunghi e nelle revisioni frequenti. Ha anche altri vantaggi: la storia delle versioni, la possibilità di lavorare in parallelo sulle sezioni e un testo che resta leggibile e riutilizzabile.
+
+**Quando usare quale.**
+
+| Fase | Strumento | Perché |
+|---|---|---|
+| Bozza e struttura | File `.md` | Veloce da modificare, tracciato in Git |
+| Revisione per sezioni | File `.md` | Modifiche piccole, verificabili |
+| Versione per il team | Artefatto o presentazione | Leggibile, condivisibile |
+| Versione finale | Export (HTML, PDF, PPTX) | Pronto per il cliente |
+
+**Come si imposta.**
+1. Create una cartella nel repository, ad esempio `contenuti/nome-progetto/`.
+2. Dentro, un file per ogni sezione (`01-intro.md`, `02-servizi.md`) e un `indice.md` che le elenca nell'ordine.
+3. Nel `CLAUDE.md` (modulo 11) scrivete la regola: "I contenuti di progetto si modificano nei file `.md`; gli artefatti si generano solo a fine lavoro."
+
+**Come si usa.**
+1. Chiedete a Claude di lavorare su un file specifico: "Modifica solo `02-servizi.md`: riduci a tre punti."
+2. Verificate con `git diff`, che mostra esattamente cosa è cambiato.
+3. Fate commit per ogni sezione approvata.
+4. Quando l'insieme è pronto, chiedete l'artefatto o la presentazione a partire dai file.
+
+**Esempio completo.** Presentazione di un progetto:
+1. Struttura in `indice.md` con otto sezioni.
+2. Ogni sezione scritta e revisionata come file, con un commit per sezione.
+3. Revisione del cliente su una sezione alla volta, senza rigenerare tutto.
+4. Generazione della presentazione finale dai file approvati.
+
+**Errori comuni.**
+- Creare l'artefatto presto: ogni modifica successiva lo rigenera per intero.
+- File senza ordine: senza un `indice.md`, la struttura si perde.
+- Modifiche non tracciate: senza commit non si capisce cosa è cambiato.
+
+**Verifica.**
+1. Perché conviene lavorare per file nelle prime fasi?
+2. Quando passate dal file all'artefatto?
+
+**Esercizio.** Prendete un contenuto reale di quattro sezioni. Scrivetelo in file `.md` con un `indice.md`. Fate tre revisioni su singole sezioni con un commit ciascuna, poi generate l'artefatto dai file.
+
+---
+
 ## Parte C — Metodo e connessioni
 
 ### Modulo 5 — Skills
