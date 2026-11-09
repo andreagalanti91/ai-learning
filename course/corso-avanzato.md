@@ -521,3 +521,30 @@ Per i compiti sui file del computer (cartelle di progetto, documenti da tanti fi
 - Logo designer skill (esempio di Skill per loghi SVG): https://github.com/neonwatty/logo-designer-skill
 
 **Da verificare prima del corso:** seat e costi di Figma MCP in scrittura; limiti e abbonamento del connettore Adobe; schema degli hook; configurazione della GitHub Action; cartella dei subagent; connettori disponibili per il PM.
+
+### Fonti degli approfondimenti (slide aggiunte)
+- https://api.githubcopilot.com/mcp/
+- https://claude.com/connectors
+- https://claudeforoperators.com/reference/connector-directory/
+- https://code.claude.com/docs/en/hooks
+- https://code.claude.com/docs/en/mcp
+- https://code.claude.com/docs/en/permissions
+- https://code.claude.com/docs/en/plugin-marketplaces
+- https://code.claude.com/docs/en/skills
+- https://developertoolkit.ai/en/ecosystem/mcp/design-tools-mcp/
+- https://forum.figma.com/report-a-problem-6/mcp-get-design-context-returns-base-component-tokens-instead-of-variant-specific-tokens-50790
+- https://github.com/anthropics/claude-code-action
+- https://github.com/coreyhaines31/marketingskills
+- https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Figma-MCP-server
+- https://meetingnotes.com/blog/best-claude-connectors
+- https://playwright.dev/docs/test-snapshots
+- https://redresscompliance.com/adobe-firefly-generative-ai-enterprise-licensing.html
+- https://www.anthropic.com/engineering/claude-code-best-practices
+- https://www.computerworld.com/article/1628682/adobe-offers-copyright-indemnification-for-firefly-ai-based-image-app-users.html
+- https://www.digitalapplied.com/blog/claude-cowork-enterprise-plugins-connectors-tasks-guide
+- https://www.dragapp.com/blog/best-claude-connectors-for-productivity/
+- https://www.stackmatix.com/blog/claude-ai-optimization
+- https://www.supernova.io/blog/design-system-mcp-servers
+- https://www.w3.org/TR/WCAG22/
+
+Nota: queste slide sono state preparate con ricerche rapide, in prevalenza su fonti di terze parti. Le affermazioni non confermate sono marcate ⚠ nelle slide.

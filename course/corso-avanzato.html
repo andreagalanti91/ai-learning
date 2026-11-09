@@ -308,10 +308,10 @@ table.compact th, table.compact td{padding-top:9px; padding-bottom:9px}
   <div class="index">
     <div><span class="label">A · Fondamenta avanzate</span><a href="#s3">Context engineering</a><a href="#s4">Prompt da produzione</a><a href="#s5">Agenti</a><a href="#s6">Sicurezza</a></div>
     <div><span class="label">B · Design</span><a href="#s7">Figma MCP</a><a href="#s9">Code Connect</a><a href="#s10">Adobe</a><a href="#s11">Loghi e identità</a><a href="#s13">Mappa dei limiti</a></div>
-    <div><span class="label">C · Sviluppo</span><a href="#s14">CLAUDE.md e subagent</a><a href="#s15">Hook</a><a href="#s16">Worktree</a><a href="#s17">Headless e GitHub Action</a><a href="#s18">Dal design al codice</a></div>
-    <div><span class="label">D · Marketing</span><a href="#s19">Sistema di contenuti</a><a href="#s20">Campagne multicanale</a><a href="#s21">Dati e contenuti in scala</a></div>
-    <div><span class="label">E · Project management</span><a href="#s22">PM con i connettori</a><a href="#s23">Report, rischi, stime</a></div>
-    <div><span class="label">F · Insieme</span><a href="#s24">Dal brief al lancio</a><a href="#s25">Governance</a><a href="#s26">Esercizi per ruolo</a><a href="#s27">Da verificare</a></div>
+    <div><span class="label">C · Sviluppo</span><a href="#s22">CLAUDE.md e subagent</a><a href="#s23">Hook</a><a href="#s24">Worktree</a><a href="#s25">Headless e GitHub Action</a><a href="#s26">Dal design al codice</a></div>
+    <div><span class="label">D · Marketing</span><a href="#s35">Sistema di contenuti</a><a href="#s36">Campagne multicanale</a><a href="#s37">Dati e contenuti in scala</a></div>
+    <div><span class="label">E · Project management</span><a href="#s43">PM con i connettori</a><a href="#s44">Report, rischi, stime</a></div>
+    <div><span class="label">F · Insieme</span><a href="#s50">Dal brief al lancio</a><a href="#s51">Governance</a><a href="#s52">Esercizi per ruolo</a><a href="#s53">Da verificare</a></div>
   </div>
 </section>
 
@@ -513,6 +513,110 @@ e una riga sull'idea.</code></pre>
 </section>
 
 <!-- 14 -->
+<section class="slide" data-part="B · Design" data-title="Token pipeline">
+  <p class="eyebrow">B · Design · Variabili e token</p>
+  <h2>Dalle variabili Figma ai token in codice</h2>
+  <pre><code>Leggi le variabili del frame selezionato con get_variable_defs.
+Esporta tutte le collezioni e i modi (light/dark, brand A/B)
+in formato W3C Design Tokens (JSON).
+Poi genera tokens.css con custom properties per ogni modo.
+Mantieni i nomi gerarchici (color/primary/500 -&gt; --color-primary-500).
+Segnala valori hardcoded che non puntano a una variabile.</code></pre>
+  <div class="cols">
+    <div class="panel"><span class="label">Attenzione</span><p>get_variable_defs lavora sulla selezione, non su tutta la libreria. Seleziona un frame “catalogo” che usa tutti i token.</p></div>
+    <div class="panel"><span class="label">Varianti</span><p>Per token specifici di una variante, get_variable_defs è più affidabile di get_design_context (⚠ da verificare).</p></div>
+  </div>
+</section>
+
+<section class="slide" data-part="B · Design" data-title="PRD a schermate">
+  <p class="eyebrow">B · Design · Generazione</p>
+  <h2>Da PRD a flusso completo</h2>
+  <ol class="steps">
+    <li><div><h3>Carica il PRD</h3><p>Chiedi a Claude di estrarre utenti, task e stati (vuoto, errore, caricamento).</p></div></li>
+    <li><div><h3>Cerca nel design system</h3><p>search_design_system trova componenti e variabili già pubblicati.</p></div></li>
+    <li><div><h3>Genera in Figma</h3><p>use_figma compone le schermate solo con istanze della libreria.</p></div></li>
+    <li><div><h3>Rivedi e itera</h3><p>get_screenshot per un controllo visivo, poi correzioni puntuali.</p></div></li>
+  </ol>
+  <p class="note">Prompt: “Dal PRD allegato crea il flusso di onboarding (5 schermate, mobile 390px) usando solo componenti della libreria ‘Core DS’. Niente colori o font fuori token.”</p>
+</section>
+
+<section class="slide" data-part="B · Design" data-title="Audit DS">
+  <p class="eyebrow">B · Design · Design system</p>
+  <h2>Audit e pulizia del design system</h2>
+  <div class="tw"><table class="compact">
+    <tr><th>Problema</th><th>Cosa chiedere a Claude</th></tr>
+    <tr><td>Componenti staccati</td><td>Elenca le istanze detached per pagina</td></tr>
+    <tr><td>Colori hardcoded</td><td>Trova fill senza variabile e proponi il token</td></tr>
+    <tr><td>Duplicati</td><td>Raggruppa componenti quasi identici</td></tr>
+    <tr><td>Naming incoerente</td><td>Proponi rinomina secondo la convenzione</td></tr>
+    <tr><td>Varianti mancanti</td><td>Confronta con gli stati richiesti dal codice</td></tr>
+  </table></div>
+  <p class="note">Regola: prima un report in sola lettura, poi modifiche su un branch del file. Mai scrivere sulla libreria principale.</p>
+</section>
+
+<section class="slide" data-part="B · Design" data-title="Accessibilità">
+  <p class="eyebrow">B · Design · Accessibilità</p>
+  <h2>Revisione WCAG dei frame</h2>
+  <pre><code>Analizza il frame [link Figma] secondo WCAG 2.2 livello AA.
+Controlla: contrasto testo (4.5:1, 3:1 per testo grande),
+target touch (min 24x24 px), ordine di lettura,
+stati focus visibili, testo alternativo per icone.
+Restituisci una tabella: elemento, criterio, esito, fix.
+Non modificare il file.</code></pre>
+  <div class="cols">
+    <div class="panel"><span class="label">Limite</span><p>Il controllo è statico: non sostituisce test con screen reader e utenti reali.</p></div>
+    <div class="panel"><span class="label">Bonus</span><p>Chiedi anche la variante dark: il contrasto spesso cede lì.</p></div>
+  </div>
+</section>
+
+<section class="slide" data-part="B · Design" data-title="Design QA">
+  <p class="eyebrow">B · Design · Design QA</p>
+  <h2>Implementazione contro Figma</h2>
+  <div class="cols">
+    <div class="panel"><span class="label">Input</span><ul class="plain-list"><li>Screenshot della build (stesso viewport)</li><li>Link al frame Figma</li><li>Token del design system</li></ul></div>
+    <div class="panel"><span class="label">Output</span><ul class="plain-list"><li>Lista differenze per gravità</li><li>Valore atteso vs rilevato</li><li>Ticket pronti per lo sviluppo</li></ul></div>
+  </div>
+  <p class="note">Prompt: “Confronta lo screenshot allegato con il frame Figma [link]. Elenca le differenze di spaziatura, tipografia, colore e stati. Per ognuna indica il token corretto. Ignora differenze sotto 2 px.”</p>
+</section>
+
+<section class="slide" data-part="B · Design" data-title="Ricerca UX">
+  <p class="eyebrow">B · Design · Ricerca</p>
+  <h2>Sintesi della ricerca a livello esperto</h2>
+  <ol class="steps">
+    <li><div><h3>Raccogli</h3><p>Trascrizioni e note (anche da board Miro o FigJam esportate).</p></div></li>
+    <li><div><h3>Affinity mapping</h3><p>Claude raggruppa le osservazioni e cita le fonti di ogni cluster.</p></div></li>
+    <li><div><h3>Job To Be Done</h3><p>“Quando… voglio… così da…” per ogni cluster.</p></div></li>
+    <li><div><h3>Verifica</h3><p>Chiedi le citazioni che contraddicono ogni insight.</p></div></li>
+  </ol>
+  <p class="note">Il rischio è l’allucinazione: ogni insight deve avere almeno due citazioni testuali.</p>
+</section>
+
+<section class="slide" data-part="B · Design" data-title="Adobe workflow">
+  <p class="eyebrow">B · Design · Adobe</p>
+  <h2>Flussi Adobe multi-step e licenze</h2>
+  <div class="cols">
+    <div class="panel"><span class="label">Esempio campagna</span><ul class="plain-list"><li>Firefly: 4 varianti di key visual</li><li>Photoshop: rimozione sfondo e ritocco</li><li>Express: adattamento ai formati social</li><li>Illustrator: elementi vettoriali di brand</li></ul></div>
+    <div class="panel"><span class="label">Licenze</span><p>Firefly nasce “commercially safe”. L’indennizzo IP dipende dal piano (enterprise o a pagamento), con limiti contrattuali (⚠ da verificare sul vostro contratto).</p></div>
+  </div>
+  <p class="note">Quali strumenti esatti sono esposti dal connettore varia nel tempo (⚠ da verificare).</p>
+</section>
+
+<section class="slide" data-part="B · Design" data-title="Art direction">
+  <p class="eyebrow">B · Design · Art direction</p>
+  <h2>Prompt pattern per art direction</h2>
+  <pre><code>Ruolo: art director senior per [brand].
+Obiettivo: key visual per [campagna], formato 4:5.
+Soggetto: ... | Composizione: regola dei terzi, soggetto a sinistra
+Luce: golden hour laterale | Palette: solo token brand (#..)
+Stile: fotografia editoriale, grana fine, 35mm
+Evita: testo nell’immagine, loghi, mani in primo piano
+Genera 3 prompt alternativi per Firefly e motiva le differenze.</code></pre>
+  <div class="cols">
+    <div class="panel"><span class="label">Perché funziona</span><p>Separa i parametri: puoi variarne uno alla volta.</p></div>
+    <div class="panel"><span class="label">Brief inverso</span><p>Dai a Claude un’immagine di riferimento e chiedi di estrarne lo schema.</p></div>
+  </div>
+</section>
+
 <section class="slide" data-part="C · Sviluppo" data-title="CLAUDE.md e subagent">
   <p class="eyebrow">C · Sviluppo</p>
   <h2>CLAUDE.md su più livelli, subagent su misura</h2>
@@ -607,6 +711,122 @@ differenze prima di aprire la pull request.</code></pre>
 </section>
 
 <!-- 19 -->
+<section class="slide" data-part="C · Sviluppo" data-title="Hook in settings.json">
+  <p class="eyebrow">C · Sviluppo · Hook</p>
+  <h2>Un hook che formatta dopo ogni modifica</h2>
+<pre><code>// .claude/settings.json (versionato nel repo)
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          { "type": "command",
+            "command": "npx prettier --write \"$(jq -r '.tool_input.file_path')\"" }
+        ]
+      }
+    ]
+  }
+}</code></pre>
+  <p class="note">L’hook riceve il JSON dell’evento su stdin. In un hook <code>PreToolUse</code>, exit code 2 blocca la chiamata e lo stderr diventa il motivo che Claude legge: utile per vietare <code>rm</code> o la lettura di <code>.env</code>.</p>
+</section>
+
+<section class="slide" data-part="C · Sviluppo" data-title="Permessi e modalità">
+  <p class="eyebrow">C · Sviluppo · Permessi</p>
+  <h2>Allowlist e modalità di permesso</h2>
+<pre><code>{
+  "permissions": {
+    "allow": ["Bash(npm run test:*)", "Bash(npm run lint)", "Edit(src/**)"],
+    "ask":   ["Bash(git push:*)"],
+    "deny":  ["Read(./.env)", "Read(./secrets/**)", "Bash(curl:*)"]
+  }
+}</code></pre>
+  <p class="note">Ordine di valutazione: deny, poi ask, poi allow. Modalità (Shift+Tab o <code>--permission-mode</code>): <code>default</code>, <code>acceptEdits</code>, <code>plan</code>, <code>bypassPermissions</code> (solo in container isolati). Regole condivise in <code>.claude/settings.json</code>, personali in <code>settings.local.json</code>.</p>
+</section>
+
+<section class="slide" data-part="C · Sviluppo" data-title="MCP per il web">
+  <p class="eyebrow">C · Sviluppo · MCP</p>
+  <h2>Server MCP utili per chi fa siti</h2>
+  <div class="tw"><table class="compact">
+    <tr><th>Server</th><th>A cosa serve</th><th>Come aggiungerlo</th></tr>
+    <tr><td>GitHub</td><td>Issue, PR, review dal terminale</td><td><code>claude mcp add --transport http github https://api.githubcopilot.com/mcp/</code> (⚠ da verificare)</td></tr>
+    <tr><td>Playwright</td><td>Apre il browser, clicca, fa screenshot</td><td><code>claude mcp add playwright -- npx @playwright/mcp@latest</code></td></tr>
+    <tr><td>Figma</td><td>Contesto di design, variabili, Code Connect</td><td>Server remoto Figma via <code>--transport http</code> + login OAuth con <code>/mcp</code></td></tr>
+    <tr><td>Scope</td><td><code>--scope project</code> scrive <code>.mcp.json</code> da versionare</td><td><code>/mcp</code> per stato e autenticazione</td></tr>
+  </table></div>
+</section>
+
+<section class="slide" data-part="C · Sviluppo" data-title="Comandi vs Skill">
+  <p class="eyebrow">C · Sviluppo · Estensioni</p>
+  <h2>Slash command o Skill?</h2>
+  <div class="cols">
+    <div class="panel"><span class="label">Slash command</span><ul class="plain-list"><li>Lo invochi tu: <code>/release</code></li><li>Un file Markdown con il prompt</li><li>Accetta argomenti (<code>$ARGUMENTS</code>)</li><li>Ideale per rituali ripetuti</li></ul></div>
+    <div class="panel"><span class="label">Skill</span><ul class="plain-list"><li>Cartella con <code>SKILL.md</code> + script e risorse</li><li>Claude la carica da solo quando la descrizione è pertinente</li><li>Contesto caricato solo quando serve</li><li>Ideale per know-how: brand, design system</li></ul></div>
+  </div>
+  <p class="note">Nelle versioni recenti i comandi personalizzati sono confluiti nelle Skill: anche una Skill si invoca con <code>/nome</code> (⚠ da verificare sulla vostra versione).</p>
+</section>
+
+<section class="slide" data-part="C · Sviluppo" data-title="Ciclo TDD">
+  <p class="eyebrow">C · Sviluppo · Test</p>
+  <h2>Test prima, codice dopo</h2>
+  <ol class="steps">
+    <li><div><h3>Scrivi i test</h3><p>“Scrivi test per il form di contatto, niente implementazione.” Verifica che falliscano.</p></div></li>
+    <li><div><h3>Committa i test</h3><p>Così Claude non può “aggiustarli” per farli passare.</p></div></li>
+    <li><div><h3>Implementa e itera</h3><p>“Fai passare i test senza modificarli.” Claude esegue, legge l’errore, corregge.</p></div></li>
+    <li><div><h3>Verifica indipendente</h3><p>Un subagent o una seconda sessione rilegge il diff cercando overfitting.</p></div></li>
+  </ol>
+</section>
+
+<section class="slide" data-part="C · Sviluppo" data-title="Visual regression">
+  <p class="eyebrow">C · Sviluppo · Qualità visiva</p>
+  <h2>Screenshot di regressione con Playwright</h2>
+<pre><code>// tests/visual.spec.ts
+import { test, expect } from '@playwright/test';
+
+for (const w of [375, 768, 1440]) {
+  test(`home @${w}px`, async ({ page }) =&gt; {
+    await page.setViewportSize({ width: w, height: 900 });
+    await page.goto('/');
+    await expect(page).toHaveScreenshot(`home-${w}.png`, { fullPage: true });
+  });
+}</code></pre>
+  <p class="note">Chiedete a Claude di generare i test, lanciare <code>npx playwright test</code> e, se fallisce, leggere le immagini di diff per capire se è un bug o un cambio voluto (allora <code>--update-snapshots</code>).</p>
+</section>
+
+<section class="slide" data-part="C · Sviluppo" data-title="Action: review PR">
+  <p class="eyebrow">C · Sviluppo · GitHub Actions</p>
+  <h2>Review automatica di ogni PR</h2>
+<pre><code>on:
+  pull_request: { types: [opened, synchronize] }
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    permissions: { contents: read, pull-requests: write, id-token: write }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: "Rivedi la PR: bug, sicurezza, accessibilità, test mancanti."
+          claude_args: "--max-turns 10"</code></pre>
+  <p class="note">In v1 la configurazione passa da <code>prompt</code> e <code>claude_args</code>; la modalità è rilevata in automatico. Setup rapido: <code>/install-github-app</code>. Esempio da confrontare con <code>docs/solutions.md</code> (⚠ da verificare).</p>
+</section>
+
+<section class="slide" data-part="C · Sviluppo" data-title="Marketplace di team">
+  <p class="eyebrow">C · Sviluppo · Plugin</p>
+  <h2>Un marketplace di plugin per l’agenzia</h2>
+<pre><code>// .claude-plugin/marketplace.json
+{
+  "name": "agenzia-tools",
+  "owner": { "name": "Team Dev" },
+  "plugins": [
+    { "name": "brand-kit", "source": "./plugins/brand-kit",
+      "description": "Skill, hook e comandi del design system" }
+  ]
+}</code></pre>
+  <p class="note">Validate con <code>claude plugin validate .</code>, poi i colleghi eseguono <code>claude plugin marketplace add org/repo</code> e <code>claude plugin install brand-kit@agenzia-tools</code>. Un plugin impacchetta Skill, subagent, hook e server MCP.</p>
+</section>
+
 <section class="slide" data-part="D · Marketing" data-title="Sistema di contenuti">
   <p class="eyebrow">D · Marketing</p>
   <h2>Un sistema di contenuti, non singoli testi</h2>
@@ -649,6 +869,64 @@ con regole verificabili ed esempi.</code></pre></div>
 </section>
 
 <!-- 22 -->
+<section class="slide" data-part="D · Marketing" data-title="Competitive intelligence">
+  <p class="eyebrow">D · Marketing · Ricerca</p>
+  <h2>Intelligence competitiva con fonti verificabili</h2>
+  <pre><code>Usa Research. Analizza [concorrenti A, B, C] nel mercato [settore, Italia].
+Per ognuno: posizionamento, prezzi pubblici, canali, messaggi chiave.
+Regole:
+- ogni affermazione con link alla fonte e data di consultazione
+- separa FATTI (citati) da INFERENZE (tue)
+- segna "non trovato" invece di stimare
+Output: tabella comparativa + 5 opportunità di posizionamento per noi.</code></pre>
+  <p class="note">Apri a campione tre link: se una fonte non dice ciò che è citato, scarta la riga.</p>
+</section>
+
+<section class="slide" data-part="D · Marketing" data-title="Voce del cliente">
+  <p class="eyebrow">D · Marketing · Customer voice</p>
+  <h2>Dalle recensioni ai messaggi</h2>
+  <pre><code>Allego 300 recensioni (CSV) e 8 trascrizioni di interviste.
+1. Raggruppa in temi: problemi, desideri, obiezioni, parole esatte usate.
+2. Per ogni tema: frequenza e 3 citazioni letterali (con ID riga).
+3. Proponi 5 messaggi che riusano il lessico dei clienti.
+Non parafrasare le citazioni. Non inventare temi senza almeno 5 occorrenze.</code></pre>
+  <p class="note">Le citazioni con ID riga rendono ogni messaggio tracciabile fino al cliente reale.</p>
+</section>
+
+<section class="slide" data-part="D · Marketing" data-title="A/B test">
+  <p class="eyebrow">D · Marketing · Sperimentazione</p>
+  <h2>Ipotesi falsificabili prima delle varianti</h2>
+  <ol class="steps">
+    <li><div><h3>Ipotesi</h3><p>“Se cambiamo X, la metrica Y sale perché Z.” Metrica e direzione esplicite.</p></div></li>
+    <li><div><h3>Varianti</h3><p>Claude scrive 3 varianti che cambiano una sola leva ciascuna.</p></div></li>
+    <li><div><h3>Valutazione</h3><p>Chiedi campione minimo e durata, con il calcolo mostrato.</p></div></li>
+    <li><div><h3>Decisione</h3><p>Il team sceglie; il risultato entra nel registro esperimenti.</p></div></li>
+  </ol>
+  <p class="note">Esistono pacchetti di skill di marketing pronti (es. ab-testing, cro, copywriting) (⚠ da verificare).</p>
+</section>
+
+<section class="slide" data-part="D · Marketing" data-title="AI search / GEO">
+  <p class="eyebrow">D · Marketing · AI search</p>
+  <h2>Farsi citare dagli assistenti AI</h2>
+  <div class="cols">
+    <div class="panel"><span class="label">Cosa aiuta</span><ul class="plain-list"><li>Risposte dirette in apertura</li><li>Dati originali e fonti primarie</li><li>Struttura chiara: titoli, tabelle, FAQ</li></ul></div>
+    <div class="panel"><span class="label">Prompt di audit</span><p>“Ecco 10 domande dei nostri clienti. Per ognuna: cerca sul web, dimmi quali fonti citi e perché, e cosa manca alla nostra pagina [URL] per essere citata.”</p></div>
+  </div>
+  <p class="note">I “fattori di ranking” per gli LLM sono ipotesi di settore, non regole ufficiali (⚠ da verificare).</p>
+</section>
+
+<section class="slide" data-part="D · Marketing" data-title="Analisi performance">
+  <p class="eyebrow">D · Marketing · Dati</p>
+  <h2>Performance da CSV con calcoli verificabili</h2>
+  <pre><code>Allego export Meta Ads e Google Ads (ottobre).
+Esegui l’analisi con codice, non a memoria:
+- mostra le formule (CPA = spesa / conversioni, stesso periodo)
+- totali di controllo: la somma della spesa deve combaciare con l’export
+- top 5 e bottom 5 campagne per CPA
+Distingui fatti, ipotesi e dati MANCANTI. Output: tabella + 3 azioni.</code></pre>
+  <p class="note">Se i totali di controllo non combaciano, fermati: l’errore è a monte.</p>
+</section>
+
 <section class="slide" data-part="E · Project management" data-title="PM con i connettori">
   <p class="eyebrow">E · Project management</p>
   <h2>Un assistente che legge tutti gli strumenti</h2>
@@ -680,6 +958,66 @@ Cita la fonte di ogni affermazione.</code></pre></div>
 </section>
 
 <!-- 24 -->
+<section class="slide" data-part="E · Project management" data-title="Kickoff e WBS">
+  <p class="eyebrow">E · Project management · Kickoff</p>
+  <h2>Dal brief a WBS e timeline</h2>
+  <pre><code>Ecco il brief del cliente [allegato]. Crea:
+1. WBS a 3 livelli con deliverable verificabili
+2. dipendenze e percorso critico
+3. timeline in settimane a partire da [data]
+4. elenco domande aperte per il cliente
+Segna con [ASSUNZIONE] tutto ciò che il brief non dice.</code></pre>
+  <p class="note">Le domande aperte diventano l’agenda della call di kickoff.</p>
+</section>
+
+<section class="slide" data-part="E · Project management" data-title="Riunioni e azioni">
+  <p class="eyebrow">E · Project management · Riunioni</p>
+  <h2>Dalla riunione alle azioni assegnate</h2>
+  <pre><code>Trascrizione allegata. Estrai:
+- decisioni prese (chi, cosa)
+- azioni: owner, scadenza, dipendenza — se manca, scrivi "DA DEFINIRE"
+- punti rimasti aperti
+Poi bozza email di recap al cliente, tono cordiale e sintetico.
+Non creare task nel tool finché non confermo l’elenco.</code></pre>
+  <p class="note">Il passaggio di conferma evita task con owner o date inventati.</p>
+</section>
+
+<section class="slide" data-part="E · Project management" data-title="Attività pianificate">
+  <p class="eyebrow">E · Project management · Automazioni</p>
+  <h2>Attività pianificate con revisione umana</h2>
+  <div class="cols">
+    <div class="panel"><span class="label">Come</span><p>In Cowork, /schedule esegue un’attività ogni ora, giorno o settimana. Ogni esecuzione usa connettori e file.</p></div>
+    <div class="panel"><span class="label">Esempio</span><p>Ogni lunedì 8:40: leggi i progetti attivi, prepara la bozza dello stato settimanale, salvala come bozza. Il PM rivede e invia.</p></div>
+  </div>
+  <p class="note">Serve il computer acceso con Claude Desktop aperto (⚠ da verificare per il vostro piano).</p>
+</section>
+
+<section class="slide" data-part="E · Project management" data-title="Stime a intervalli">
+  <p class="eyebrow">E · Project management · Stime</p>
+  <h2>Stime con assunzioni e intervalli</h2>
+  <div class="tw"><table class="compact">
+    <tr><th>Attività</th><th>Ottimista</th><th>Probabile</th><th>Pessimista</th><th>Assunzione</th></tr>
+    <tr><td>Concept creativo</td><td>3 g</td><td>5 g</td><td>9 g</td><td>2 giri di feedback</td></tr>
+    <tr><td>Sito landing</td><td>6 g</td><td>10 g</td><td>16 g</td><td>Testi forniti dal cliente</td></tr>
+    <tr><td>Setup campagne</td><td>2 g</td><td>3 g</td><td>5 g</td><td>Accessi pronti al via</td></tr>
+  </table></div>
+  <p class="note">Prompt: “Stima a tre punti, calcola la media PERT e dimmi quale assunzione pesa di più.”</p>
+</section>
+
+<section class="slide" data-part="E · Project management" data-title="Connettori PM">
+  <p class="eyebrow">E · Project management · Connettori</p>
+  <h2>Connettori per gli strumenti del PM</h2>
+  <div class="tw"><table class="compact">
+    <tr><th>Strumento</th><th>Uso tipico</th></tr>
+    <tr><td>Asana, Linear</td><td>Leggere e creare task, aggiornare stati</td></tr>
+    <tr><td>Atlassian (Jira, Confluence)</td><td>Ricerca JQL, issue, pagine di progetto</td></tr>
+    <tr><td>Notion</td><td>Trovare decisioni, aggiornare pagine</td></tr>
+    <tr><td>Slack</td><td>Bozze di messaggi da approvare prima dell’invio</td></tr>
+    <tr><td>Google Calendar</td><td>Leggere disponibilità e scadenze (⚠ da verificare permessi di scrittura)</td></tr>
+  </table></div>
+  <p class="note">Disponibilità e permessi cambiano: controllate la directory ufficiale dei connettori.</p>
+</section>
+
 <section class="slide" data-part="F · Insieme" data-title="Dal brief al lancio">
   <p class="eyebrow">F · Il flusso integrato</p>
   <h2>Dal brief al lancio, tutti i ruoli insieme</h2>
