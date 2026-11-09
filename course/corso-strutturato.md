@@ -12,9 +12,11 @@
 2. **Scrivere un prompt fatto bene**, che funziona al primo o al secondo tentativo.
 3. **Trasformare un lavoro riuscito in un metodo ripetibile**, con Project e Skill.
 
-Il corso unisce tre fonti:
+Il corso unisce cinque fonti:
 - il modello **4D** del corso *AI Fluency* di Anthropic Academy (Delega, Descrizione, Discernimento, Diligenza);
 - le **indicazioni ufficiali di Anthropic** per scrivere prompt;
+- il **tutorial interattivo di prompt engineering** di Anthropic, per ridurre le invenzioni;
+- le **buone pratiche ufficiali di Claude Code**;
 - il metodo **TCREI** del corso *Google Prompting Essentials* (Task, Context, References, Evaluate, Iterate).
 
 Le abbiamo tradotte in un flusso unico, con il nostro metodo **BRIEF** per il prompt.
@@ -86,10 +88,11 @@ Il BRIEF corrisponde al metodo TCREI di Google: Task = Intento e Formato, Contex
 
 **Il test del collega.** È la regola d'oro di Anthropic: fai leggere il prompt a un collega che non sa niente del lavoro. Se lui sarebbe confuso, lo sarà anche Claude.
 
-**Tre accorgimenti dalla guida ufficiale.**
+**Quattro accorgimenti dalle guide ufficiali di Anthropic.**
 - **Separa le parti con i tag.** Istruzioni, esempi e materiali vanno in blocchi distinti, per esempio `<istruzioni>`, `<esempi>`, `<materiali>`. Il nome del tag è libero, purché sia chiaro e sempre uguale.
 - **Dai 3–5 esempi** quando il formato è difficile da spiegare. Mettili dentro `<esempi>`.
 - **Lascia ragionare Claude** sui problemi complessi: attiva il ragionamento esteso o chiedigli di pensare per passi prima di rispondere.
+- **Riduci le invenzioni.** Dagli il permesso di dire "non lo so": *"Se un'informazione non è nei materiali, scrivi che non lo sai."* Con documenti lunghi, chiedi prima le citazioni esatte e poi la risposta basata solo su quelle.
 
 ---
 
@@ -264,10 +267,17 @@ inventato. Prima proponi tre strutture, senza stile.
 
 **A cosa serve.** Claude Code è un agente: lavora dentro una cartella, legge e modifica file, esegue comandi. È nato per lo sviluppo, ma serve a chiunque lavori con file. Si usa da terminale, app desktop, web o editor di codice.
 
-**Tre cose da sapere.**
-1. **CLAUDE.md:** un file nella cartella con le regole del progetto (comandi, stile, cosa non toccare). Claude Code lo legge a ogni sessione. È il Project della cartella.
-2. **Plan mode:** Claude propone un piano e aspetta il tuo ok prima di modificare. Si attiva con Shift+Tab. *(⚠ verifica nella tua versione)* Usalo sempre per modifiche su più file.
-3. **Permessi:** Claude chiede conferma prima di modificare file o eseguire comandi. Leggi sempre cosa chiede.
+**Il ciclo di lavoro consigliato da Anthropic: quattro fasi.**
+1. **Esplora:** Claude legge i file e capisce il problema, senza modificare niente.
+2. **Pianifica:** propone un piano. Tu lo leggi e lo approvi. Esplora e pianifica si fanno in **plan mode**, che si attiva e si chiude con Shift+Tab. *(⚠ verifica nella tua versione)*
+3. **Implementa e verifica:** Claude modifica i file e controlla il risultato, per esempio con i test o aprendo la pagina.
+4. **Commit:** salva le modifiche con una descrizione chiara.
+
+Separare la ricerca dalla modifica evita di risolvere il problema sbagliato. Tra un compito e l'altro, usa `/clear`: lo spazio di contesto si riempie in fretta e le prestazioni calano.
+
+**Due regole di base.**
+- **CLAUDE.md:** un file nella cartella con le regole del progetto (comandi, stile, cosa non toccare). Claude Code lo legge a ogni sessione. È il Project della cartella.
+- **Permessi:** Claude chiede conferma prima di modificare file o eseguire comandi. Leggi sempre cosa chiede.
 
 **Il prompt del caso:**
 ```
@@ -309,6 +319,24 @@ design/tokens.json. Mostrami il piano prima di modificare.
 
 ---
 
+## 12 · Per continuare: corsi gratuiti
+Dopo questo corso, i passi naturali sono i corsi gratuiti di Anthropic Academy (in inglese, con certificato):
+
+| Corso | Per chi | Cosa aggiunge |
+|---|---|---|
+| **Claude 101** | Tutti | Le basi del prodotto: Project, Artifacts, Skill, connettori, ricerca |
+| **AI Fluency: Framework & Foundations** | Tutti | Il modello 4D nel dettaglio |
+| **Claude Code 101** | Chi inizia con Claude Code | Primi passi con l'agente |
+| **Claude Code in Action** | Chi usa già Claude Code | Il lavoro reale con l'agente |
+| **Introduction to agent skills** | Chi crea Skill | Creare, configurare e condividere Skill |
+| **Introduction to subagents** | Chi usa Claude Code | Affidare compiti ad agenti secondari |
+
+Per il prompt: il **tutorial interattivo di prompt engineering** di Anthropic (gratuito, su GitHub) e **Google Prompting Essentials** (su Coursera).
+
+*(⚠ Il catalogo cambia spesso: alcune fonti riportano che Anthropic Academy è stata rinominata Claude Academy. Verifica titoli e disponibilità sul sito.)*
+
+---
+
 ## Prima del corso: da verificare
 1. Nome e posizione delle voci Projects, Skills e Connectors nel vostro account.
 2. Accesso a Claude Design nel piano Team e opzioni di export.
@@ -321,8 +349,12 @@ design/tokens.json. Mostrami il piano prima di modificare.
 - Anthropic Academy, *Claude 101*: https://anthropic.skilljar.com/claude-101
 - Anthropic, *Prompting best practices*: https://platform.claude.com/en/docs/build-with-claude/prompt-engineering/claude-prompting-best-practices
 - Anthropic, *Use XML tags*: https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/use-xml-tags
+- Anthropic, *Prompt Engineering Interactive Tutorial*: https://github.com/anthropics/prompt-eng-interactive-tutorial
+- Claude Code, *Best practices*: https://code.claude.com/docs/en/best-practices
 - Google, *Prompting Essentials* (metodo TCREI): https://www.coursera.org/google-learn/prompting-essentials
 - Anthropic, *Introducing Claude Design*: https://www.anthropic.com/news/claude-design-anthropic-labs
 - Claude Help Center, guida admin di Claude Design: https://support.claude.com/en/articles/14604406-claude-design-admin-guide-for-team-and-enterprise-plans
 - Claude Code, plugin: https://code.claude.com/docs/en/discover-plugins
 - Skills: https://claude.com/docs/skills/how-to
+
+Corsi in italiano: ho trovato solo corsi commerciali di taglio diverso (per commercialisti, per sviluppatori) e nessun programma ufficiale. Non c'era materiale da integrare.

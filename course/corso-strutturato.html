@@ -263,7 +263,7 @@ pre{font-size:.8125rem; line-height:1.65; padding:18px 20px}
     <li><div><h3>Scrivere un prompt fatto bene</h3><p>Che funziona al primo o al secondo tentativo.</p></div></li>
     <li><div><h3>Rendere un lavoro ripetibile</h3><p>Con Project e Skill.</p></div></li>
   </ol>
-  <p class="note">Il metodo unisce il modello 4D di Anthropic Academy, la guida ufficiale ai prompt di Anthropic e il metodo TCREI di Google.</p>
+  <p class="note">Il metodo unisce il modello 4D di Anthropic Academy, le guide ufficiali di Anthropic per prompt e Claude Code, e il metodo TCREI di Google.</p>
 </section>
 
 <section class="slide" data-part="Introduzione" data-title="Modello e prodotto">
@@ -336,6 +336,7 @@ pre{font-size:.8125rem; line-height:1.65; padding:18px 20px}
     <div class="panel"><span class="label">Separa le parti</span><p>Istruzioni, esempi e materiali in blocchi distinti: <code>&lt;contesto&gt;</code>, <code>&lt;esempi&gt;</code>.</p></div>
     <div class="panel"><span class="label">Dai esempi</span><p>Da 3 a 5, quando il formato è difficile da spiegare.</p></div>
     <div class="panel"><span class="label">Fallo ragionare</span><p>Sui problemi complessi, chiedi di pensare per passi.</p></div>
+    <div class="panel"><span class="label">Riduci le invenzioni</span><p>“Se non è nei materiali, scrivi che non lo sai.” Con documenti lunghi: prima le citazioni, poi la risposta.</p></div>
   </div>
 </section>
 
@@ -496,12 +497,13 @@ Elenca le affermazioni da controllare.</code></pre>
 
 <section class="slide" data-part="Gli strumenti" data-title="Claude Code">
   <p class="eyebrow">Dal visual al prodotto</p>
-  <h2>Claude Code</h2>
-  <div class="cols">
-    <div class="panel"><span class="label">CLAUDE.md</span><p>Le regole del progetto in un file. È il Project della cartella.</p></div>
-    <div class="panel"><span class="label">Plan mode</span><p>Claude propone un piano e aspetta il tuo ok prima di modificare.</p></div>
-    <div class="panel"><span class="label">Permessi</span><p>Conferma prima di ogni modifica. Leggi sempre cosa chiede.</p></div>
-  </div>
+  <h2>Claude Code: esplora, pianifica, implementa, salva</h2>
+  <ol class="steps">
+    <li><div><h3>Esplora</h3><p>Claude legge i file e capisce il problema, senza modificare.</p></div></li>
+    <li><div><h3>Pianifica</h3><p>In plan mode propone un piano: tu lo leggi e lo approvi.</p></div></li>
+    <li><div><h3>Implementa e verifica</h3><p>Modifica i file e controlla il risultato, per esempio con i test.</p></div></li>
+    <li><div><h3>Commit</h3><p>Salva le modifiche con una descrizione chiara.</p></div></li>
+  </ol>
   <pre><code>Trasforma il prototipo di Claude Design nella pagina servizi/audit.html.
 Usa solo i colori e i font di design/tokens.json.
 Mostrami il piano prima di modificare.</code></pre>
@@ -559,6 +561,18 @@ Mostrami il piano prima di modificare.</code></pre>
   <p class="note"><b>Workshop a coppie miste:</b> rifate il caso su un vostro servizio, dalla delega alla Skill. Tre minuti per presentarlo.</p>
 </section>
 
+<section class="slide" data-part="Pratica" data-title="Per continuare">
+  <p class="eyebrow">Per continuare</p>
+  <h2>I corsi gratuiti di Anthropic Academy</h2>
+  <div class="tw"><table>
+    <tr><th>Corso</th><th>Per chi</th></tr>
+    <tr><td><b>Claude 101</b> · <b>AI Fluency</b></td><td>Tutti: basi del prodotto e modello 4D</td></tr>
+    <tr><td><b>Claude Code 101</b> · <b>Claude Code in Action</b></td><td>Chi lavora con file e codice</td></tr>
+    <tr><td><b>Introduction to agent skills</b> · <b>subagents</b></td><td>Chi crea Skill e automazioni</td></tr>
+  </table></div>
+  <p class="note">Per il prompt: il tutorial interattivo di Anthropic su GitHub e Google Prompting Essentials. Tutti in inglese.</p>
+</section>
+
 <section class="slide" data-part="Pratica" data-title="Prima del corso">
   <p class="eyebrow">Prima del corso</p>
   <h2>Da verificare nel vostro account</h2>
@@ -569,7 +583,7 @@ Mostrami il piano prima di modificare.</code></pre>
     <li>Scorciatoia del plan mode in Claude Code</li>
     <li>Disponibilità dei plugin nel piano Team</li>
   </ul>
-  <p class="note">Fonti: Anthropic Academy (AI Fluency, Claude 101), guida ufficiale ai prompt di Anthropic, Google Prompting Essentials. Elenco completo nella dispensa <code>corso-strutturato.md</code>.</p>
+  <p class="note">Fonti: Anthropic Academy (AI Fluency, Claude 101), guide ufficiali di Anthropic per prompt e Claude Code, tutorial interattivo di prompt engineering, Google Prompting Essentials. Elenco completo nella dispensa <code>corso-strutturato.md</code>.</p>
 </section>
 
   </main>
