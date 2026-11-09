@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Corso Claude AI</title>
+<title>Corso Claude</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F3F4F1">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0F141A">
-<meta name="description" content="Corso Claude per il lavoro, versione 3: un flusso di lavoro in quattro passi, un prompt fatto bene, dal prompt alla Skill.">
+<meta name="description" content="Corso Claude, versione 4: flusso di lavoro, prompt fatto bene, caso completo e strumenti di Claude per marketing, design e sviluppo.">
 <style>
 /* Layout: full-bleed presenter deck. Translucent chrome floats over the active slide, which scrolls underneath; on touch, slides track the finger and settle with a critically damped spring. */
 :root{
@@ -235,6 +235,42 @@ ul.check.big li::before{margin-top:6px}
 .brief-table td{font-size:1.125rem; vertical-align:middle; padding-top:9px; padding-bottom:9px}
 .letter-cell{font-family:var(--font-display); font-size:2rem !important; font-weight:700; color:var(--accent); width:56px}
 pre{font-size:.8125rem; line-height:1.65; padding:18px 20px}
+
+/* ---- v4: diagrams, index, example card ---- */
+.dia-wrap{overflow-x:auto; margin-inline:-4px; padding:4px}
+.diagram{display:block; width:100%; max-width:920px; height:auto; min-width:640px; overflow:visible}
+.diagram text{font-family:var(--font)}
+.diagram .node{fill:var(--surface); stroke:var(--line); stroke-width:1.5}
+.diagram .node.accent{fill:var(--accent-soft); stroke:var(--accent)}
+.diagram .t{fill:var(--ink); font-size:20px; font-weight:600; letter-spacing:-0.01em}
+.diagram .s{fill:var(--muted); font-size:15px}
+.diagram .n{fill:var(--accent); font-size:15px; font-weight:700}
+.diagram .ln{stroke:var(--muted); stroke-width:1.75; fill:none}
+.diagram .accent-ln{stroke:var(--accent); stroke-dasharray:5 5}
+.ac{fill:var(--muted)}
+.diagram .badge{fill:var(--accent)}
+.diagram .bl{fill:var(--on-accent); font-size:22px; font-weight:700; text-anchor:middle}
+.diagram .tagbox{fill:var(--code-bg)}
+.diagram .mono{font-family:var(--font-mono); font-size:16px; fill:var(--ink)}
+.index{display:grid; grid-template-columns:repeat(auto-fit, minmax(270px, 1fr)); gap:22px 36px}
+.index > div{display:flex; flex-direction:column; gap:6px; border-top:1px solid var(--line); padding-top:14px}
+.index .label{margin-bottom:4px; color:var(--accent)}
+.index a{color:var(--ink); text-decoration:none; font-size:1rem; line-height:1.35}
+@media (hover: hover) and (pointer: fine){ .index a:hover{color:var(--accent)} }
+.cols.four{grid-template-columns:repeat(auto-fit, minmax(190px, 1fr))}
+.cols.wide-left{grid-template-columns:minmax(0, 1.35fr) minmax(0, 1fr); align-items:start}
+@media (max-width:760px){ .cols.wide-left{grid-template-columns:1fr} }
+ol.steps.two-col{grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); column-gap:36px}
+table.compact th, table.compact td{padding-top:9px; padding-bottom:9px}
+.panel .plain-list{padding-left:0}
+.postcard{margin:0; background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:20px 22px; display:flex; flex-direction:column; gap:10px; box-shadow:var(--shadow)}
+.post-head{display:flex; gap:12px; align-items:center}
+.post-head div{display:flex; flex-direction:column; line-height:1.3}
+.post-head .muted{font-size:.8125rem}
+.avatar{flex:none; width:40px; height:40px; border-radius:50%; background:var(--accent); color:var(--on-accent); display:grid; place-items:center; font-weight:700; font-size:.875rem}
+.accent-text{color:var(--accent); font-weight:600}
+.post-check{background:var(--warn-soft); border-radius:10px; padding:10px 12px; font-size:.875rem; display:flex; flex-direction:column; gap:2px}
+.post-check b{color:var(--warn)}
 </style>
 </head>
 <body>
@@ -249,109 +285,187 @@ pre{font-size:.8125rem; line-height:1.65; padding:18px 20px}
 
   <main class="stage" id="stage">
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" class="ac"/>
+    </marker>
+  </defs>
+</svg>
+
+<!-- 1 -->
 <section class="slide active" data-part="Introduzione" data-title="Copertina">
-  <p class="eyebrow">UX Boutique · Corso 3.0</p>
-  <h1>Claude per il lavoro</h1>
-  <p class="lead">Un flusso di lavoro, un prompt fatto bene, un caso seguito dall’inizio alla fine.</p>
+  <p class="eyebrow">UX Boutique · Versione 4.0</p>
+  <h1>Corso Claude</h1>
+  <p class="lead">Un flusso di lavoro, un prompt fatto bene, un caso seguito dall’inizio alla fine, e tutti gli strumenti per lavorare con Claude ogni giorno.</p>
 </section>
 
-<section class="slide" data-part="Introduzione" data-title="Cosa imparerai">
-  <p class="eyebrow">Obiettivo</p>
+<!-- 2 -->
+<section class="slide" data-part="Introduzione" data-title="Indice">
+  <p class="eyebrow">Indice</p>
+  <h2>Cosa trovi nel corso</h2>
+  <div class="index">
+    <div><span class="label">A · Le basi</span><a href="#s3">Cosa imparerai</a><a href="#s4">Modello e prodotto</a><a href="#s5">I mattoni di Claude</a></div>
+    <div><span class="label">B · Il flusso di lavoro</span><a href="#s6">I quattro passi</a><a href="#s7">Delega</a></div>
+    <div><span class="label">C · Il prompt fatto bene</span><a href="#s8">Il metodo BRIEF</a><a href="#s9">Test del collega</a><a href="#s10">Le tecniche</a><a href="#s11">Ridurre le invenzioni</a></div>
+    <div><span class="label">D · Il caso completo</span><a href="#s12">Il caso</a><a href="#s13">Il prompt</a><a href="#s14">L’output</a><a href="#s15">Valutare</a><a href="#s16">Iterare</a><a href="#s17">La catena di prompt</a><a href="#s18">Esperto e cliente</a><a href="#s19">Rispondere</a></div>
+    <div><span class="label">E · Gli strumenti</span><a href="#s20">Ricerca web</a><a href="#s21">File, immagini, Artifact</a><a href="#s22">Project e memoria</a><a href="#s23">Skill</a><a href="#s25">Connettori e plugin</a><a href="#s26">Claude Design</a><a href="#s27">Claude Code</a><a href="#s28">Cowork</a></div>
+    <div><span class="label">F · Pratica</span><a href="#s29">Per ruolo</a><a href="#s30">Esercizi</a><a href="#s31">Le fonti del corso</a><a href="#s32">Per continuare</a></div>
+  </div>
+</section>
+
+<!-- 3 -->
+<section class="slide" data-part="A · Le basi" data-title="Cosa imparerai">
+  <p class="eyebrow">A · Le basi</p>
   <h2>Alla fine del corso saprai</h2>
   <ol class="steps big">
-    <li><div><h3>Scegliere lo strumento giusto</h3><p>Chat, Claude Design o Claude Code.</p></div></li>
+    <li><div><h3>Scegliere lo strumento giusto</h3><p>Chat, Claude Design, Claude Code o Cowork, a seconda del lavoro.</p></div></li>
     <li><div><h3>Scrivere un prompt fatto bene</h3><p>Che funziona al primo o al secondo tentativo.</p></div></li>
+    <li><div><h3>Valutare e migliorare il risultato</h3><p>Con un metodo, non a tentativi.</p></div></li>
     <li><div><h3>Rendere un lavoro ripetibile</h3><p>Con Project e Skill.</p></div></li>
   </ol>
-  <p class="note">Il metodo unisce il modello 4D di Anthropic Academy, le guide ufficiali di Anthropic per prompt e Claude Code, e il metodo TCREI di Google.</p>
 </section>
 
-<section class="slide" data-part="Introduzione" data-title="Modello e prodotto">
-  <p class="eyebrow">Le basi</p>
-  <h2>Il modello è il cervello. Il prodotto è il posto di lavoro.</h2>
+<!-- 4 -->
+<section class="slide" data-part="A · Le basi" data-title="Modello e prodotto">
+  <p class="eyebrow">A · Le basi</p>
+  <h2>Il modello è il cervello, il prodotto il posto di lavoro</h2>
   <p class="lead">Parti da <b>Sonnet</b>. Usa <b>Opus</b> per i lavori complessi, <b>Haiku</b> per quelli semplici e ripetitivi.</p>
   <div class="tw"><table>
     <tr><th>Prodotto</th><th>A cosa serve</th><th>Esempio</th></tr>
-    <tr><td><b>Chat</b></td><td>Testi, analisi, documenti</td><td>Un post, un report</td></tr>
+    <tr><td><b>Chat</b> · web, desktop, mobile</td><td>Testi, analisi, ricerca, documenti</td><td>Un post, un report</td></tr>
     <tr><td><b>Claude Design</b></td><td>Visual coerenti con il brand</td><td>Una landing, delle slide</td></tr>
-    <tr><td><b>Claude Code</b></td><td>File, codice e siti</td><td>Una pagina web, un componente</td></tr>
+    <tr><td><b>Claude Code</b></td><td>File, codice e siti</td><td>Una pagina web</td></tr>
+    <tr><td><b>Cowork</b> · app desktop</td><td>Compiti in più passaggi sui file del computer</td><td>Un documento da tanti file</td></tr>
   </table></div>
 </section>
 
-<section class="slide" data-part="Il flusso" data-title="Il flusso in quattro passi">
-  <p class="eyebrow">Il flusso di lavoro</p>
-  <h2>Quattro passi, per ogni lavoro</h2>
-  <ol class="steps big">
-    <li><div><h3>Delega</h3><p>Cosa faccio fare a Claude, e cosa tengo io?</p></div></li>
-    <li><div><h3>Descrivi</h3><p>Un prompt fatto bene, con il BRIEF.</p></div></li>
-    <li><div><h3>Valuta</h3><p>Il risultato è buono? Feedback e correzioni.</p></div></li>
-    <li><div><h3>Rispondi</h3><p>Verifica, privacy, trasparenza prima di consegnare.</p></div></li>
-  </ol>
-  <p class="note">I passi 2 e 3 sono un ciclo: descrivi, valuti, correggi, finché il risultato è giusto.</p>
+<!-- 5 -->
+<section class="slide" data-part="A · Le basi" data-title="I mattoni di Claude">
+  <p class="eyebrow">A · Le basi</p>
+  <h2>I mattoni che si combinano</h2>
+  <div class="tw"><table>
+    <tr><th>Mattone</th><th>Cos’è</th><th>A cosa serve</th></tr>
+    <tr><td><b>Project</b></td><td>Istruzioni e documenti fissi</td><td>Non ripetere il contesto</td></tr>
+    <tr><td><b>Artifact</b></td><td>Un risultato modificabile accanto alla chat</td><td>Consegnare documenti, pagine, tabelle</td></tr>
+    <tr><td><b>Skill</b></td><td>Un metodo scritto una volta</td><td>Fare un compito sempre allo stesso modo</td></tr>
+    <tr><td><b>Connettore</b></td><td>Il collegamento a Drive, Figma, Miro</td><td>Usare i dati dei vostri strumenti</td></tr>
+    <tr><td><b>Plugin</b></td><td>Pacchetto di Skill, comandi e connettori</td><td>Installare un kit completo</td></tr>
+  </table></div>
+  <p class="note">Esempio: il connettore Drive legge le note, la Skill “status report” le formatta, dentro il Project del cliente, e il risultato esce come Artifact.</p>
 </section>
 
-<section class="slide" data-part="Il flusso" data-title="1 · Delega">
-  <p class="eyebrow">Passo 1 · Delega</p>
+<!-- 6 -->
+<section class="slide" data-part="B · Il flusso" data-title="I quattro passi">
+  <p class="eyebrow">B · Il flusso di lavoro</p>
+  <h2>Quattro passi, per ogni lavoro</h2>
+  <div class="dia-wrap"><svg class="diagram" viewBox="0 0 920 250" role="img" aria-label="Il flusso in quattro passi: Delega, Descrivi, Valuta, Rispondi. Descrivi e Valuta formano un ciclo.">
+    <g>
+      <rect class="node" x="10" y="30" width="200" height="110" rx="16"/>
+      <text class="n" x="34" y="66">1</text><text class="t" x="34" y="98">Delega</text><text class="s" x="34" y="122">Chi fa cosa</text>
+      <rect class="node accent" x="246" y="30" width="200" height="110" rx="16"/>
+      <text class="n" x="270" y="66">2</text><text class="t" x="270" y="98">Descrivi</text><text class="s" x="270" y="122">Il prompt BRIEF</text>
+      <rect class="node accent" x="482" y="30" width="200" height="110" rx="16"/>
+      <text class="n" x="506" y="66">3</text><text class="t" x="506" y="98">Valuta</text><text class="s" x="506" y="122">Controlla e correggi</text>
+      <rect class="node" x="718" y="30" width="192" height="110" rx="16"/>
+      <text class="n" x="742" y="66">4</text><text class="t" x="742" y="98">Rispondi</text><text class="s" x="742" y="122">Verifica e consegna</text>
+      <line class="ln" x1="212" y1="85" x2="240" y2="85" marker-end="url(#arr)"/>
+      <line class="ln" x1="448" y1="85" x2="476" y2="85" marker-end="url(#arr)"/>
+      <line class="ln" x1="684" y1="85" x2="712" y2="85" marker-end="url(#arr)"/>
+      <path class="ln accent-ln" d="M582,144 C582,214 346,214 346,148" marker-end="url(#arr)"/>
+      <text class="s" x="404" y="232">ciclo: finché il risultato è giusto</text>
+    </g>
+  </svg></div>
+  <p class="note">Dal modello 4D del corso AI Fluency di Anthropic Academy: Delega, Descrizione, Discernimento, Diligenza.</p>
+</section>
+
+<!-- 7 -->
+<section class="slide" data-part="B · Il flusso" data-title="Delega">
+  <p class="eyebrow">B · Passo 1 · Delega</p>
   <h2>Prima di scrivere, decidi chi fa cosa</h2>
   <div class="cols">
-    <div class="panel">
-      <span class="label">Dai a Claude</span>
-      <ul class="plain-list">
-        <li>Prime bozze e varianti</li>
-        <li>Riassunti e sintesi</li>
-        <li>Strutture e scalette</li>
-        <li>Controlli di coerenza</li>
-      </ul>
-    </div>
-    <div class="panel">
-      <span class="label">Tieni tu</span>
-      <ul class="plain-list">
-        <li>La decisione finale</li>
-        <li>Il rapporto con il cliente</li>
-        <li>I dati riservati</li>
-        <li>La verifica di fatti e numeri</li>
-      </ul>
-    </div>
+    <div class="panel"><span class="label">Dai a Claude</span><ul class="plain-list"><li>Prime bozze e varianti</li><li>Riassunti e sintesi</li><li>Strutture e scalette</li><li>Ricerche da verificare</li></ul></div>
+    <div class="panel"><span class="label">Tieni tu</span><ul class="plain-list"><li>La decisione finale</li><li>Il rapporto con il cliente</li><li>I dati riservati</li><li>Il giudizio sulla qualità</li></ul></div>
+    <div class="panel"><span class="label">Tre domande prima</span><ul class="plain-list"><li>So descrivere il risultato?</li><li>So verificarlo?</li><li>Cosa succede se sbaglia?</li></ul></div>
   </div>
 </section>
 
-<section class="slide" data-part="Il flusso" data-title="2 · Il BRIEF">
-  <p class="eyebrow">Passo 2 · Descrivi</p>
-  <h2>Il metodo BRIEF</h2>
-  <div class="tw"><table class="brief-table">
-    <tr><td class="letter-cell">B</td><td><b>Background</b></td><td>Qual è il contesto?</td></tr>
-    <tr><td class="letter-cell">R</td><td><b>Ruolo</b></td><td>Chi deve rispondere?</td></tr>
-    <tr><td class="letter-cell">I</td><td><b>Intento</b></td><td>Cosa deve succedere dopo?</td></tr>
-    <tr><td class="letter-cell">E</td><td><b>Esempi</b></td><td>Come deve essere il risultato?</td></tr>
-    <tr><td class="letter-cell">F</td><td><b>Formato</b></td><td>Lunghezza, struttura, cosa evitare</td></tr>
-    <tr><td class="letter-cell">+</td><td><b>Verifica</b></td><td>Come controllo il risultato?</td></tr>
+<!-- 8 -->
+<section class="slide" data-part="C · Il prompt" data-title="Il metodo BRIEF">
+  <p class="eyebrow">C · Passo 2 · Descrivi</p>
+  <h2>Anatomia di un prompt: il metodo BRIEF</h2>
+  <div class="dia-wrap"><svg class="diagram" style="max-width:780px" viewBox="0 0 920 372" role="img" aria-label="Le sei parti del BRIEF con il tag corrispondente: Background contesto, Ruolo ruolo, Intento obiettivo, Esempi esempi, Formato formato, Verifica verifica.">
+    <g>
+      <g transform="translate(0,0)"><circle class="badge" cx="28" cy="28" r="24"/><text class="bl" x="28" y="36">B</text><text class="t" x="70" y="25">Background</text><text class="s" x="70" y="46">Qual è il contesto?</text><rect class="tagbox" x="560" y="8" width="360" height="40" rx="10"/><text class="mono" x="580" y="34">&lt;contesto&gt;</text></g>
+      <g transform="translate(0,62)"><circle class="badge" cx="28" cy="28" r="24"/><text class="bl" x="28" y="36">R</text><text class="t" x="70" y="25">Ruolo</text><text class="s" x="70" y="46">Chi deve rispondere?</text><rect class="tagbox" x="560" y="8" width="360" height="40" rx="10"/><text class="mono" x="580" y="34">&lt;ruolo&gt;</text></g>
+      <g transform="translate(0,124)"><circle class="badge" cx="28" cy="28" r="24"/><text class="bl" x="28" y="36">I</text><text class="t" x="70" y="25">Intento</text><text class="s" x="70" y="46">Cosa deve succedere dopo?</text><rect class="tagbox" x="560" y="8" width="360" height="40" rx="10"/><text class="mono" x="580" y="34">&lt;obiettivo&gt;</text></g>
+      <g transform="translate(0,186)"><circle class="badge" cx="28" cy="28" r="24"/><text class="bl" x="28" y="36">E</text><text class="t" x="70" y="25">Esempi</text><text class="s" x="70" y="46">Come deve essere il risultato?</text><rect class="tagbox" x="560" y="8" width="360" height="40" rx="10"/><text class="mono" x="580" y="34">&lt;esempi&gt;</text></g>
+      <g transform="translate(0,248)"><circle class="badge" cx="28" cy="28" r="24"/><text class="bl" x="28" y="36">F</text><text class="t" x="70" y="25">Formato</text><text class="s" x="70" y="46">Lunghezza, struttura, cosa evitare</text><rect class="tagbox" x="560" y="8" width="360" height="40" rx="10"/><text class="mono" x="580" y="34">&lt;formato&gt;</text></g>
+      <g transform="translate(0,310)"><circle class="badge" cx="28" cy="28" r="24"/><text class="bl" x="28" y="36">+</text><text class="t" x="70" y="25">Verifica</text><text class="s" x="70" y="46">Come controllo il risultato?</text><rect class="tagbox" x="560" y="8" width="360" height="40" rx="10"/><text class="mono" x="580" y="34">&lt;verifica&gt;</text></g>
+    </g>
+  </svg></div>
+  <p class="note">Corrisponde al metodo TCREI di Google Prompting Essentials: Task, Context, References, Evaluate, Iterate.</p>
+</section>
+
+<!-- 9 -->
+<section class="slide" data-part="C · Il prompt" data-title="Test del collega">
+  <p class="eyebrow">C · Passo 2 · Descrivi</p>
+  <p class="statement">Fai leggere il prompt a un collega che non sa niente del lavoro. Se lui sarebbe confuso, lo sarà anche Claude.</p>
+  <p class="muted">La regola d’oro della guida ufficiale di Anthropic. Poi quattro accorgimenti:</p>
+  <div class="cols four">
+    <div class="panel"><span class="label">Separa le parti</span><p>Istruzioni, esempi e materiali in tag diversi.</p></div>
+    <div class="panel"><span class="label">Dai esempi</span><p>Da 3 a 5, quando il formato è difficile da spiegare.</p></div>
+    <div class="panel"><span class="label">Fallo ragionare</span><p>Sui problemi complessi, pensare per passi.</p></div>
+    <div class="panel"><span class="label">Domande prima</span><p>“Fammi le domande che ti servono.”</p></div>
+  </div>
+</section>
+
+<!-- 10 -->
+<section class="slide" data-part="C · Il prompt" data-title="Le tecniche">
+  <p class="eyebrow">C · Il prompt fatto bene</p>
+  <h2>Le tecniche da conoscere</h2>
+  <div class="tw"><table class="compact">
+    <tr><th>Tecnica</th><th>Cos’è</th><th>Esempio</th></tr>
+    <tr><td><b>Zero-shot</b></td><td>Solo l’istruzione</td><td>“Riassumi il verbale in 5 punti.”</td></tr>
+    <tr><td><b>Few-shot</b></td><td>Alcuni esempi del risultato</td><td>Tre titoli approvati, poi “altri dieci così”</td></tr>
+    <tr><td><b>Ruolo</b></td><td>Chi deve rispondere</td><td>“Sei un UX researcher senior.”</td></tr>
+    <tr><td><b>Formato strutturato</b></td><td>Tabella, elenco, JSON</td><td>“Tabella: Problema, Gravità, Proposta.”</td></tr>
+    <tr><td><b>Passo per passo</b></td><td>Ragionare prima di rispondere</td><td>“Prima analizza, poi proponi, poi scegli.”</td></tr>
+    <tr><td><b>Catena di prompt</b></td><td>Un lavoro in più passaggi</td><td>Ricerca → messaggi → testo → revisione</td></tr>
+    <tr><td><b>Meta-prompting</b></td><td>Claude migliora il prompt</td><td>“Migliora questo prompt e spiega perché.”</td></tr>
+    <tr><td><b>Gioco di ruolo</b></td><td>Claude simula esperto o cliente</td><td>“Sei un cliente scettico: critica la landing.”</td></tr>
   </table></div>
 </section>
 
-<section class="slide" data-part="Il flusso" data-title="2 · Il test del collega">
-  <p class="eyebrow">Passo 2 · Descrivi</p>
-  <p class="statement">Fai leggere il prompt a un collega che non sa niente del lavoro. Se lui sarebbe confuso, lo sarà anche Claude.</p>
-  <p class="muted">La regola d’oro della guida ufficiale di Anthropic.</p>
+<!-- 11 -->
+<section class="slide" data-part="C · Il prompt" data-title="Ridurre le invenzioni">
+  <p class="eyebrow">C · Il prompt fatto bene</p>
+  <h2>Ridurre le invenzioni</h2>
+  <p class="lead">A volte Claude inventa una risposta plausibile invece di dire “non lo so”. Il tutorial di Anthropic propone due tecniche.</p>
   <div class="cols">
-    <div class="panel"><span class="label">Separa le parti</span><p>Istruzioni, esempi e materiali in blocchi distinti: <code>&lt;contesto&gt;</code>, <code>&lt;esempi&gt;</code>.</p></div>
-    <div class="panel"><span class="label">Dai esempi</span><p>Da 3 a 5, quando il formato è difficile da spiegare.</p></div>
-    <div class="panel"><span class="label">Fallo ragionare</span><p>Sui problemi complessi, chiedi di pensare per passi.</p></div>
-    <div class="panel"><span class="label">Riduci le invenzioni</span><p>“Se non è nei materiali, scrivi che non lo sai.” Con documenti lunghi: prima le citazioni, poi la risposta.</p></div>
+    <div class="panel"><span class="label">1 · Il permesso di non sapere</span><pre><code>Se un'informazione non è nei materiali,
+scrivi "non lo so". Non inventare.</code></pre></div>
+    <div class="panel"><span class="label">2 · Prima le citazioni</span><pre><code>Copia le frasi esatte del documento che
+parlano dei tempi di consegna. Poi rispondi
+usando solo quelle frasi.</code></pre></div>
   </div>
+  <p class="note">In più: dagli i documenti veri invece di chiedergli di ricordare, e chiedi sempre le fonti quando usa la ricerca web.</p>
 </section>
 
-<section class="slide" data-part="Il caso" data-title="Il caso">
-  <p class="eyebrow">Il caso</p>
+<!-- 12 -->
+<section class="slide" data-part="D · Il caso" data-title="Il caso">
+  <p class="eyebrow">D · Il caso completo</p>
   <p class="statement">UX Boutique lancia l’audit di usabilità per e-commerce.</p>
-  <p class="lead">Serve un post per LinkedIn, una landing page e un modo per rifare tutto la prossima volta.</p>
+  <p class="lead">Servono un post per LinkedIn, una landing page e un modo per rifare tutto la prossima volta.</p>
   <div class="cols">
-    <div class="panel"><span class="label">A Claude</span><p>Bozza del post, varianti di titolo, struttura della landing.</p></div>
+    <div class="panel"><span class="label">A Claude</span><p>Ricerca sui competitor, messaggi chiave, bozza del post, struttura della landing.</p></div>
     <div class="panel"><span class="label">A noi</span><p>Prezzo, dati del caso studio, approvazione finale.</p></div>
   </div>
 </section>
 
-<section class="slide" data-part="Il caso" data-title="Il prompt fatto bene">
-  <p class="eyebrow">Il caso · Passo 2</p>
+<!-- 13 -->
+<section class="slide" data-part="D · Il caso" data-title="Il prompt">
+  <p class="eyebrow">D · Il caso · Descrivi</p>
   <h2>Il prompt fatto bene</h2>
   <pre><code>&lt;contesto&gt;
 UX Boutique è un'agenzia di UX design. Lanciamo un audit di usabilità
@@ -372,30 +486,36 @@ chiudi con l'invito. Nessun numero inventato: usa [X%].
 &lt;verifica&gt;Elenca le affermazioni che un cliente potrebbe contestare.&lt;/verifica&gt;</code></pre>
 </section>
 
-<section class="slide" data-part="Il caso" data-title="Perché funziona">
-  <p class="eyebrow">Il caso · Passo 2</p>
-  <h2>Perché funziona</h2>
-  <div class="cols">
+<!-- 14 -->
+<section class="slide" data-part="D · Il caso" data-title="L’output">
+  <p class="eyebrow">D · Il caso · Il risultato</p>
+  <h2>Cosa restituisce Claude</h2>
+  <div class="cols wide-left">
+    <figure class="postcard" aria-label="Esempio illustrativo di post">
+      <div class="post-head"><span class="avatar">UX</span><div><b>UX Boutique</b><span class="muted">Post · esempio illustrativo</span></div></div>
+      <p>Il tuo e-commerce riceve visite ma le vendite non crescono?</p>
+      <p>Spesso il problema non è il traffico: sono tre passaggi del percorso d’acquisto in cui le persone si fermano.</p>
+      <p>Con l’audit di usabilità li troviamo in 30 minuti, partendo dal tuo sito reale. La prima call è gratuita.</p>
+      <p class="accent-text">Prenota la tua call → [link]</p>
+      <p class="muted">#UXdesign #ecommerce</p>
+      <div class="post-check"><b>Da verificare</b><span>“Tre passaggi” è una media dei nostri audit? “30 minuti” vale per ogni sito?</span></div>
+    </figure>
     <div class="panel">
-      <span class="label">Scritto male</span>
-      <p class="quote">“Scrivimi un post per il nostro nuovo servizio di audit.”</p>
-      <p class="muted">Claude deve indovinare pubblico, tono, lunghezza e obiettivo. Il risultato è generico.</p>
-    </div>
-    <div class="panel">
-      <span class="label">Scritto bene</span>
+      <span class="label">Perché funziona</span>
       <ul class="plain-list">
-        <li>Ogni parte risponde a una domanda.</li>
-        <li>I tag separano istruzioni ed esempi.</li>
-        <li>Il formato dice anche cosa non fare.</li>
-        <li>La verifica trova i punti deboli prima del cliente.</li>
+        <li>Scritto male (“Scrivimi un post sul nuovo audit”), Claude dovrebbe indovinare pubblico, tono e lunghezza.</li>
+        <li>Ogni parte del prompt risponde a una domanda.</li>
+        <li>Rispetta formato e divieti: niente emoji, niente numeri inventati.</li>
+        <li>La verifica fa emergere i punti deboli prima del cliente.</li>
       </ul>
     </div>
   </div>
 </section>
 
-<section class="slide" data-part="Il caso" data-title="3 · Valuta">
-  <p class="eyebrow">Il caso · Passo 3 · Valuta</p>
-  <h2>Controlla, poi correggi</h2>
+<!-- 15 -->
+<section class="slide" data-part="D · Il caso" data-title="Valutare">
+  <p class="eyebrow">D · Il caso · Passo 3 · Valuta</p>
+  <h2>Controlla su tre piani, poi correggi</h2>
   <div class="cols">
     <div class="panel"><span class="label">Il prodotto</span><p>È corretto, chiaro, nel tono giusto?</p></div>
     <div class="panel"><span class="label">Il processo</span><p>Il ragionamento regge? Le affermazioni sono sostenibili?</p></div>
@@ -407,183 +527,314 @@ Riscrivila partendo da un problema concreto del checkout, in una frase.
 Non cambiare il resto.</code></pre>
 </section>
 
-<section class="slide" data-part="Il caso" data-title="3 · Se non migliora">
-  <p class="eyebrow">Il caso · Passo 3 · Valuta</p>
-  <h2>Se non migliora, tre modi per iterare</h2>
-  <ol class="steps big">
+<!-- 16 -->
+<section class="slide" data-part="D · Il caso" data-title="Iterare">
+  <p class="eyebrow">D · Il caso · Passo 3 · Valuta</p>
+  <h2>Se non migliora, quattro modi per iterare</h2>
+  <ol class="steps big two-col">
     <li><div><h3>Rivedi il BRIEF</h3><p>Quasi sempre manca una parte.</p></div></li>
-    <li><div><h3>Dividi il compito</h3><p>Prima tre aperture, poi il post con quella scelta.</p></div></li>
+    <li><div><h3>Dividi in passaggi</h3><p>Prima tre aperture, poi il post con quella scelta.</p></div></li>
     <li><div><h3>Riformula</h3><p>“Scrivilo come lo spiegheresti a un collega a pranzo.”</p></div></li>
+    <li><div><h3>Aggiungi vincoli</h3><p>“Solo parole che userebbe un responsabile marketing, niente gergo UX.”</p></div></li>
   </ol>
   <p class="note">Dal corso Google Prompting Essentials.</p>
 </section>
 
-<section class="slide" data-part="Il caso" data-title="4 · Rispondi">
-  <p class="eyebrow">Il caso · Passo 4 · Rispondi</p>
-  <h2>Prima di pubblicare</h2>
-  <ul class="check big">
-    <li>Numeri e affermazioni verificati sulla fonte</li>
-    <li>Nessun dato riservato del cliente</li>
-    <li>Tono e brand rispettati</li>
-    <li>Approvazione del referente</li>
-    <li>Uso dell’AI dichiarato, se richiesto</li>
-  </ul>
-</section>
-
-<section class="slide" data-part="Dal prompt al metodo" data-title="Project e Skill">
-  <p class="eyebrow">Dal prompt al metodo</p>
-  <h2>Un prompt riuscito diventa ripetibile</h2>
+<!-- 17 -->
+<section class="slide" data-part="D · Il caso" data-title="La catena di prompt">
+  <p class="eyebrow">D · Il caso · Tecnica</p>
+  <h2>La catena di prompt: un lavoro, quattro passaggi</h2>
+  <div class="dia-wrap"><svg class="diagram" viewBox="0 0 920 170" role="img" aria-label="Catena di prompt: 1 Ricerca, tabella dei competitor; 2 Messaggi, tre messaggi chiave; 3 Post, il testo; 4 Critica, obiezioni da risolvere.">
+    <g>
+      <rect class="node" x="0" y="20" width="200" height="86" rx="14"/><text class="n" x="20" y="52">1</text><text class="t" x="48" y="52">Ricerca</text><text class="s" x="20" y="84">Tabella competitor</text>
+      <rect class="node" x="240" y="20" width="200" height="86" rx="14"/><text class="n" x="260" y="52">2</text><text class="t" x="288" y="52">Messaggi</text><text class="s" x="260" y="84">Tre messaggi chiave</text>
+      <rect class="node accent" x="480" y="20" width="200" height="86" rx="14"/><text class="n" x="500" y="52">3</text><text class="t" x="528" y="52">Post</text><text class="s" x="500" y="84">Il prompt BRIEF</text>
+      <rect class="node" x="720" y="20" width="200" height="86" rx="14"/><text class="n" x="740" y="52">4</text><text class="t" x="768" y="52">Critica</text><text class="s" x="740" y="84">Obiezioni da risolvere</text>
+      <line class="ln" x1="202" y1="63" x2="234" y2="63" marker-end="url(#arr)"/>
+      <line class="ln" x1="442" y1="63" x2="474" y2="63" marker-end="url(#arr)"/>
+      <line class="ln" x1="682" y1="63" x2="714" y2="63" marker-end="url(#arr)"/>
+      <text class="s" x="0" y="150">L’output di ogni passaggio è il materiale del successivo.</text>
+    </g>
+  </svg></div>
   <div class="cols">
-    <div class="panel">
-      <span class="label">Il contesto → Project</span>
-      <p>Il blocco <code>&lt;contesto&gt;</code> va nelle istruzioni di un Project, con i documenti del brand. Ogni chat del Project lo conosce già.</p>
-    </div>
-    <div class="panel">
-      <span class="label">Il metodo → Skill</span>
-      <p>Ruolo, regole, formato e verifica diventano una Skill: una cartella con <code>SKILL.md</code> che Claude usa da solo quando serve.</p>
-    </div>
+    <div class="panel"><span class="label">Passaggio 1 · con ricerca web</span><p>“Cerca i servizi di audit UX in Italia: promessa, prezzo visibile, pubblico. Indica le fonti.”</p></div>
+    <div class="panel"><span class="label">Passaggio 2</span><p>“Da questa tabella, proponi tre messaggi chiave che ci distinguono.”</p></div>
   </div>
 </section>
 
-<section class="slide" data-part="Dal prompt al metodo" data-title="La Skill">
-  <p class="eyebrow">Dal prompt al metodo · Skill</p>
-  <h2>La descrizione decide tutto</h2>
-  <p class="lead">Claude legge sempre solo nome e descrizione. Se corrispondono al compito, legge il resto.</p>
+<!-- 18 -->
+<section class="slide" data-part="D · Il caso" data-title="Esperto e cliente">
+  <p class="eyebrow">D · Il caso · Tecnica</p>
+  <h2>Claude come esperto, come cliente, come editor di prompt</h2>
+  <div class="cols">
+    <div class="panel"><span class="label">Migliora il prompt</span><pre><code>Ecco il mio prompt: &lt;prompt&gt;…&lt;/prompt&gt;
+Miglioralo con il metodo BRIEF.
+Spiegami cosa hai cambiato.</code></pre></div>
+    <div class="panel"><span class="label">L’esperto</span><pre><code>Sei un consulente CRO con dieci
+anni sugli e-commerce. Indica i tre
+rischi di conversione di questa
+landing.</code></pre></div>
+    <div class="panel"><span class="label">Il cliente scettico</span><pre><code>Sei il responsabile marketing di un
+e-commerce, scettico verso le
+agenzie. Perché non prenoteresti
+la call?</code></pre></div>
+  </div>
+  <p class="note">Il gioco di ruolo trova le obiezioni prima dei clienti veri, ma non sostituisce il loro parere.</p>
+</section>
+
+<!-- 19 -->
+<section class="slide" data-part="D · Il caso" data-title="Rispondere">
+  <p class="eyebrow">D · Il caso · Passo 4 · Rispondi</p>
+  <h2>Prima di pubblicare</h2>
+  <div class="cols">
+    <ul class="check big">
+      <li>Numeri e affermazioni verificati sulla fonte</li>
+      <li>Nessun dato riservato del cliente</li>
+      <li>Tono e brand rispettati</li>
+      <li>Approvazione del referente</li>
+      <li>Uso dell’AI dichiarato, se richiesto</li>
+    </ul>
+    <div class="panel"><span class="label">Non caricare mai</span><ul class="plain-list"><li>Password e chiavi</li><li>Dati personali senza base legale</li><li>Documenti sotto NDA</li></ul><p class="muted">Sui casi reali, anonimizza.</p></div>
+  </div>
+</section>
+
+<!-- 20 -->
+<section class="slide" data-part="E · Gli strumenti" data-title="Ricerca web">
+  <p class="eyebrow">E · Gli strumenti</p>
+  <h2>Ricerca web e ricerca approfondita</h2>
+  <div class="cols">
+    <div class="panel"><span class="label">Ricerca web</span><p>Per informazioni recenti. Claude cerca, legge e cita le fonti.</p></div>
+    <div class="panel"><span class="label">Ricerca approfondita</span><p>Per temi ampi: molte ricerche in sequenza e un rapporto con fonti. Richiede più tempo.</p></div>
+  </div>
+  <pre><code>Fai una ricerca sui tempi di caricamento medi degli e-commerce italiani
+nel 2026. Per ogni dato: valore, fonte, data. Separa i dati ufficiali
+dalle stime. Segnala se le fonti non sono d'accordo.</code></pre>
+  <p class="note">Una fonte citata non è una fonte verificata: apri sempre quelle che userai.</p>
+</section>
+
+<!-- 21 -->
+<section class="slide" data-part="E · Gli strumenti" data-title="File, immagini, Artifact">
+  <p class="eyebrow">E · Gli strumenti</p>
+  <h2>File, immagini e Artifact</h2>
+  <div class="tw"><table class="compact">
+    <tr><th>Carichi</th><th>Chiedi</th></tr>
+    <tr><td><b>PDF</b></td><td>“Estrai date di scadenza e penali da questo contratto.”</td></tr>
+    <tr><td><b>Excel / CSV</b></td><td>“Costo per lead per canale, segnala i valori anomali.”</td></tr>
+    <tr><td><b>Screenshot</b></td><td>“Valuta questa schermata con le 10 euristiche di Nielsen.”</td></tr>
+    <tr><td><b>Foto di una lavagna</b></td><td>“Trascrivi le note e raggruppale per tema.”</td></tr>
+  </table></div>
+  <div class="cols">
+    <div class="panel"><span class="label">Artifact</span><p>Documenti, tabelle, pagine e grafici si aprono accanto alla chat e si modificano per parti.</p></div>
+    <div class="panel"><span class="label">Verifica</span><p>Ricalcola a mano un numero su dieci. Immagini sfocate e PDF scansionati peggiorano il risultato.</p></div>
+  </div>
+</section>
+
+<!-- 22 -->
+<section class="slide" data-part="E · Gli strumenti" data-title="Project e memoria">
+  <p class="eyebrow">E · Gli strumenti</p>
+  <h2>Project e memoria</h2>
+  <div class="cols">
+    <div class="panel">
+      <span class="label">Creare un Project</span>
+      <ol class="steps">
+        <li><div><p>Barra laterale → <b>Projects</b> → nuovo.</p></div></li>
+        <li><div><p>Nome chiaro: “UX Boutique — Brand &amp; Tone”.</p></div></li>
+        <li><div><p>Istruzioni in 5–10 righe.</p></div></li>
+        <li><div><p>Documenti aggiornati del brand.</p></div></li>
+      </ol>
+    </div>
+    <div class="panel">
+      <span class="label">Istruzioni di esempio</span>
+      <pre><code>Lavoriamo per UX Boutique. Lingua
+italiana, tono diretto e concreto.
+Ogni testo indica un beneficio.
+Mai citare clienti senza approvazione.
+Se non sei sicuro, dichiaralo.</code></pre>
+    </div>
+  </div>
+  <p class="note"><b>Memoria:</b> Claude ritrova informazioni da chat precedenti, ma controlla che siano ancora valide. <b>Chat lunghe:</b> chiedi un riassunto e riparti in una chat nuova.</p>
+</section>
+
+<!-- 23 -->
+<section class="slide" data-part="E · Gli strumenti" data-title="Skill: come funziona">
+  <p class="eyebrow">E · Gli strumenti · Skill</p>
+  <h2>Una Skill si legge a strati</h2>
+  <div class="dia-wrap"><svg class="diagram" viewBox="0 0 920 200" role="img" aria-label="Tre livelli di una Skill: nome e descrizione sempre; corpo di SKILL.md quando serve; file aggiuntivi se richiesti.">
+    <g>
+      <rect class="node accent" x="0" y="0" width="300" height="52" rx="12"/><text class="t" x="20" y="33">Nome e descrizione</text><text class="s" x="330" y="33">Sempre: Claude decide da qui se usarla</text>
+      <rect class="node" x="0" y="70" width="520" height="52" rx="12"/><text class="t" x="20" y="103">Corpo di SKILL.md</text><text class="s" x="550" y="103">Quando il compito corrisponde</text>
+      <rect class="node" x="0" y="140" width="720" height="52" rx="12"/><text class="t" x="20" y="173">File aggiuntivi: esempi, riferimenti</text><text class="s" x="740" y="173">Se richiesti</text>
+    </g>
+  </svg></div>
   <pre><code>---
 name: post-linkedin-ux-boutique
-description: Scrive post LinkedIn per i servizi di UX Boutique, con il
-  tono del brand. Usala quando l'utente chiede un post, un annuncio o un
-  lancio per LinkedIn. Non usarla per testi interni.
+description: Scrive post LinkedIn per i servizi di UX Boutique, con il tono del
+  brand. Usala quando l'utente chiede un post o un lancio. Non per testi interni.
 ---
 ## Procedura
 1. Se mancano, chiedi servizio, pubblico e obiettivo.
-2. Apri con un problema, chiudi con un invito all'azione.
-3. Massimo 120 parole, due hashtag, nessuna emoji.
-## Verifica
-Elenca le affermazioni da controllare.</code></pre>
+2. Apri con un problema, chiudi con un invito. Max 120 parole, niente emoji.</code></pre>
 </section>
 
-<section class="slide" data-part="Dal prompt al metodo" data-title="Crea, installa, testa">
-  <p class="eyebrow">Dal prompt al metodo · Skill</p>
+<!-- 24 -->
+<section class="slide" data-part="E · Gli strumenti" data-title="Skill: crea, installa, testa">
+  <p class="eyebrow">E · Gli strumenti · Skill</p>
   <h2>Crea, installa, testa</h2>
   <div class="cols">
-    <div class="panel">
-      <span class="label">Crea</span>
-      <p>Chiedilo a Claude: “Trasforma il prompt di questa chat in una Skill. Fammi prima le domande che ti servono.”</p>
-    </div>
-    <div class="panel">
-      <span class="label">Installa</span>
-      <p><b>claude.ai:</b> cartella in .zip, impostazioni → Skills.</p>
-      <p><b>Claude Code:</b> cartella in <code>.claude/skills/</code>.</p>
-    </div>
-    <div class="panel">
-      <span class="label">Testa</span>
-      <p>Un caso tipico (si attiva), uno al limite (si adatta), uno fuori scopo (non si attiva).</p>
-    </div>
+    <div class="panel"><span class="label">Crea</span><p>Chiedilo a Claude:</p><pre><code>Trasforma il prompt di questa
+chat in una Skill. Fammi prima
+le domande che ti servono.</code></pre></div>
+    <div class="panel"><span class="label">Installa</span><p><b>claude.ai:</b> cartella in .zip, impostazioni → Skills.</p><p><b>Claude Code:</b> cartella in <code>.claude/skills/</code> o <code>~/.claude/skills/</code>.</p></div>
+    <div class="panel"><span class="label">Testa con tre casi</span><ul class="plain-list"><li><b>Tipico:</b> si attiva</li><li><b>Al limite:</b> si adatta o chiede</li><li><b>Fuori scopo:</b> non si attiva</li></ul></div>
   </div>
+  <p class="note">Non si attiva? Riscrivi la descrizione con le parole di chi chiede. Si attiva troppo? Aggiungi “Non usarla per…”.</p>
 </section>
 
-<section class="slide" data-part="Gli strumenti" data-title="Claude Design">
-  <p class="eyebrow">Dal testo al visual</p>
+<!-- 25 -->
+<section class="slide" data-part="E · Gli strumenti" data-title="Connettori e plugin">
+  <p class="eyebrow">E · Gli strumenti</p>
+  <h2>Connettori e plugin</h2>
+  <div class="tw"><table class="compact">
+    <tr><th>Connettore</th><th>Esempio di richiesta</th></tr>
+    <tr><td><b>Google Drive</b></td><td>“Riassumi l’ultimo brief nella cartella del cliente X.”</td></tr>
+    <tr><td><b>Figma</b></td><td>“Estrai colori e font dal file [link].”</td></tr>
+    <tr><td><b>Miro</b></td><td>“Raggruppa per tema le note della board del workshop.”</td></tr>
+  </table></div>
+  <div class="cols">
+    <div class="panel"><span class="label">Attivare un connettore</span><p>Impostazioni → Connectors. L’admin lo abilita per il team, poi ognuno collega il proprio account.</p></div>
+    <div class="panel"><span class="label">Plugin</span><p>Un pacchetto di Skill, comandi e connettori. In Claude Code: <code>/plugin</code>. Nell’app desktop: plugin ufficiali per marketing, PM e altro.</p></div>
+  </div>
+  <p class="note">Plugin e Skill scaricati possono eseguire comandi: installa solo da fonti affidabili e leggi cosa contengono.</p>
+</section>
+
+<!-- 26 -->
+<section class="slide" data-part="E · Gli strumenti" data-title="Claude Design">
+  <p class="eyebrow">E · Gli strumenti · Dal testo al visual</p>
   <h2>Claude Design</h2>
   <p class="lead"><b>Una volta sola:</b> un designer carica i materiali del brand, Claude estrae colori, font e componenti, il designer li pubblica per tutto il team.</p>
-  <ol class="steps">
-    <li><div><h3>Brief</h3><p>Pubblico, obiettivo, sezioni, vincoli.</p></div></li>
-    <li><div><h3>Tre strutture, senza stile</h3><p>Ne scegli una.</p></div></li>
-    <li><div><h3>Revisioni singole</h3><p>Una per messaggio, con il perché.</p></div></li>
-    <li><div><h3>Export</h3><p>PDF, PPTX, HTML, Canva o passaggio a Claude Code.</p></div></li>
-  </ol>
-</section>
-
-<section class="slide" data-part="Gli strumenti" data-title="Claude Code">
-  <p class="eyebrow">Dal visual al prodotto</p>
-  <h2>Claude Code: esplora, pianifica, implementa, salva</h2>
-  <ol class="steps">
-    <li><div><h3>Esplora</h3><p>Claude legge i file e capisce il problema, senza modificare.</p></div></li>
-    <li><div><h3>Pianifica</h3><p>In plan mode propone un piano: tu lo leggi e lo approvi.</p></div></li>
-    <li><div><h3>Implementa e verifica</h3><p>Modifica i file e controlla il risultato, per esempio con i test.</p></div></li>
-    <li><div><h3>Commit</h3><p>Salva le modifiche con una descrizione chiara.</p></div></li>
-  </ol>
-  <pre><code>Trasforma il prototipo di Claude Design nella pagina servizi/audit.html.
-Usa solo i colori e i font di design/tokens.json.
-Mostrami il piano prima di modificare.</code></pre>
-</section>
-
-<section class="slide" data-part="Gli strumenti" data-title="Plugin e connettori">
-  <p class="eyebrow">In breve</p>
-  <h2>Plugin e connettori</h2>
   <div class="cols">
-    <div class="panel"><span class="label">Connettore</span><p>Collega Claude a Drive, Figma o Miro per leggerne i dati. L’admin lo abilita, poi ognuno lo collega.</p></div>
-    <div class="panel"><span class="label">Plugin</span><p>Un pacchetto di Skill, comandi e connettori, installato in un colpo solo. In Claude Code: <code>/plugin</code>.</p></div>
+    <ol class="steps">
+      <li><div><h3>Brief</h3><p>Pubblico, obiettivo, sezioni, vincoli.</p></div></li>
+      <li><div><h3>Tre strutture, senza stile</h3><p>Ne scegli una.</p></div></li>
+      <li><div><h3>Revisioni singole</h3><p>Una per messaggio, con il perché.</p></div></li>
+      <li><div><h3>Export</h3><p>PDF, PPTX, HTML, Canva o Claude Code.</p></div></li>
+    </ol>
+    <pre><code>Crea la landing per il nostro audit
+di usabilità. Pubblico: responsabili
+marketing di e-commerce medi.
+Obiettivo: prenotare la call gratuita.
+Sezioni: promessa e invito; tre
+benefici; un caso studio; come
+funziona; domande frequenti.
+Vincoli: mobile first, un solo
+pulsante, nessun numero inventato.
+Prima proponi tre strutture,
+senza stile.</code></pre>
   </div>
-  <p class="note">Plugin e Skill scaricati possono eseguire comandi. Installa solo da fonti affidabili e leggi cosa contengono.</p>
 </section>
 
-<section class="slide" data-part="Gli strumenti" data-title="Ogni ruolo">
-  <p class="eyebrow">Nel tuo lavoro</p>
+<!-- 27 -->
+<section class="slide" data-part="E · Gli strumenti" data-title="Claude Code">
+  <p class="eyebrow">E · Gli strumenti · Dal visual al prodotto</p>
+  <h2>Claude Code: il ciclo consigliato da Anthropic</h2>
+  <div class="dia-wrap"><svg class="diagram" viewBox="0 0 920 190" role="img" aria-label="Ciclo di Claude Code: Esplora, Pianifica, Implementa e verifica, Commit, poi si riparte dal compito successivo.">
+    <g>
+      <rect class="node" x="0" y="20" width="200" height="80" rx="14"/><text class="t" x="20" y="54">Esplora</text><text class="s" x="20" y="80">Legge, non modifica</text>
+      <rect class="node accent" x="240" y="20" width="200" height="80" rx="14"/><text class="t" x="260" y="54">Pianifica</text><text class="s" x="260" y="80">Plan mode, tu approvi</text>
+      <rect class="node" x="480" y="20" width="200" height="80" rx="14"/><text class="t" x="500" y="54">Implementa</text><text class="s" x="500" y="80">E verifica con i test</text>
+      <rect class="node" x="720" y="20" width="200" height="80" rx="14"/><text class="t" x="740" y="54">Commit</text><text class="s" x="740" y="80">Salva con descrizione</text>
+      <line class="ln" x1="202" y1="60" x2="234" y2="60" marker-end="url(#arr)"/>
+      <line class="ln" x1="442" y1="60" x2="474" y2="60" marker-end="url(#arr)"/>
+      <line class="ln" x1="682" y1="60" x2="714" y2="60" marker-end="url(#arr)"/>
+      <path class="ln accent-ln" d="M820,104 C820,170 100,170 100,108" marker-end="url(#arr)"/>
+      <text class="s" x="330" y="182">compito successivo: prima /clear</text>
+    </g>
+  </svg></div>
+  <div class="cols">
+    <div class="panel"><span class="label">CLAUDE.md</span><p>Le regole del progetto, lette a ogni sessione.</p></div>
+    <div class="panel"><span class="label">Prompt del caso</span><p>“Trasforma il prototipo nella pagina servizi/audit.html. Solo i colori di design/tokens.json. Mostrami il piano prima.”</p></div>
+  </div>
+</section>
+
+<!-- 28 -->
+<section class="slide" data-part="E · Gli strumenti" data-title="Cowork">
+  <p class="eyebrow">E · Gli strumenti</p>
+  <h2>Cowork, e quale modalità scegliere</h2>
+  <p class="lead">Cowork è una modalità dell’app desktop: Claude esegue compiti in più passaggi sui file del tuo computer, senza programmare.</p>
+  <div class="tw"><table>
+    <tr><th></th><th>Chat</th><th>Cowork</th><th>Claude Code</th></tr>
+    <tr><td><b>Ideale per</b></td><td>Domande, testi, analisi</td><td>Documenti e cartelle</td><td>Codice, siti, file con versioni</td></tr>
+    <tr><td><b>Chi lavora</b></td><td>Tu chiedi, lui risponde</td><td>Lui esegue i passaggi</td><td>Lui esegue i passaggi</td></tr>
+    <tr><td><b>Esempio</b></td><td>Un post</td><td>Un report da 20 file</td><td>Una pagina web</td></tr>
+  </table></div>
+</section>
+
+<!-- 29 -->
+<section class="slide" data-part="F · Pratica" data-title="Per ruolo">
+  <p class="eyebrow">F · Pratica</p>
   <h2>Da dove partire, per ruolo</h2>
   <div class="cols">
-    <div class="panel">
-      <span class="label">Marketing</span>
-      <ul class="plain-list">
-        <li>Piani editoriali e post</li>
-        <li>Varianti di titoli e annunci</li>
-        <li>Report da CSV o Excel</li>
-      </ul>
-    </div>
-    <div class="panel">
-      <span class="label">Design</span>
-      <ul class="plain-list">
-        <li>Sintesi di interviste</li>
-        <li>Analisi euristica da screenshot</li>
-        <li>Prototipi in Claude Design</li>
-      </ul>
-    </div>
-    <div class="panel">
-      <span class="label">Sviluppo</span>
-      <ul class="plain-list">
-        <li>Capire un progetto nuovo</li>
-        <li>Bug corretti partendo da un test</li>
-        <li>Componenti dai token</li>
-      </ul>
-    </div>
+    <div class="panel"><span class="label">Marketing</span><ul class="plain-list"><li>Piani editoriali e post</li><li>Ricerca competitor con fonti</li><li>Titoli con few-shot</li><li>Report da CSV o Excel</li></ul></div>
+    <div class="panel"><span class="label">Design</span><ul class="plain-list"><li>Sintesi di interviste</li><li>Analisi euristica da screenshot</li><li>Microcopy ed errori</li><li>Prototipi in Claude Design</li></ul></div>
+    <div class="panel"><span class="label">Sviluppo</span><ul class="plain-list"><li>Capire un progetto nuovo</li><li>Bug corretti da un test</li><li>Code review con le regole</li><li>Componenti dai token</li></ul></div>
   </div>
 </section>
 
-<section class="slide" data-part="Pratica" data-title="Esercizi">
-  <p class="eyebrow">Pratica</p>
-  <h2>Tre esercizi, poi il workshop</h2>
-  <ol class="steps big">
+<!-- 30 -->
+<section class="slide" data-part="F · Pratica" data-title="Esercizi">
+  <p class="eyebrow">F · Pratica</p>
+  <h2>Quattro esercizi, poi il workshop</h2>
+  <ol class="steps big two-col">
     <li><div><h3>Il prompt</h3><p>Riscrivi un tuo prompt con il BRIEF e fai il test del collega.</p></div></li>
-    <li><div><h3>Il ciclo</h3><p>Valuta il risultato e fai due iterazioni con cosa + perché + come.</p></div></li>
+    <li><div><h3>Il ciclo</h3><p>Valuta su tre piani e fai due iterazioni.</p></div></li>
+    <li><div><h3>La catena</h3><p>Dividi un tuo lavoro in tre o quattro prompt collegati.</p></div></li>
     <li><div><h3>Il metodo</h3><p>Trasforma il prompt in una Skill e testala con tre casi.</p></div></li>
   </ol>
   <p class="note"><b>Workshop a coppie miste:</b> rifate il caso su un vostro servizio, dalla delega alla Skill. Tre minuti per presentarlo.</p>
 </section>
 
-<section class="slide" data-part="Pratica" data-title="Per continuare">
-  <p class="eyebrow">Per continuare</p>
+<!-- 31 -->
+<section class="slide" data-part="F · Pratica" data-title="Le fonti del corso">
+  <p class="eyebrow">F · Da dove viene il corso</p>
+  <h2>Otto corsi e guide, un solo metodo</h2>
+  <div class="tw"><table class="compact">
+    <tr><th>Fonte</th><th>Cosa abbiamo preso</th></tr>
+    <tr><td><b>AI Fluency</b> · Anthropic Academy</td><td>Flusso in 4 passi, valutazione su tre piani, trasparenza</td></tr>
+    <tr><td><b>Claude 101</b> · Anthropic Academy</td><td>Project, Artifact, Skill, connettori, ricerca, ruoli</td></tr>
+    <tr><td><b>Guida ai prompt</b> · Anthropic</td><td>Test del collega, tag, esempi, ragionamento</td></tr>
+    <tr><td><b>Tutorial interattivo</b> · Anthropic</td><td>Ruolo, formato, catene, ridurre le invenzioni</td></tr>
+    <tr><td><b>Buone pratiche di Claude Code</b></td><td>Esplora, pianifica, implementa, commit</td></tr>
+    <tr><td><b>Prompting Essentials</b> · Google</td><td>TCREI, quattro modi di iterare, meta-prompting, ruoli</td></tr>
+    <tr><td><b>Claude 101</b> · DataCamp</td><td>Scegliere la modalità, ricerca e connettori</td></tr>
+    <tr><td><b>Fondamenti di Claude</b> · Coursera</td><td>Zero-shot e few-shot, formati strutturati</td></tr>
+  </table></div>
+</section>
+
+<!-- 32 -->
+<section class="slide" data-part="F · Pratica" data-title="Per continuare">
+  <p class="eyebrow">F · Per continuare</p>
   <h2>I corsi gratuiti di Anthropic Academy</h2>
   <div class="tw"><table>
     <tr><th>Corso</th><th>Per chi</th></tr>
-    <tr><td><b>Claude 101</b> · <b>AI Fluency</b></td><td>Tutti: basi del prodotto e modello 4D</td></tr>
+    <tr><td><b>Claude 101</b> · <b>AI Fluency</b></td><td>Tutti</td></tr>
     <tr><td><b>Claude Code 101</b> · <b>Claude Code in Action</b></td><td>Chi lavora con file e codice</td></tr>
     <tr><td><b>Introduction to agent skills</b> · <b>subagents</b></td><td>Chi crea Skill e automazioni</td></tr>
   </table></div>
   <p class="note">Per il prompt: il tutorial interattivo di Anthropic su GitHub e Google Prompting Essentials. Tutti in inglese.</p>
 </section>
 
-<section class="slide" data-part="Pratica" data-title="Prima del corso">
+<!-- 33 -->
+<section class="slide" data-part="F · Pratica" data-title="Prima del corso">
   <p class="eyebrow">Prima del corso</p>
   <h2>Da verificare nel vostro account</h2>
   <ul class="check">
     <li>Voci Projects, Skills e Connectors nel menu</li>
     <li>Accesso a Claude Design e opzioni di export</li>
+    <li>Cowork e plugin nel piano Team</li>
     <li>Connettori Drive, Figma e Miro abilitati dall’admin</li>
     <li>Scorciatoia del plan mode in Claude Code</li>
-    <li>Disponibilità dei plugin nel piano Team</li>
   </ul>
-  <p class="note">Fonti: Anthropic Academy (AI Fluency, Claude 101), guide ufficiali di Anthropic per prompt e Claude Code, tutorial interattivo di prompt engineering, Google Prompting Essentials. Elenco completo nella dispensa <code>corso-strutturato.md</code>.</p>
+  <p class="note">Dispensa completa con fonti e link: <code>course/corso-strutturato.md</code>.</p>
 </section>
 
   </main>
