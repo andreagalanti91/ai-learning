@@ -548,3 +548,109 @@ Per i compiti sui file del computer (cartelle di progetto, documenti da tanti fi
 - https://www.w3.org/TR/WCAG22/
 
 Nota: queste slide sono state preparate con ricerche rapide, in prevalenza su fonti di terze parti. Le affermazioni non confermate sono marcate ⚠ nelle slide.
+
+---
+
+## Approfondimenti 2.0 (slide aggiunte)
+
+Il corso avanzato ora ha 88 slide, con copertine per capitolo: Fondamenta, Design, Sviluppo, Marketing, Project management, Insieme.
+
+### Design
+- Figma MCP: leggere e scrivere
+- Figma: metodo ripetibile
+- Design system: variabili e audit
+- Naming, documentazione, Code Connect
+- Adobe: cosa orchestra
+- Adobe: workflow e limiti
+- Logo: dai concept al vettore
+- Produzione asset
+- Stampa e collateral
+- Ricerca competitor
+- Moodboard
+- Varianti in scala
+
+### Sviluppo: WordPress, SaaS, server MCP
+- Blocchi e theme.json
+- Plugin sicuri
+- WordPress via MCP
+- Da spec a scaffold
+- Stack SaaS
+- Review multi-tenant
+- Cos’è MCP
+- Server MCP utili
+- Il tuo server MCP
+
+### Marketing e Project management
+- Content operating system
+- Repurposing
+- Brand voice e approvazioni
+- Report da export
+- Skill pack di marketing
+- Ciclo di vita del progetto
+- Proposte e preventivi
+- Update settimanale dai connettori
+- Capacità e risorse
+- Retrospettiva e memoria
+
+### Fonti
+- http://localhost:8888
+- https://api.githubcopilot.com/mcp/
+- https://blog.adobe.com/en/publish/2026/04/28/adobe-for-creativity-connector
+- https://blog.adobe.com/en/publish/2026/09/24/adobe-comes-to-gemini-expands-what-you-can-do-in-claude
+- https://business.adobe.com/products/firefly-business/firefly-ai-approach.html
+- https://claude.com/blog/memory
+- https://claude.com/connectors
+- https://claude.com/connectors/figma
+- https://claude.com/connectors/slack
+- https://code.claude.com/docs/en/common-workflows
+- https://code.claude.com/docs/en/mcp
+- https://code.claude.com/docs/en/security
+- https://code.claude.com/docs/en/sub-agents
+- https://developer.adobe.com/adobe-for-creativity/support/
+- https://developers.figma.com/docs/figma-mcp-server/
+- https://developers.figma.com/docs/figma-mcp-server/rate-limits-access/
+- https://github.com/WordPress/mcp-adapter
+- https://github.com/anthropics/knowledge-work-plugins/tree/main/marketing
+- https://help.figma.com/hc/en-us/articles/39166810751895-Figma-skills-for-MCP
+- https://help.figma.com/hc/en-us/articles/39252411778583-Figma-MCP-server-FAQs
+- https://helpx.adobe.com/creative-cloud/apps/integration-with-other-apps/adobe-connectors/adobe-for-claude.html
+- https://helpx.adobe.com/firefly/web/create-mood-boards/firefly-boards/about-firefly-boards.html
+- https://helpx.adobe.com/stock/ai-studio-credits-and-commercial-use.html
+- https://mcp.figma.com/mcp
+- https://mcp.sentry.dev/mcp
+- https://mcp.stripe.com
+- https://mcp.supabase.com/mcp?project_ref=REF&amp;read_only=true
+- https://mcp.vercel.com
+- https://packagist.org/packages/wordpress/mcp-adapter
+- https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices
+- https://raw.githubusercontent.com/WordPress/gutenberg/trunk/docs/getting-started/devenv/get-started-with-create-block.md
+- https://raw.githubusercontent.com/WordPress/gutenberg/trunk/docs/how-to-guides/themes/global-settings-and-styles.md
+- https://raw.githubusercontent.com/WordPress/gutenberg/trunk/packages/env/README.md
+- https://raw.githubusercontent.com/WordPress/mcp-adapter/trunk/docs/getting-started/README.md
+- https://raw.githubusercontent.com/WordPress/mcp-adapter/trunk/docs/guides/cli-usage.md
+- https://raw.githubusercontent.com/WordPress/wordpress-develop/trunk/src/wp-includes/abilities-api.php
+- https://raw.githubusercontent.com/WordPress/wordpress-develop/trunk/src/wp-includes/capabilities.php
+- https://raw.githubusercontent.com/WordPress/wordpress-develop/trunk/src/wp-includes/class-wpdb.php
+- https://raw.githubusercontent.com/WordPress/wordpress-develop/trunk/src/wp-includes/formatting.php
+- https://raw.githubusercontent.com/WordPress/wordpress-develop/trunk/src/wp-includes/functions.php
+- https://raw.githubusercontent.com/WordPress/wordpress-develop/trunk/src/wp-includes/kses.php
+- https://raw.githubusercontent.com/WordPress/wordpress-develop/trunk/src/wp-includes/pluggable.php
+- https://raw.githubusercontent.com/figma/mcp-server-guide/main/README.md
+- https://raw.githubusercontent.com/microsoft/playwright-mcp/main/README.md
+- https://raw.githubusercontent.com/modelcontextprotocol/typescript-sdk/main/README.md
+- https://raw.githubusercontent.com/supabase-community/supabase-mcp/main/README.md
+- https://raw.githubusercontent.com/wp-cli/scaffold-command/main/README.md
+- https://raw.githubusercontent.com/wp-cli/search-replace-command/main/README.md
+- https://support.claude.com/en/articles/10166901-use-google-workspace-connectors
+- https://support.claude.com/en/articles/10167454-using-the-github-integration
+- https://support.claude.com/en/articles/12111783
+- https://support.claude.com/en/articles/12512176
+- https://support.claude.com/en/articles/13854387-schedule-recurring-tasks-in-claude-cowork
+- https://support.claude.com/en/articles/14604416-get-started-with-claude-design
+- https://support.claude.com/en/articles/9517075-what-are-projects
+- https://www.adobe.com/express/learn/blog/adobe-creativity-connector
+- https://www.adobe.com/products/firefly/features/moodboard.html
+- https://www.anthropic.com/news/claude-design-anthropic-labs
+- https://www.figma.com/blog/the-figma-canvas-is-now-open-to-agents/
+
+Nota: alcuni domini ufficiali (Figma, Adobe, WordPress, MCP) erano bloccati dalla rete dell'ambiente; i fatti sono stati verificati su repository GitHub ufficiali o estratti di ricerca, e le affermazioni non confermate sono marcate ⚠ nelle slide. Da verificare: un estratto della guida admin di Anthropic indica che Claude Design come servizio autonomo potrebbe chiudere e che le presentazioni passerebbero a Claude Slides.
