@@ -2,24 +2,317 @@
 <html lang="it">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Corso Claude</title>
+<meta name="description" content="UX Boutique: materiali del Corso Claude, base e avanzato.">
 <style>
-:root{--bg:#000;--ink:#FFF;--muted:#9B9BA1;--line:rgba(255,255,255,.16);--accent:#FFF;color-scheme:dark}
-body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.5 -apple-system,BlinkMacSystemFont,system-ui,"Segoe UI",Roboto,sans-serif;padding:clamp(40px,10vh,120px) max(20px,calc((100% - 760px)/2))}
-h1{font-size:clamp(2.5rem,7vw,4rem);letter-spacing:-.03em;line-height:1.05;margin:0 0 12px}
-p{color:var(--muted);margin:0 0 40px}
-a{display:block;border-top:1px solid var(--line);padding:22px 0;color:var(--ink);text-decoration:none}
-a b{display:block;font-size:1.375rem;letter-spacing:-.015em}
-a span{color:var(--muted)}
-a:hover b{text-decoration:underline;text-underline-offset:4px}
+/* Layout: UX Boutique presenter deck. Black ground, white type, hairlines; chapter covers mark each change of subject. */
+:root{
+  --bg:#000000;
+  --surface:#0D0D0F;
+  --ink:#FFFFFF;
+  --muted:#9B9BA1;
+  --line:rgba(255,255,255,.16);
+  --accent:#FFFFFF;
+  --accent-soft:rgba(255,255,255,.08);
+  --warn:#FFC857;
+  --warn-soft:rgba(255,200,87,.12);
+  --code-bg:#121214;
+  --on-accent:#000000;
+  --chrome:rgba(0,0,0,.72);
+  --chrome-solid:#000000;
+  --shadow:none;
+  --font:-apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display:-apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono:ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+  --ease-out:cubic-bezier(0.23, 1, 0.32, 1);
+  --bar-h:56px;
+  --nav-h:68px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+html{-webkit-tap-highlight-color:transparent; -webkit-text-size-adjust:100%; text-size-adjust:100%}
+body{
+  margin:0; overflow:hidden; background:var(--bg); color:var(--ink);
+  font:400 1.0625rem/1.55 var(--font); letter-spacing:-0.003em;
+  -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+}
+
+/* Shell */
+.deck{position:relative; height:100%; overflow:hidden}
+.stage{position:absolute; inset:0; overflow:hidden}
+.slide{
+  position:absolute; inset:0; display:none; flex-direction:column; gap:1.375rem;
+  overflow-y:auto; overflow-x:hidden; overscroll-behavior:contain; touch-action:pan-y;
+  background:var(--bg);
+  padding-top:calc(var(--bar-h) + clamp(20px, 4vw, 48px));
+  padding-bottom:calc(var(--nav-h) + 32px);
+  padding-left:max(16px, env(safe-area-inset-left, 0px), calc((100% - 1120px) / 2));
+  padding-right:max(16px, env(safe-area-inset-right, 0px), calc((100% - 1120px) / 2));
+}
+.slide.active, .slide.peek{display:flex}
+.slide > *{flex-shrink:0; min-width:0}
+.stage.dragging .slide{will-change:transform}
+
+/* Translucent chrome */
+.chrome{
+  position:absolute; left:0; right:0; z-index:5;
+  background:var(--chrome);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);
+  backdrop-filter:saturate(180%) blur(20px);
+  transition:box-shadow 200ms ease;
+}
+.chrome.top{top:0}
+.chrome.bottom{bottom:0}
+.chrome.top.edge{box-shadow:0 1px 0 var(--line)}
+.chrome.bottom.edge{box-shadow:0 -1px 0 var(--line)}
+.chrome-inner{
+  display:flex; align-items:center; gap:12px; max-width:1120px; margin-inline:auto;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+}
+.top .chrome-inner{height:calc(var(--bar-h) - 2px)}
+.bottom .chrome-inner{height:var(--nav-h); justify-content:space-between}
+.part{font:600 .8125rem/1.2 var(--font); letter-spacing:.01em; color:var(--muted); flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.progress{height:2px; overflow:hidden}
+.progress span{display:block; height:100%; width:100%; background:var(--accent); transform:scaleX(0); transform-origin:left center}
+
+.select{position:relative; display:inline-flex; max-width:min(56vw, 360px)}
+.select::after{content:""; position:absolute; right:15px; top:50%; width:7px; height:7px; border-right:2px solid var(--accent); border-bottom:2px solid var(--accent); transform:translateY(-70%) rotate(45deg); pointer-events:none}
+.select select{
+  -webkit-appearance:none; appearance:none; width:100%; min-width:0;
+  font:500 1rem/1.2 var(--font); color:var(--accent); background:var(--accent-soft);
+  border:0; border-radius:980px; padding:8px 36px 8px 15px; cursor:pointer;
+  text-overflow:ellipsis; white-space:nowrap; overflow:hidden;
+}
+
+/* Type: tracking tightens as size grows, leading loosens as size shrinks */
+p{margin:0}
+h1,h2,h3{margin:0; text-wrap:balance}
+h1{font-family:var(--font-display); font-size:clamp(2.5rem, 6vw, 4.5rem); line-height:1.04; letter-spacing:-0.03em; font-weight:700; max-width:16ch}
+h2{font-family:var(--font-display); font-size:clamp(1.875rem, 3.8vw, 2.75rem); line-height:1.08; letter-spacing:-0.022em; font-weight:700}
+h3{font-size:1.0625rem; line-height:1.3; letter-spacing:-0.01em; font-weight:600}
+.eyebrow{font:600 .9375rem/1.3 var(--font); letter-spacing:-0.005em; color:var(--accent); margin:0}
+.lead{font-size:clamp(1.125rem, 2vw, 1.375rem); line-height:1.45; letter-spacing:-0.012em; color:var(--muted); max-width:60ch}
+.goal{color:var(--muted); max-width:72ch}
+.goal b{color:var(--ink); font-weight:600}
+.label{font:600 .75rem/1.2 var(--font); letter-spacing:.03em; text-transform:uppercase; color:var(--muted)}
+.muted{color:var(--muted)}
+a{color:var(--accent)}
+
+/* Groups */
+.cols{display:grid; gap:16px; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr))}
+.cols > *{min-width:0}
+.flow{display:grid; gap:16px; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); align-items:stretch}
+.panel{background:var(--surface); border-radius:18px; padding:20px 22px; box-shadow:var(--shadow); display:flex; flex-direction:column; gap:10px}
+.panel ul, .panel ol, .plain{margin:0; padding-left:20px}
+.panel li, .plain li{margin-block:4px}
+.note{border-left:3px solid var(--accent); padding:2px 0 2px 14px; color:var(--muted); max-width:78ch}
+
+ol.steps{list-style:none; counter-reset:step; margin:0; padding:0; display:grid; gap:14px}
+ol.steps > li{counter-increment:step; display:grid; grid-template-columns:32px 1fr; gap:12px; align-items:start}
+ol.steps > li::before{content:counter(step); font:600 .8125rem/1 var(--font); font-variant-numeric:tabular-nums; width:28px; height:28px; border-radius:50%; display:grid; place-items:center; background:var(--accent-soft); color:var(--accent)}
+ol.steps > li > div{min-width:0; display:flex; flex-direction:column; gap:4px}
+ol.steps.start5{counter-reset:step 4}
+
+ul.check{list-style:none; margin:0; padding:0; display:grid; gap:9px}
+ul.check li{display:grid; grid-template-columns:24px 1fr; gap:10px; align-items:start}
+ul.check li::before{content:""; width:18px; height:18px; margin-top:3px; border:1.5px solid var(--muted); border-radius:6px}
+
+.tw{overflow-x:auto; background:var(--surface); border-radius:18px; box-shadow:var(--shadow)}
+table{border-collapse:collapse; width:100%; font-size:.96875rem}
+th,td{text-align:left; vertical-align:top; padding:11px 16px; border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:none}
+th{font:600 .75rem/1.3 var(--font); letter-spacing:.03em; text-transform:uppercase; color:var(--muted)}
+td b{font-weight:600}
+
+pre{margin:0; background:var(--code-bg); border-radius:14px; padding:14px 16px; overflow-x:auto; font:400 .8125rem/1.6 var(--font-mono); white-space:pre}
+code{font-family:var(--font-mono); font-size:.88em; background:var(--code-bg); padding:1px 6px; border-radius:6px}
+pre code{background:none; padding:0; font-size:inherit}
+.v{display:inline-block; font:600 .75rem/1.4 var(--font); color:var(--warn); background:var(--warn-soft); border-radius:6px; padding:1px 7px; white-space:nowrap; vertical-align:1px}
+
+.meta{display:grid; gap:14px 28px; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); margin:0}
+.meta div{display:flex; flex-direction:column; gap:3px; border-top:1px solid var(--line); padding-top:12px}
+.meta dt{font:600 .75rem/1.2 var(--font); letter-spacing:.03em; text-transform:uppercase; color:var(--muted)}
+.meta dd{margin:0; font-weight:600; letter-spacing:-0.01em}
+
+.slide.divider{justify-content:safe center}
+.divider .letter{font-family:var(--font-display); font-size:clamp(5rem, 14vw, 10rem); line-height:.9; letter-spacing:-0.05em; font-weight:700; color:var(--accent)}
+.divider ul{list-style:none; margin:0; padding:0; display:grid; gap:8px; font-size:1.125rem; color:var(--muted); letter-spacing:-0.01em}
+.divider ul b{color:var(--ink); font-weight:600; font-variant-numeric:tabular-nums; margin-right:10px}
+
+.inbreve{background:var(--accent-soft); color:var(--ink); border-radius:18px; padding:16px 20px; font-size:1.0625rem; line-height:1.5; max-width:80ch}
+.inbreve b{color:var(--accent)}
+
+/* Controls: feedback on press, hover only for fine pointers */
+.btn{
+  font:600 .9375rem/1 var(--font); letter-spacing:-0.01em; padding:12px 18px; border-radius:980px; border:0;
+  background:var(--accent-soft); color:var(--accent); cursor:pointer;
+  touch-action:manipulation; user-select:none; -webkit-user-select:none;
+  transition:transform 100ms ease-out, filter 150ms ease;
+}
+.btn.primary{background:var(--accent); color:var(--on-accent)}
+.btn:not(:disabled):active{transform:scale(0.97)}
+.btn:disabled{opacity:.35; cursor:default}
+@media (hover: hover) and (pointer: fine){
+  .btn:not(:disabled):hover{filter:brightness(1.06)}
+  .select select:hover{filter:brightness(0.98)}
+}
+.count-wrap{text-align:center}
+.count{font:600 .8125rem/1.3 var(--font); font-variant-numeric:tabular-nums; color:var(--ink)}
+.hint{font-size:.75rem; color:var(--muted)}
+button:focus-visible, select:focus-visible, a:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+
+/* Cover entrance: first load only, never during navigation */
+@keyframes rise{from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none}}
+.slide.intro > *{animation:rise 360ms var(--ease-out) both}
+.slide.intro > :nth-child(2){animation-delay:50ms}
+.slide.intro > :nth-child(3){animation-delay:100ms}
+.slide.intro > :nth-child(4){animation-delay:150ms}
+
+@media (max-width:640px){
+  :root{--bar-h:52px; --nav-h:64px}
+  body{font-size:1rem}
+  .hint{display:none}
+  .btn{padding:11px 14px}
+}
+@media (prefers-reduced-motion: reduce){
+  @keyframes fade{from{opacity:0} to{opacity:1}}
+  .slide.intro > *{animation:fade 200ms ease both; animation-delay:0ms}
+  .btn:not(:disabled):active{transform:none}
+}
+@media (prefers-reduced-transparency: reduce){
+  .chrome{background:var(--chrome-solid); -webkit-backdrop-filter:none; backdrop-filter:none}
+}
+@media (prefers-contrast: more){
+  .chrome{background:var(--chrome-solid); -webkit-backdrop-filter:none; backdrop-filter:none}
+  .chrome.top{box-shadow:0 1px 0 var(--ink)}
+  .chrome.bottom{box-shadow:0 -1px 0 var(--ink)}
+  .panel, .tw{box-shadow:none; border:1px solid var(--ink)}
+  .muted, .goal, .lead, .note, .part, .hint{color:var(--ink)}
+}
+
+/* ---- Clean layer (v3): fewer boxes, more air, one idea per slide ---- */
+.slide{gap:1.75rem;
+  padding-top:calc(var(--bar-h) + clamp(28px, 6vh, 72px));
+  padding-left:max(20px, env(safe-area-inset-left, 0px), calc((100% - 1000px) / 2));
+  padding-right:max(20px, env(safe-area-inset-right, 0px), calc((100% - 1000px) / 2));
+  justify-content:safe center}
+h2{font-size:clamp(2rem, 4.2vw, 3.1rem); max-width:22ch}
+.lead{max-width:52ch}
+.panel{background:none; box-shadow:none; border-radius:0; padding:16px 0 0; border-top:1px solid var(--line); gap:8px}
+.cols{gap:28px}
+.tw{background:none; box-shadow:none; border-radius:0; border-top:1px solid var(--line)}
+th,td{padding:14px 20px 14px 0}
+th{padding-top:12px}
+.note{border-left:0; padding:0; font-size:.9375rem}
+.statement{font-family:var(--font-display); font-size:clamp(1.75rem, 3.6vw, 2.75rem); line-height:1.15; letter-spacing:-0.022em; font-weight:700; max-width:24ch; margin:0; text-wrap:balance}
+.quote{font-size:1.25rem; line-height:1.4; letter-spacing:-0.01em}
+.plain-list{list-style:none; margin:0; padding:0; display:grid; gap:10px}
+ol.steps.big{gap:22px}
+ol.steps.big > li{grid-template-columns:44px 1fr; gap:16px}
+ol.steps.big > li::before{width:36px; height:36px; font-size:.9375rem}
+ol.steps.big h3{font-size:1.25rem}
+ul.check.big{gap:16px; font-size:1.25rem; letter-spacing:-0.01em}
+ul.check.big li::before{margin-top:6px}
+.brief-table td{font-size:1.125rem; vertical-align:middle; padding-top:9px; padding-bottom:9px}
+.letter-cell{font-family:var(--font-display); font-size:2rem !important; font-weight:700; color:var(--accent); width:56px}
+pre{font-size:.8125rem; line-height:1.65; padding:18px 20px}
+
+/* ---- v4: diagrams, index, example card ---- */
+.dia-wrap{overflow-x:auto; margin-inline:-4px; padding:4px}
+.diagram{display:block; width:100%; max-width:920px; height:auto; min-width:640px; overflow:visible}
+.diagram text{font-family:var(--font)}
+.diagram .node{fill:var(--surface); stroke:var(--line); stroke-width:1.5}
+.diagram .node.accent{fill:var(--accent-soft); stroke:var(--accent)}
+.diagram .t{fill:var(--ink); font-size:20px; font-weight:600; letter-spacing:-0.01em}
+.diagram .s{fill:var(--muted); font-size:15px}
+.diagram .n{fill:var(--accent); font-size:15px; font-weight:700}
+.diagram .ln{stroke:var(--muted); stroke-width:1.75; fill:none}
+.diagram .accent-ln{stroke:var(--accent); stroke-dasharray:5 5}
+.ac{fill:var(--muted)}
+.diagram .badge{fill:var(--accent)}
+.diagram .bl{fill:var(--on-accent); font-size:22px; font-weight:700; text-anchor:middle}
+.diagram .tagbox{fill:var(--code-bg)}
+.diagram .mono{font-family:var(--font-mono); font-size:16px; fill:var(--ink)}
+.index{display:grid; grid-template-columns:repeat(auto-fit, minmax(270px, 1fr)); gap:22px 36px}
+.index > div{display:flex; flex-direction:column; gap:6px; border-top:1px solid var(--line); padding-top:14px}
+.index .label{margin-bottom:4px; color:var(--accent)}
+.index a{color:var(--ink); text-decoration:none; font-size:1rem; line-height:1.35}
+@media (hover: hover) and (pointer: fine){ .index a:hover{color:var(--accent)} }
+.cols.four{grid-template-columns:repeat(auto-fit, minmax(190px, 1fr))}
+.cols.wide-left{grid-template-columns:minmax(0, 1.35fr) minmax(0, 1fr); align-items:start}
+@media (max-width:760px){ .cols.wide-left{grid-template-columns:1fr} }
+ol.steps.two-col{grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); column-gap:36px}
+table.compact th, table.compact td{padding-top:9px; padding-bottom:9px}
+.panel .plain-list{padding-left:0}
+.postcard{margin:0; background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:20px 22px; display:flex; flex-direction:column; gap:10px; box-shadow:var(--shadow)}
+.post-head{display:flex; gap:12px; align-items:center}
+.post-head div{display:flex; flex-direction:column; line-height:1.3}
+.post-head .muted{font-size:.8125rem}
+.avatar{flex:none; width:40px; height:40px; border-radius:50%; background:var(--accent); color:var(--on-accent); display:grid; place-items:center; font-weight:700; font-size:.875rem}
+.accent-text{color:var(--accent); font-weight:600}
+.post-check{background:var(--warn-soft); border-radius:10px; padding:10px 12px; font-size:.875rem; display:flex; flex-direction:column; gap:2px}
+.post-check b{color:var(--warn)}
+
+/* ---- UX Boutique brand layer ---- */
+.eyebrow{font:600 .75rem/1.3 var(--font); letter-spacing:.14em; text-transform:uppercase; color:var(--muted)}
+.label{color:var(--muted)}
+.index .label{color:var(--ink)}
+.select select{background:transparent; color:var(--ink); box-shadow:inset 0 0 0 1px var(--line)}
+.select::after{border-color:var(--ink)}
+.btn{background:transparent; color:var(--ink); box-shadow:inset 0 0 0 1px var(--line)}
+.btn.primary{background:var(--ink); color:var(--on-accent); box-shadow:none}
+ol.steps > li::before{background:transparent; color:var(--ink); box-shadow:inset 0 0 0 1px var(--line)}
+.diagram .node.accent{stroke:var(--ink)}
+.diagram .badge{fill:var(--ink)}
+.inbreve{background:var(--surface); box-shadow:inset 0 0 0 1px var(--line)}
+.postcard{background:var(--surface)}
+a{color:var(--ink); text-decoration-color:var(--line); text-underline-offset:3px}
+/* Brand mark: a typographic placeholder. Replace the content of .brand-mark with the official SVG logo. */
+.brand-mark{font:800 1.125rem/1 var(--font-display); letter-spacing:-0.02em; color:var(--ink); display:inline-flex; align-items:center; gap:10px}
+.brand-mark::before{content:""; width:12px; height:12px; background:var(--ink); border-radius:2px}
+.brand-chip{font:800 .8125rem/1 var(--font-display); letter-spacing:-0.01em; color:var(--ink); white-space:nowrap}
+.brand-chip + .part::before{content:"/"; color:var(--line); margin:0 10px}
+/* Covers */
+.slide.cover, .slide.chapter{justify-content:space-between}
+.slide.cover h1{font-size:clamp(3rem, 8vw, 6.5rem); line-height:.98; letter-spacing:-0.045em; max-width:12ch}
+.cover-body{display:flex; flex-direction:column; gap:22px}
+.cover-foot{display:flex; justify-content:space-between; gap:16px; border-top:1px solid var(--line); padding-top:16px; font-size:.875rem; color:var(--muted)}
+.chapter-num{font:700 clamp(4rem, 12vw, 9rem)/.85 var(--font-display); letter-spacing:-0.06em; color:transparent; -webkit-text-stroke:1.5px var(--ink)}
+.slide.chapter h1{font-size:clamp(3rem, 7vw, 5.5rem); line-height:1; letter-spacing:-0.04em; max-width:14ch}
+.chapter-list{list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:8px}
+.chapter-list li{font-size:.875rem; color:var(--muted); box-shadow:inset 0 0 0 1px var(--line); border-radius:980px; padding:6px 12px}
+.index.chapters{grid-template-columns:repeat(auto-fit, minmax(300px, 1fr))}
+.index.chapters a.ch{font:700 1.25rem/1.2 var(--font-display); letter-spacing:-0.015em; text-decoration:none}
+.index.chapters .sub{font-size:.875rem; color:var(--muted); line-height:1.45}
+.index.chapters .num{font:600 .75rem/1 var(--font); letter-spacing:.14em; color:var(--muted)}
+@media (prefers-contrast: more){ .chapter-num{color:var(--ink); -webkit-text-stroke:0} }
+</style>
+<style>
+body{overflow:auto}
+.hub{min-height:100%; display:flex; flex-direction:column; justify-content:space-between; gap:48px; max-width:1120px; margin-inline:auto;
+  padding-block:clamp(28px, 6vh, 72px);
+  padding-left:max(20px, env(safe-area-inset-left, 0px)); padding-right:max(20px, env(safe-area-inset-right, 0px))}
+.hub .cover-body{gap:22px}
+.hub h1{font-size:clamp(3rem, 8vw, 6.5rem); line-height:.98; letter-spacing:-0.045em}
+.hub .index.chapters a.ch{font-size:1.5rem}
 </style>
 </head>
 <body>
-<p style="font-weight:800;color:var(--ink);margin:0 0 48px;display:flex;align-items:center;gap:10px"><span style="width:12px;height:12px;background:var(--ink);border-radius:2px;display:inline-block"></span>UX Boutique</p>
-<h1>Corso Claude</h1>
-<p>UX Boutique · materiali del corso</p>
-<a href="course/corso-strutturato.html"><b>Corso base →</b><span>Il flusso di lavoro, il prompt fatto bene, il caso completo, tutti gli strumenti.</span></a>
-<a href="course/corso-avanzato.html"><b>Corso avanzato →</b><span>Figma MCP, Adobe, loghi, Claude Code con hook e agenti, marketing e PM con i connettori.</span></a>
+<main class="hub">
+  <div class="brand-mark">UX Boutique</div>
+  <div class="cover-body">
+    <p class="eyebrow">Corso interno · Materiali</p>
+    <h1>Corso Claude</h1>
+    <p class="lead">Due percorsi: le basi per tutti, e il corso avanzato per ruolo.</p>
+    <div class="index chapters">
+      <div><span class="num">01 · Base</span><a class="ch" href="course/corso-strutturato.html">Corso base →</a><span class="sub">Il flusso di lavoro, il prompt fatto bene, il caso completo, tutti gli strumenti.</span></div>
+      <div><span class="num">02 · Avanzato</span><a class="ch" href="course/corso-avanzato.html">Corso avanzato →</a><span class="sub">Figma e Adobe, design system e loghi, WordPress, SaaS e server MCP, marketing e PM.</span></div>
+    </div>
+  </div>
+  <div class="cover-foot"><span>ux.boutique</span><span>Corso interno · 2026</span></div>
+</main>
 </body>
 </html>
