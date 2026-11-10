@@ -576,3 +576,15 @@ Per il prompt: il **tutorial interattivo** di Anthropic su GitHub e **Google Pro
 - Claude Help Center, guida admin di Claude Design: https://support.claude.com/en/articles/14604406-claude-design-admin-guide-for-team-and-enterprise-plans
 - Claude Code, plugin: https://code.claude.com/docs/en/discover-plugins
 - Skills: https://claude.com/docs/skills/how-to
+
+---
+
+## Aggiornamento 4.1 · slide aggiunte
+
+**Le basi.** Quale modello e perché: Haiku per i compiti brevi e ripetuti, Sonnet per il lavoro di tutti i giorni, Opus per i ragionamenti complessi (consuma più limiti d'uso). Come scegliere tra Chat, Project, Claude Design e Claude Code con quattro domande. Cinque abitudini della chat: modificare il messaggio invece di accumulare correzioni, rigenerare, una chat per tema, chiedere il formato giusto, riassumere e ripartire.
+
+**Il prompt fatto bene.** Quattro regole dalla guida Anthropic: spiegare il perché delle regole, dire cosa fare invece di cosa non fare, dare criteri di successo, usare esempi vari. Con documenti lunghi: prima i materiali (un tag per documento), poi la domanda.
+
+**Gli strumenti.** Project fatto bene: uno per cliente o filone, nome chiaro, istruzioni operative (chi siamo, contesto, pubblico, regole, formato, divieti), documenti scelti, test e manutenzione. Elenchi dei migliori connettori (Drive, Notion, Gmail, Slack, Calendar, Figma, Canva, Adobe for Claude, Miro, Asana, Linear, Jira, GitHub), Skill (ufficiali Word, Excel, PowerPoint, PDF, skill-creator, frontend-design; community di marketing e design; quelle del team) e plugin (Cowork ufficiali; marketplace di Claude Code). Disponibilità per piano: ⚠ da verificare.
+
+**Pratica.** Una slide per ruolo, con quattro usi e un prompt pronto: grafico, project manager, designer UX/UI, sviluppatore, marketing manager, e-commerce manager.

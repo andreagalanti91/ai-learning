@@ -328,7 +328,7 @@ a{color:var(--ink); text-decoration-color:var(--line); text-underline-offset:3px
 <section class="slide" data-part="Introduzione" data-title="Indice">
   <p class="eyebrow">Indice</p>
   <h2>Cosa trovi nel corso</h2>
-  <div class="index chapters"><div><span class="num">01 · 3 slide</span><a class="ch" href="#s3">Le basi</a><span class="sub">Modello e prodotto, i mattoni di Claude.</span></div><div><span class="num">02 · 2 slide</span><a class="ch" href="#s7">Il flusso di lavoro</a><span class="sub">Quattro passi per ogni lavoro: delega, descrivi, valuta, rispondi.</span></div><div><span class="num">03 · 4 slide</span><a class="ch" href="#s10">Il prompt fatto bene</a><span class="sub">Il metodo BRIEF, le tecniche, come ridurre le invenzioni.</span></div><div><span class="num">04 · 8 slide</span><a class="ch" href="#s15">Il caso completo</a><span class="sub">Un lancio seguito dal prompt al risultato verificato.</span></div><div><span class="num">05 · 9 slide</span><a class="ch" href="#s24">Gli strumenti</a><span class="sub">Ricerca, file, Project, Skill, connettori, Claude Design, Claude Code, Cowork.</span></div><div><span class="num">06 · 6 slide</span><a class="ch" href="#s34">Pratica</a><span class="sub">Per ruolo, esercizi, fonti, i passi successivi.</span></div></div>
+  <div class="index chapters"><div><span class="num">01 · 6 slide</span><a class="ch" href="#s3">Le basi</a><span class="sub">Modello e prodotto, i mattoni di Claude.</span></div><div><span class="num">02 · 2 slide</span><a class="ch" href="#s10">Il flusso di lavoro</a><span class="sub">Quattro passi per ogni lavoro: delega, descrivi, valuta, rispondi.</span></div><div><span class="num">03 · 6 slide</span><a class="ch" href="#s13">Il prompt fatto bene</a><span class="sub">Il metodo BRIEF, le tecniche, come ridurre le invenzioni.</span></div><div><span class="num">04 · 8 slide</span><a class="ch" href="#s20">Il caso completo</a><span class="sub">Un lancio seguito dal prompt al risultato verificato.</span></div><div><span class="num">05 · 14 slide</span><a class="ch" href="#s29">Gli strumenti</a><span class="sub">Ricerca, file, Project, Skill, connettori, Claude Design, Claude Code, Cowork.</span></div><div><span class="num">06 · 12 slide</span><a class="ch" href="#s44">Pratica</a><span class="sub">Per ruolo, esercizi, fonti, i passi successivi.</span></div></div>
 </section>
 
 <section class="slide chapter" data-part="Le basi" data-title="Capitolo 01 · Le basi">
@@ -337,7 +337,7 @@ a{color:var(--ink); text-decoration-color:var(--line); text-underline-offset:3px
     <span class="chapter-num" aria-hidden="true">01</span>
     <h1>Le basi</h1>
     <p class="lead">Modello e prodotto, i mattoni di Claude.</p>
-    <ul class="chapter-list"><li>Cosa imparerai</li><li>Modello e prodotto</li><li>I mattoni di Claude</li></ul>
+    <ul class="chapter-list"><li>Cosa imparerai</li><li>Modello e prodotto</li><li>I mattoni di Claude</li><li>Quale modello e perché</li><li>Chat, Project, Design o Code</li><li>Le basi pratiche della chat</li></ul>
   </div>
 </section>
 
@@ -377,6 +377,48 @@ a{color:var(--ink); text-decoration-color:var(--line); text-underline-offset:3px
     <tr><td><b>Plugin</b></td><td>Pacchetto di Skill, comandi e connettori</td><td>Installare un kit completo</td></tr>
   </table></div>
   <p class="note">Esempio: il connettore Drive legge le note, la Skill “status report” le formatta, dentro il Project del cliente, e il risultato esce come Artifact.</p>
+</section>
+
+<section class="slide" data-part="Le basi" data-title="Quale modello e perché">
+  <p class="eyebrow">Le basi · Modelli</p>
+  <h2>Quale modello, e perché</h2>
+  <div class="tw"><table class="compact">
+    <tr><th>Modello</th><th>Punto di forza</th><th>Usalo per</th><th>Evitalo per</th></tr>
+    <tr><td><b>Haiku</b></td><td>Velocità, consumo minimo</td><td>Compiti brevi e ripetuti: correzioni, classificazioni, estrazioni</td><td>Ragionamenti lunghi</td></tr>
+    <tr><td><b>Sonnet</b></td><td>Equilibrio qualità e velocità</td><td>Il lavoro di tutti i giorni: testi, analisi, codice</td><td>—</td></tr>
+    <tr><td><b>Opus</b></td><td>Ragionamento profondo</td><td>Strategie, documenti complessi, bug difficili, lavori lunghi</td><td>Compiti semplici: costa più limiti d’uso</td></tr>
+  </table></div>
+  <div class="cols">
+    <div class="panel"><span class="label">Ragionamento esteso</span><p>Attivalo quando il problema ha più passaggi: più qualità, più tempo.</p></div>
+    <div class="panel"><span class="label">Regola</span><p>Parti da Sonnet. Se la qualità non basta, Opus. Se fai lo stesso compito cento volte, Haiku.</p></div>
+  </div>
+  <p class="note">Famiglia attuale: Opus 5.5, Sonnet 5.5, Haiku 5.5. Posizionamento di Fable e limiti d’uso del piano Team (⚠ da verificare).</p>
+</section>
+
+<section class="slide" data-part="Le basi" data-title="Chat, Project, Design o Code">
+  <p class="eyebrow">Le basi · Scegliere lo strumento</p>
+  <h2>Chat, Project, Claude Design o Claude Code?</h2>
+  <ol class="steps">
+    <li><div><h3>È una domanda o un testo una tantum?</h3><p><b>Chat.</b> Veloce, senza preparazione.</p></div></li>
+    <li><div><h3>Lavori più volte sullo stesso cliente o tema?</h3><p><b>Project.</b> Istruzioni e documenti restano lì.</p></div></li>
+    <li><div><h3>Serve un visual coerente con il brand?</h3><p><b>Claude Design.</b> Prototipi, slide, one-pager, landing.</p></div></li>
+    <li><div><h3>Serve modificare file, codice o un sito?</h3><p><b>Claude Code.</b> Lavora nella cartella, con versioni Git.</p></div></li>
+  </ol>
+  <p class="note">Lavori su documenti del computer senza codice: Cowork, dall’app desktop.</p>
+</section>
+
+<section class="slide" data-part="Le basi" data-title="Le basi pratiche della chat">
+  <p class="eyebrow">Le basi · Chat</p>
+  <h2>Cinque abitudini che fanno la differenza</h2>
+  <div class="cols">
+    <div class="panel"><span class="label">Modifica, non accumulare</span><p>Se la risposta è sbagliata, modifica il tuo messaggio invece di aggiungere correzioni.</p></div>
+    <div class="panel"><span class="label">Rigenera</span><p>Per vedere un’alternativa allo stesso prompt.</p></div>
+    <div class="panel"><span class="label">Una chat per tema</span><p>Nuovo argomento, nuova chat. Le chat lunghe perdono precisione.</p></div>
+  </div>
+  <div class="cols">
+    <div class="panel"><span class="label">Chiedi il formato giusto</span><p>Tabella, elenco, Artifact, file Word o Excel.</p></div>
+    <div class="panel"><span class="label">Riassumi e riparti</span><p>“Riassumi decisioni, file e cose da fare”, poi chat nuova.</p></div>
+  </div>
 </section>
 
 <section class="slide chapter" data-part="Il flusso di lavoro" data-title="Capitolo 02 · Il flusso di lavoro">
@@ -428,7 +470,7 @@ a{color:var(--ink); text-decoration-color:var(--line); text-underline-offset:3px
     <span class="chapter-num" aria-hidden="true">03</span>
     <h1>Il prompt fatto bene</h1>
     <p class="lead">Il metodo BRIEF, le tecniche, come ridurre le invenzioni.</p>
-    <ul class="chapter-list"><li>Il metodo BRIEF</li><li>Test del collega</li><li>Le tecniche</li><li>Ridurre le invenzioni</li></ul>
+    <ul class="chapter-list"><li>Il metodo BRIEF</li><li>Test del collega</li><li>Le tecniche</li><li>Ridurre le invenzioni</li><li>Quattro regole in più</li><li>Documenti lunghi</li></ul>
   </div>
 </section>
 
@@ -488,6 +530,38 @@ parlano dei tempi di consegna. Poi rispondi
 usando solo quelle frasi.</code></pre></div>
   </div>
   <p class="note">In più: dagli i documenti veri invece di chiedergli di ricordare, e chiedi sempre le fonti quando usa la ricerca web.</p>
+</section>
+
+<section class="slide" data-part="Il prompt fatto bene" data-title="Quattro regole in più">
+  <p class="eyebrow">Il prompt fatto bene · Guida Anthropic</p>
+  <h2>Quattro regole che migliorano ogni prompt</h2>
+  <div class="tw"><table class="compact">
+    <tr><th>Regola</th><th>Invece di</th><th>Scrivi</th></tr>
+    <tr><td><b>Spiega il perché</b></td><td>“Niente elenchi puntati.”</td><td>“Niente elenchi: il testo verrà letto ad alta voce.”</td></tr>
+    <tr><td><b>Di’ cosa fare</b></td><td>“Non essere prolisso.”</td><td>“Massimo tre frasi per paragrafo.”</td></tr>
+    <tr><td><b>Criteri di successo</b></td><td>“Fammi una buona proposta.”</td><td>“Il cliente deve capire prezzo e tempi in un minuto.”</td></tr>
+    <tr><td><b>Esempi vari</b></td><td>Un solo esempio</td><td>3–5 esempi diversi tra loro, così non copia il primo</td></tr>
+  </table></div>
+  <p class="note">Le regole fisse vanno nelle istruzioni del Project. Nel prompt resta solo ciò che riguarda questo compito.</p>
+</section>
+
+<section class="slide" data-part="Il prompt fatto bene" data-title="Documenti lunghi">
+  <p class="eyebrow">Il prompt fatto bene · Documenti lunghi</p>
+  <h2>Con documenti lunghi: prima i materiali, poi la domanda</h2>
+  <div class="cols">
+    <pre><code>&lt;documento nome="contratto.pdf"&gt;
+[testo del contratto]
+&lt;/documento&gt;
+&lt;documento nome="offerta.docx"&gt;
+[testo dell'offerta]
+&lt;/documento&gt;
+
+Confronta i due documenti.
+Elenca le differenze su prezzo,
+tempi e penali, con la frase
+esatta di ciascun documento.</code></pre>
+    <div class="panel"><span class="label">Perché funziona</span><ul class="plain-list"><li>Materiali in alto, domanda in fondo: la guida Anthropic indica risposte migliori.</li><li>Un tag per documento, con il nome.</li><li>Citazioni esatte: si verificano in un attimo.</li></ul></div>
+  </div>
 </section>
 
 <section class="slide chapter" data-part="Il caso completo" data-title="Capitolo 04 · Il caso completo">
@@ -810,13 +884,82 @@ senza stile.</code></pre>
   </table></div>
 </section>
 
+<section class="slide" data-part="Gli strumenti" data-title="Progetto fatto bene">
+  <p class="eyebrow">Gli strumenti · Project</p>
+  <h2>Creare un Project nel modo giusto</h2>
+  <ol class="steps">
+    <li><div><h3>Un Project per cliente o filone di lavoro</h3><p>Non uno per tutto: il contesto si mescola.</p></div></li>
+    <li><div><h3>Nome che si trova</h3><p>“Cliente Rossi · Redesign e-commerce”.</p></div></li>
+    <li><div><h3>Istruzioni brevi e operative</h3><p>Ruolo, contesto, pubblico, regole, formato, divieti.</p></div></li>
+    <li><div><h3>Documenti scelti, non tutto</h3><p>Versioni approvate, nomi chiari, niente duplicati o bozze.</p></div></li>
+    <li><div><h3>Test e manutenzione</h3><p>Una richiesta tipo per verificarlo; aggiorna i documenti quando cambiano.</p></div></li>
+  </ol>
+</section>
+
+<section class="slide" data-part="Gli strumenti" data-title="Istruzioni del Project">
+  <p class="eyebrow">Gli strumenti · Project</p>
+  <h2>Il modello di istruzioni</h2>
+  <div class="cols">
+    <pre><code>## Chi siamo
+UX Boutique, agenzia di UX e design.
+## Contesto
+Cliente: Rossi Arredamenti, e-commerce.
+Obiettivo: aumentare le conversioni.
+## Pubblico
+Responsabili marketing, non designer.
+## Regole
+Italiano, tono diretto. Ogni affermazione
+con fonte o "da verificare".
+## Formato
+Risposte brevi, tabelle per i confronti.
+## Mai
+Citare clienti, inventare numeri.</code></pre>
+    <div class="panel"><span class="label">Documenti da caricare</span><ul class="plain-list"><li>Brief e contratto</li><li>Guida al tono e brand kit</li><li>Ricerche e dati approvati</li><li>Esempi di lavori riusciti</li></ul><p class="muted">Nel piano Team il Project si condivide con chi lavora sul cliente.</p></div>
+  </div>
+</section>
+
+<section class="slide" data-part="Gli strumenti" data-title="I migliori connettori">
+  <p class="eyebrow">Gli strumenti · Connettori</p>
+  <h2>I connettori più utili per un’agenzia</h2>
+  <div class="tw"><table class="compact">
+    <tr><th>Area</th><th>Connettori</th><th>Per</th></tr>
+    <tr><td><b>Documenti</b></td><td>Google Drive, Notion</td><td>Brief, verbali, contratti</td></tr>
+    <tr><td><b>Comunicazione</b></td><td>Gmail, Slack, Google Calendar</td><td>Email, messaggi, agenda</td></tr>
+    <tr><td><b>Design</b></td><td>Figma, Canva, Adobe for Claude, Miro</td><td>File, asset, workshop</td></tr>
+    <tr><td><b>Progetti</b></td><td>Asana, Linear, Jira</td><td>Task, stato, scadenze</td></tr>
+    <tr><td><b>Sviluppo</b></td><td>GitHub</td><td>Codice, issue, pull request</td></tr>
+  </table></div>
+  <p class="note">Elenco nella directory dei connettori di Claude. Disponibilità per piano e abilitazione dell’admin (⚠ da verificare).</p>
+</section>
+
+<section class="slide" data-part="Gli strumenti" data-title="Le migliori Skill">
+  <p class="eyebrow">Gli strumenti · Skill</p>
+  <h2>Le Skill da avere</h2>
+  <div class="cols">
+    <div class="panel"><span class="label">Ufficiali Anthropic</span><ul class="plain-list"><li>Word, Excel, PowerPoint, PDF: crea e modifica file</li><li>skill-creator: aiuta a scrivere le tue Skill</li><li>frontend-design: interfacce web curate</li></ul></div>
+    <div class="panel"><span class="label">Della community</span><ul class="plain-list"><li>Marketing: copywriting, CRO, SEO, email</li><li>Design: emil-design-eng, apple-design</li><li>Già installate nel nostro repository</li></ul></div>
+    <div class="panel"><span class="label">Le vostre</span><ul class="plain-list"><li>Tono di voce di ogni cliente</li><li>Status report e preventivi</li><li>Checklist di rilascio</li></ul></div>
+  </div>
+  <p class="note">Le Skill di terzi possono eseguire comandi: leggile prima di installarle.</p>
+</section>
+
+<section class="slide" data-part="Gli strumenti" data-title="I migliori plugin">
+  <p class="eyebrow">Gli strumenti · Plugin</p>
+  <h2>I plugin da conoscere</h2>
+  <div class="cols">
+    <div class="panel"><span class="label">Cowork · ufficiali Anthropic</span><ul class="plain-list"><li>Marketing</li><li>Product management</li><li>Productivity</li><li>Sales e customer support</li><li>Data, finance, legal</li></ul></div>
+    <div class="panel"><span class="label">Claude Code</span><p>Marketplace ufficiale <code>claude-plugins-official</code>: comandi, agenti, Skill e connettori in un pacchetto.</p><pre><code>/plugin</code></pre></div>
+  </div>
+  <p class="note">Disponibilità dei plugin di Cowork nel piano Team (⚠ da verificare).</p>
+</section>
+
 <section class="slide chapter" data-part="Pratica" data-title="Capitolo 06 · Pratica">
   <div class="brand-mark">UX Boutique</div>
   <div class="cover-body">
     <span class="chapter-num" aria-hidden="true">06</span>
     <h1>Pratica</h1>
     <p class="lead">Per ruolo, esercizi, fonti, i passi successivi.</p>
-    <ul class="chapter-list"><li>Per ruolo</li><li>Esercizi</li><li>Le fonti del corso</li><li>Per continuare</li><li>Corso avanzato</li><li>Prima del corso</li></ul>
+    <ul class="chapter-list"><li>Per ruolo</li><li>Esercizi</li><li>Le fonti del corso</li><li>Per continuare</li><li>Corso avanzato</li><li>Prima del corso</li><li>Grafico</li><li>Project manager</li></ul>
   </div>
 </section>
 
@@ -893,6 +1036,82 @@ senza stile.</code></pre>
     <li>Scorciatoia del plan mode in Claude Code</li>
   </ul>
   <p class="note">Dispensa completa con fonti e link: <code>course/corso-strutturato.md</code>.</p>
+</section>
+
+<section class="slide" data-part="Pratica" data-title="Grafico">
+  <p class="eyebrow">Pratica · Per ruolo</p>
+  <h2>Grafico</h2>
+  <div class="cols">
+    <div class="panel"><span class="label">Ti aiuta a</span><ul class="plain-list"><li>Esplorare concept e naming</li><li>Brief per immagini e moodboard</li><li>Adattare formati con Adobe for Claude</li><li>Bozze di marchi in SVG</li></ul></div>
+    <pre><code>Proponi 10 concept per il visual della
+campagna [nome]. Per ognuno: idea in
+una riga, palette, tipo di immagine,
+un riferimento visivo da cercare.</code></pre>
+  </div>
+</section>
+
+<section class="slide" data-part="Pratica" data-title="Project manager">
+  <p class="eyebrow">Pratica · Per ruolo</p>
+  <h2>Project manager</h2>
+  <div class="cols">
+    <div class="panel"><span class="label">Ti aiuta a</span><ul class="plain-list"><li>Verbali e azioni con responsabili</li><li>Piani, timeline e rischi</li><li>Aggiornamenti per il cliente</li><li>Stime da progetti simili</li></ul></div>
+    <pre><code>Da questo verbale estrai decisioni,
+azioni (responsabile, scadenza) e
+rischi. Poi scrivi l'email di
+aggiornamento al cliente, max 150
+parole. &lt;verbale&gt;…&lt;/verbale&gt;</code></pre>
+  </div>
+</section>
+
+<section class="slide" data-part="Pratica" data-title="Designer UX/UI">
+  <p class="eyebrow">Pratica · Per ruolo</p>
+  <h2>Designer UX/UI</h2>
+  <div class="cols">
+    <div class="panel"><span class="label">Ti aiuta a</span><ul class="plain-list"><li>Sintesi di interviste e personas</li><li>Analisi euristica e accessibilità</li><li>Microcopy e stati di errore</li><li>Schermate in Figma dal design system</li></ul></div>
+    <pre><code>Valuta questo screenshot con le 10
+euristiche di Nielsen. Tabella:
+problema, gravità 1–4, proposta.
+Poi i 3 interventi più rapidi.</code></pre>
+  </div>
+</section>
+
+<section class="slide" data-part="Pratica" data-title="Sviluppatore">
+  <p class="eyebrow">Pratica · Per ruolo</p>
+  <h2>Sviluppatore</h2>
+  <div class="cols">
+    <div class="panel"><span class="label">Ti aiuta a</span><ul class="plain-list"><li>Capire un progetto nuovo</li><li>Bug, test e code review</li><li>Temi e plugin WordPress</li><li>Da Figma al codice con i token</li></ul></div>
+    <pre><code>Spiegami questo repository: a cosa
+serve, struttura, come si avvia e
+si testa. Indica i 5 file chiave.
+Non modificare nulla.</code></pre>
+  </div>
+</section>
+
+<section class="slide" data-part="Pratica" data-title="Marketing manager">
+  <p class="eyebrow">Pratica · Per ruolo</p>
+  <h2>Marketing manager</h2>
+  <div class="cols">
+    <div class="panel"><span class="label">Ti aiuta a</span><ul class="plain-list"><li>Piani editoriali e campagne</li><li>Ricerca competitor con fonti</li><li>Varianti di copy e test A/B</li><li>Report dai dati delle campagne</li></ul></div>
+    <pre><code>Da questo export &lt;dati&gt;…&lt;/dati&gt;
+calcola costo per lead per canale,
+ordina dal migliore, segnala gli
+anomali. Mostra i calcoli di un
+canale e proponi 2 azioni.</code></pre>
+  </div>
+</section>
+
+<section class="slide" data-part="Pratica" data-title="E-commerce manager">
+  <p class="eyebrow">Pratica · Per ruolo</p>
+  <h2>E-commerce manager</h2>
+  <div class="cols">
+    <div class="panel"><span class="label">Ti aiuta a</span><ul class="plain-list"><li>Schede prodotto in serie, con SEO</li><li>Analisi di vendite e carrelli abbandonati</li><li>Recensioni in insight e FAQ</li><li>Testi per promo e newsletter</li></ul></div>
+    <pre><code>Da questo CSV di prodotti scrivi
+schede da 80 parole: beneficio,
+materiali, misure, una FAQ.
+Usa solo dati del file; segna
+[MANCA] dove un dato non c'è.</code></pre>
+  </div>
+  <p class="note">Connettori per le piattaforme e-commerce (⚠ da verificare nella directory).</p>
 </section>
 
   </main>
